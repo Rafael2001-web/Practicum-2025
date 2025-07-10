@@ -1,9 +1,7 @@
 <?php
 
+use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\EntidadController;
-use App\Http\Controllers\ProgramaController;
-use App\Models\Programa;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,17 +14,27 @@ use App\Models\Programa;
 |
 */
 
-Route::get('/', function () {
+
+/*Route::get('/', function () {
     return view('inicio');
 })->name('inicio');
 
 // Redireccion sea al inicio
 Route::get('/home', function () {
-    return redirect()->route('inicio');
+return redirect()->route('inicio');*/
+
+Route::get('/', function () {
+    return view('dashboard');
 });
 
-// Ruta para el modulo entidades
-Route::resource('entidades', EntidadController::class);
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
 
-// Ruta para el modulo entidades
-Route::resource('programas', ProgramaController::class);
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
+
+require __DIR__.'/auth.php';

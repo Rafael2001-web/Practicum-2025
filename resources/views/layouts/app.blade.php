@@ -1,17 +1,20 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sistema Integrado de Planificación e Inversión Pública - SIPeIP - @yield('title')</title>
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    {{-- Estilos clásicos --}}
-    <link rel="stylesheet" href="{{ asset('css/estilos.css') }}"> {{-- Crea este archivo si quieres estilos personalizados --}}
+        <title>Sistema Integrado de Planificación e Inversión Pública - SIPeIP - @yield('title')</title>
 
-    {{-- Fuente opcional --}}
-    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+        <!-- Fonts -->
+        <link rel="preconnect" href="https://fonts.bunny.net">
+        <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
 
-    <style>
+        <!-- Scripts -->
+        @vite(['resources/css/app.css', 'resources/js/app.js'])
+
+        <style>
         body {
             font-family: 'Roboto', sans-serif;
             background-color: #f2f2f2;
@@ -50,41 +53,45 @@
             text-align: center;
         }
     </style>
-    
-</head>
-<body>
+    </head>
+    <body class="font-sans antialiased">
+        <div class="min-h-screen bg-gray-100">
+            @include('layouts.navigation')
 
-        {{-- Header --}}
+            <!-- Page Heading -->
+            @if (isset($header))
+                <header class="bg-white shadow">
+                    <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+                       <h1>Sistema Integrado de Planificación e Inversión Pública</h1> 
+                    </div>
+                </header>
+            @endif
 
-        <header>
-           <h1>Sistema Integrado de Planificación e Inversión Pública</h1> 
-        </header>
+            <!-- Page Content -->
+            <main>
+               {{-- Barras de Navegacion --}}
 
-        {{-- Barras de Navegacion --}}
+                <nav>
+                {{--
+                    <a href="{{ url('/')}}">Inicio</a>
+                    <a href="{{ route('entidades.index')}}">Entidades</a>
+                    <a href="{{ route('programas.index')}}">Programas</a>
+                --}}
+                </nav>
+                 {{-- Contenido Principal --}}
 
-        <nav>
+                <main>
 
-            <a href="{{ url('/')}}">Inicio</a>
-            <a href="{{ route('entidades.index')}}">Entidades</a>
-            <a href="{{ route('programas.index')}}">Programas</a>
-            
-        </nav>
+                      @yield('content')
 
-        {{-- Contenido Principal --}}
-
-        <main>
-
-            @yield('content')
-
-        </main>
-
-        {{-- Pie de página --}}
-
+                 </main>
+                 
+            </main>
+        </div>
         <footer>
 
             <small>&copy; </small>
 
         </footer>
-
-</body>
+    </body>
 </html>
