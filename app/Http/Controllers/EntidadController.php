@@ -4,92 +4,57 @@ namespace App\Http\Controllers;
 
 use App\Models\Entidad;
 use Illuminate\Http\Request;
-use Illuminate\Validation\Rules\Unique;
-use Ramsey\Uuid\Type\Integer;
 
 class EntidadController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
         $entidades = Entidad::all();
         return view('entidades.index', compact('entidades'));
-
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
         return view('entidades.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        $request->validate([
-            'codigo'=> 'required|integer|unique:entidad,codigo',
-            'subSector'=> 'required|string',
-            'nivelGobierno'=> 'required|string',
-            'estado'=> 'required|string',
-            'fechaCreacion'=> 'required|date',
-            'fechaActualizacion'=> 'nullable|date',
+        $data = $request->validate([
+            'codigo' => 'required|unique:entidades',
+            'subsector' => 'required|string',
+            'nivel_gobierno' => 'required|string',
+            'estado' => 'required',
         ]);
-
-        Entidad::create($request->all());
-
-        return redirect()->route('entidades.index')->with('success', 'Entidad Creada Satisfactoriamente');
-
-
+        Entidad::create($data);
+        return redirect()->route('entidades.index');
     }
 
-   
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit($id)
+    public function show(Entidad $entidad)
     {
-        $entidad = Entidad::findOrfail($id);
-        return view('entidades.edit', compact('entidad')); 
+        return view('entidades.show', compact('entidad'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, $id)
+    public function edit(Entidad $entidad)
     {
-        
-        $request->validate([
-            'codigo'=> 'required|integer|unique:entidad,codigo,'.$id.',idEntidad', // error
-            'subSector'=> 'required|string',
-            'nivelGobierno'=> 'required|string',
-            'estado'=> 'required|string',
-            'fechaCreacion'=> 'required|date',
-            'fechaActualizacion'=> 'nullable|date',
+        return view('entidades.edit', compact('entidad'));
+    }
+
+    public function update(Request $request, Entidad $entidad)
+    {
+        $data = $request->validate([
+            'codigo' => 'required|unique:entidades,codigo,' . $entidad->id,
+            'subsector' => 'required|string',
+            'nivel_gobierno' => 'required|string',
+            'estado' => 'required',
         ]);
-
-        $entidad = Entidad::findOrfail($id);
-        $entidad->update($request->all()); // error
-
-        return redirect()->route('entidades.index')->with('success', 'Entidad Actualizada Satisfactoriamente');
-
-
+        $entidad->update($data);
+        return redirect()->route('entidades.index');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy($id)
+    public function destroy(Entidad $entidad)
     {
-        $endidad = Entidad::findOrfail($id);
-        $endidad->delete();
-
-         return redirect()->route('entidades.index')->with('success', 'Entidad Eliminada Satisfactoriamente');
-
+        $entidad->delete();
+        return back();
     }
 }

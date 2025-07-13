@@ -1,25 +1,27 @@
-<x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Dashboard') }}
-            
-        </h2>
-       
+@extends('layouts.app')
 
-    </x-slot>
+@section('content')
+  <div class="container mx-auto p-4">
+    <h1 class="text-2xl font-bold mb-4">Panel de Control</h1>
 
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900">
-                    {{ __("You're logged in!") }}
-                   
-                </div>
-            </div>
+    @auth
+      @if(auth()->user()->isAdmin())
+        <div class="grid grid-cols-2 gap-4">
+          <a href="{{ route('entidades.index') }}" class="p-4 bg-white rounded shadow hover:bg-gray-50">
+            <h2 class="text-xl font-semibold">Configuración Institucional</h2>
+            <p>Gestiona entidades del Estado</p>
+          </a>
+          <a href="{{ route('programas.index') }}" class="p-4 bg-white rounded shadow hover:bg-gray-50">
+            <h2 class="text-xl font-semibold">Gestión de Programas</h2>
+            <p>Administra proyectos de inversión</p>
+          </a>
         </div>
-    </div>
+      @else
+        <p>Bienvenido {{ auth()->user()->name }}, no tienes permisos de administrador.</p>
+      @endif
+    @else
+      <p>Debes <a href="{{ route('login') }}">iniciar sesión</a> para ver este contenido.</p>
+    @endauth
 
-
-    
-    
-</x-app-layout>
+  </div>
+@endsection
