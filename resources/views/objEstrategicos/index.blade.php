@@ -1,9 +1,9 @@
 @extends('layouts.app')
 
-@section('title','Programas')
+@section('title','Objetivos Estrategicos')
 
 @section('content')
-    <h2 class="text-2xl font-bold mb-4">Listado de Programas:</h2>
+    <h2 class="text-2xl font-bold mb-4">Listado de Objetivos Estratégicos:</h2>
 
     {{-- Validacion mensaje --}}
         @if (session('success'))
@@ -12,21 +12,21 @@
             </div>
         @endif
 
-    {{--Boton para llamar al formulario crear programas --}}
+    {{--Boton para llamar al formulario crear Objetivos Estratégicos --}}
 
-        <a href="{{route('programas.create')}}">+ Nuevo programa</a>
+        <a href="{{route('objEstrategicos.create')}}">+ Nuevo Objetivo Estratégico</a>
 
-    {{-- Tabla para listar todos los programas --}}
+    {{-- Tabla para listar todos los Objetivos Estratégicos --}}
 
     <table style="background-color: #f8f8fa;">
 
         <thead>
             <tr>
-                <th style="border: 1px solid #1506e4; padding: 8px">ID</th>
-                <th style="border: 1px solid #1506e4; padding: 8px">Entidad</th>
-                <th style="border: 1px solid #1506e4; padding: 8px">Nombre</th>
-                <th style="border: 1px solid #1506e4; padding: 8px">Descripción</th>
-                <th style="border: 1px solid #1506e4; padding: 8px">Acciones</th>
+                <th style="border: 1px solid #0933ee; padding: 8px">ID</th>
+                <th style="border: 1px solid #0933ee; padding: 8px">Descripcion</th>
+                <th style="border: 1px solid #0933ee; padding: 8px">Fecha</th>
+                <th style="border: 1px solid #0933ee; padding: 8px">Estado</th>
+                <th style="border: 1px solid #0933ee; padding: 8px">Acciones</th>
             </tr>
         </thead>
         <tbody>

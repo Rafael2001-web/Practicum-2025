@@ -3,58 +3,88 @@
 namespace App\Http\Controllers;
 
 use App\Models\Programa;
+use App\Models\Entidad;
 use Illuminate\Http\Request;
 
 class ProgramaController extends Controller
 {
+    /**
+     * Display a listing of the resource.
+     */
     public function index()
     {
         $programas = Programa::all();
         return view('programas.index', compact('programas'));
+
     }
 
+    /**
+     * Show the form for creating a new resource.
+     */
     public function create()
     {
-        return view('programas.create');
+        $entidades = Entidad::all();
+        return view('programas.create', compact('entidades'));
     }
 
+    /**
+     * Store a newly created resource in storage.
+     */
     public function store(Request $request)
     {
-        $data = $request->validate([
-            'codigo' => 'required|unique:programas',
-            'nombre' => 'required|string',
-            'descripcion' => 'nullable|string',
-            'estado' => 'required',
+        $request->validate([
+            'idEntidad'=> 'required|exists:entidad,idEntidad',
+            'nombre'=> 'required|string',
+            'descripcion'=> 'nullable|string',
         ]);
-        Programa::create($data);
-        return redirect()->route('programas.index');
+
+        Programa::create($request->all());
+
+        return redirect()->route('programas.index')->with('success', 'Programa Creado Satisfactoriamente');
+
+
     }
 
-    public function show(Programa $programa)
+   
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit($id)
     {
-        return view('programas.show', compact('programa'));
+        $programa = Programa::findOrfail($id);
+        $entidades = Entidad::all();
+        return view('programas.edit', compact('programa','entidades')); 
     }
 
-    public function edit(Programa $programa)
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(Request $request, $id)
     {
-        return view('programas.edit', compact('programa'));
-    }
-
-    public function update(Request $request, Programa $programa)
-    {
-        $data = $request->validate([
-            'codigo' => 'required|unique:programas,codigo,' . $programa->id,
-            'nombre' => 'required|string',
-            'descripcion' => 'nullable|string',
-            'estado' => 'required',
+        
+        $request->validate([
+            'idEntidad'=> 'required|exists:entidad,idEntidad',
+            'nombre'=> 'required|string',
+            'descripcion'=> 'nullable|string',
         ]);
-        $programa->update($data);
-        return redirect()->route('programas.index');
+
+        $programa = Programa::findOrfail($id);
+        $programa->update($request->all()); 
+
+        return redirect()->route('programas.index')->with('success', 'Programa Actualizada Satisfactoriamente');
+
+
     }
 
-    public function destroy(Programa $programa)
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy($id)
     {
+        $programa = Programa::findOrfail($id);
         $programa->delete();
-        return back();
+
+         return redirect()->route('programas.index')->with('success', 'Programa Eliminada Satisfactoriamente');
+
     }
 }

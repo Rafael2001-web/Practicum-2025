@@ -72,8 +72,9 @@
             {{-- Enlaces sólo para admin --}}
           
                 <a href="{{ route('entidades.index') }}">Entidades</a>
-                {{-- <a href="{{ route('unidades.index') }}">Unidades Organizacionales</a>
-                --}}
+                
+                <a href="">Unidades</a>
+                <a href="{{ route('ods.index') }}">Objetivos ODS</a>
                 <a href="{{ route('programas.index') }}">Programas</a>
 
 

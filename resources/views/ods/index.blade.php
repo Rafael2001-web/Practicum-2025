@@ -1,9 +1,9 @@
 @extends('layouts.app')
 
-@section('title','Programas')
+@section('title','Objetivos ODS')
 
 @section('content')
-    <h2 class="text-2xl font-bold mb-4">Listado de Programas:</h2>
+    <h2 class="text-2xl font-bold mb-4">Listado de Objetivos ODS:</h2>
 
     {{-- Validacion mensaje --}}
         @if (session('success'))
@@ -12,21 +12,21 @@
             </div>
         @endif
 
-    {{--Boton para llamar al formulario crear programas --}}
+    {{--Boton para llamar al formulario crear ODS --}}
 
-        <a href="{{route('programas.create')}}">+ Nuevo programa</a>
+        <a href="{{route('ods.create')}}">+ Nuevo Objetivo ODS</a>
 
-    {{-- Tabla para listar todos los programas --}}
+    {{-- Tabla para listar todos los ODS --}}
 
     <table style="background-color: #f8f8fa;">
 
         <thead>
             <tr>
-                <th style="border: 1px solid #1506e4; padding: 8px">ID</th>
-                <th style="border: 1px solid #1506e4; padding: 8px">Entidad</th>
-                <th style="border: 1px solid #1506e4; padding: 8px">Nombre</th>
-                <th style="border: 1px solid #1506e4; padding: 8px">Descripción</th>
-                <th style="border: 1px solid #1506e4; padding: 8px">Acciones</th>
+                <th style="border: 1px solid #ccc; padding: 8px">ID</th>
+                <th style="border: 1px solid #ccc; padding: 8px">Descripcion</th>
+                <th style="border: 1px solid #ccc; padding: 8px">Fecha</th>
+                <th style="border: 1px solid #ccc; padding: 8px">Estado</th>
+                <th style="border: 1px solid #ccc; padding: 8px">Acciones</th>
             </tr>
         </thead>
         <tbody>

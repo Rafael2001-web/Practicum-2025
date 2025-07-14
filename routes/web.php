@@ -23,14 +23,16 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-//Rutas que sí requieren estar logueado
+
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 
 Route::resource('entidades', EntidadController::class);
+Route::resource('ods', odsController::class);
 Route::resource('programas', ProgramaController::class);
+
     // Sólo admin puede CRUD de entidades y programas
     //Route::middleware('role:admin')->group(function () {
         //Route::resource('entidades', EntidadController::class);

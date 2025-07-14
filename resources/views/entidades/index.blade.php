@@ -22,14 +22,14 @@
 
         <thead>
             <tr>
-                <th style="border: 1px solid #ccc; padding: 8px">ID</th>
-                <th style="border: 1px solid #ccc; padding: 8px">Código</th>
-                <th style="border: 1px solid #ccc; padding: 8px">Subsector</th>
-                <th style="border: 1px solid #ccc; padding: 8px">Nivel de Gobierno</th>
-                <th style="border: 1px solid #ccc; padding: 8px">Estado</th>
-                <th style="border: 1px solid #ccc; padding: 8px">Fecha de Creación</th>
-                <th style="border: 1px solid #ccc; padding: 8px">Fecha de Actualización</th>
-                <th style="border: 1px solid #ccc; padding: 8px">Acciones</th>
+                <th style="border: 1px solid #4550eb; padding: 8px">ID</th>
+                <th style="border: 1px solid #4550eb; padding: 8px">Código</th>
+                <th style="border: 1px solid #4550eb; padding: 8px">Subsector</th>
+                <th style="border: 1px solid #4550eb; padding: 8px">Nivel de Gobierno</th>
+                <th style="border: 1px solid #4550eb; padding: 8px">Estado</th>
+                <th style="border: 1px solid #4550eb; padding: 8px">Fecha de Creación</th>
+                <th style="border: 1px solid #4550eb; padding: 8px">Fecha de Actualización</th>
+                <th style="border: 1px solid #4550eb; padding: 8px">Acciones</th>
             </tr>
         </thead>
         <tbody>
