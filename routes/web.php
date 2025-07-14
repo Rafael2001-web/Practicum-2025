@@ -18,37 +18,33 @@ use App\Http\Controllers\Auth\RegisteredUserController;
 */
 
 
-//envia un usuario al dashboard
-/*Route::get('/', function () {
-    return view('dashboard');
+//Ruta pública
+Route::get('/', function () {
+    return view('welcome');
 });
 
-// Usuario sea o no autenticado lo dirige al dashboard
+//Rutas que sí requieren estar logueado
 Route::get('/dashboard', function () {
     return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');*/
+})->middleware(['auth', 'verified'])->name('dashboard');
 
 
-// Redirige la raíz al login o, si ya estás autenticado, al dashboard
+Route::resource('entidades', EntidadController::class);
+Route::resource('programas', ProgramaController::class);
+    // Sólo admin puede CRUD de entidades y programas
+    //Route::middleware('role:admin')->group(function () {
+        //Route::resource('entidades', EntidadController::class);
+        //Route::resource('programas', ProgramaController::class);
+    //});
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware('auth')->name('dashboard');
-
-//Admin autenticado para diferentes funcionalidades
-Route::middleware('role:admin')->group(function () {
-    Route::resource('entidades', EntidadController::class);
-    Route::resource('programas', ProgramaController::class);
-    });
-
-
-//Route::middleware('auth')->group(function () {
-//    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-//    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-// Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+//Rutas para los perfiles
+ Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
 
 
-require __DIR__.'/auth.php';
 // Login
 Route::get('/login', [AuthenticatedSessionController::class, 'create'])
      ->middleware('guest')
@@ -69,4 +65,4 @@ Route::post('/register', [RegisteredUserController::class, 'store'])
      ->middleware('guest');
 
 // (Opcional) Reset de contraseña…
-;
+require __DIR__.'/auth.php';

@@ -21,7 +21,7 @@ class EntidadController extends Controller
     public function store(Request $request)
     {
         $data = $request->validate([
-            'codigo' => 'required|unique:entidades',
+            'codigo' => 'required|unique:entidad',
             'subsector' => 'required|string',
             'nivel_gobierno' => 'required|string',
             'estado' => 'required',
@@ -43,7 +43,7 @@ class EntidadController extends Controller
     public function update(Request $request, Entidad $entidad)
     {
         $data = $request->validate([
-            'codigo' => 'required|unique:entidades,codigo,' . $entidad->id,
+            'codigo' => 'required|unique:entidad,codigo,' . $entidad->id,
             'subsector' => 'required|string',
             'nivel_gobierno' => 'required|string',
             'estado' => 'required',

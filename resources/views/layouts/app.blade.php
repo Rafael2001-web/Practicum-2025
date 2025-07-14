@@ -70,12 +70,13 @@
             <a href="{{ url('/dashboard') }}">dashboard</a>
 
             {{-- Enlaces sólo para admin --}}
-            @auth
-                @if(auth()->user()->isAdmin())
-                    <a href="{{ route('entidades.index') }}">Entidades</a>
-                    <a href="{{ route('programas.index') }}">Programas</a>
-                @endif
-            @endauth
+          
+                <a href="{{ route('entidades.index') }}">Entidades</a>
+                {{-- <a href="{{ route('unidades.index') }}">Unidades Organizacionales</a>
+                --}}
+                <a href="{{ route('programas.index') }}">Programas</a>
+
+
         </nav>
 
         {{-- Contenido principal --}}
