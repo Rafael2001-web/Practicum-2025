@@ -22,24 +22,22 @@
 
         <thead>
             <tr>
-                <th style="border: 1px solid #0933ee; padding: 8px">ID</th>
-                <th style="border: 1px solid #0933ee; padding: 8px">Descripcion</th>
-                <th style="border: 1px solid #0933ee; padding: 8px">Fecha</th>
+                <th style="border: 1px solid #0933ee; padding: 8px">Id</th>
+                <th style="border: 1px solid #0933ee; padding: 8px">Fecha de Registro</th>
+                <th style="border: 1px solid #0933ee; padding: 8px">Descripción</th>
                 <th style="border: 1px solid #0933ee; padding: 8px">Estado</th>
-                <th style="border: 1px solid #0933ee; padding: 8px">Acciones</th>
             </tr>
         </thead>
         <tbody>
 
-            @foreach($programas as $programa)
+            @foreach($objEstrategicos as $objEstrategico)
                 <tr>
-                    <td style="border: 1px solid #ccc; padding: 8px">{{$programa->idPrograma}}</td>
-                    <td style="border: 1px solid #ccc; padding: 8px">{{$programa->entidad->subSector}}</td>
-                    <td style="border: 1px solid #ccc; padding: 8px">{{$programa->nombre}}</td>
-                    <td style="border: 1px solid #ccc; padding: 8px">{{$programa->descripcion}}</td>
+                    <td style="border: 1px solid #ccc; padding: 8px">{{$Objestrategico->idObjestrategico}}</td>
+                    <td style="border: 1px solid #ccc; padding: 8px">{{$Objestrategico->fechaRegistro}}</td>
+                    <td style="border: 1px solid #ccc; padding: 8px">{{$Objestrategico->descripcion}}</td>
                     <td style="border: 1px solid #ccc; padding: 8px">
-                        <a href="{{route('programas.edit', $programa->idPrograma)}}">Editar</a>
-                        <form action="{{ route('programas.destroy', $programa->idPrograma) }}" method="POST" onsubmit="return confirm('Estas seguro de querer eliminar este programa?');">
+                        <a href="{{route('objEstrategicos.edit', $Objestrategico->idObjestrategico)}}">Editar</a>
+                        <form action="{{ route('objEstrategicos.destroy', $Objestrategico->idObjestrategico) }}" method="POST" onsubmit="return confirm('Estas seguro de querer eliminar este Objetivo Estratégico?');">
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="btn btn-sm btn-danger">Eliminar</button>

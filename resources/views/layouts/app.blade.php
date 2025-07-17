@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
-         <title>Sistema Integrado de Planificación e Inversión Pública - SIPeIP - @yield('title')</title>
+         <title>Sistema Integrado de Planificación e Inversión Pública - SIPeIP 2.0 @yield('title')</title>
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
@@ -74,7 +74,8 @@
                 <a href="{{ route('entidades.index') }}">Entidades</a>
                 
                 <a href="">Unidades</a>
-                <a href="{{ route('ods.index') }}">Objetivos ODS</a>
+                <a href="{{ route('objEstrategicos.index') }}">Objetivos Estratégicos</a>
+                <a href="">Objetivos ODS</a>
                 <a href="{{ route('programas.index') }}">Programas</a>
 
 
@@ -87,7 +88,7 @@
     </div>
 
     <footer>
-        <small>&copy; {{ date('2025') }} SIPeIP</small>
+        <small>&copy; {{ date('2025') }} SIPeIP 2.0</small>
     </footer>
 </body>
 </html>

@@ -11,9 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('obj_estrategicos', function (Blueprint $table) {
-            $table->id('idobj_estrategicos');
-            $table->integer('codigo')->unique();
+        Schema::create('objestrategicos', function (Blueprint $table) {
+            $table->id('idobjEstrategicos');
             $table->string('descripcion');
             $table->string('estado');
             $table->date('fechaRegistro');
@@ -26,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('obj_estrategicos');
+        Schema::dropIfExists('objEstrategicos');
     }
 };
