@@ -11,7 +11,7 @@ class objEstrategico extends Model
 
     protected $primaryKey='idobjEstrategico';
     public $timestamps = false;
-    protected $table = 'objEstrategico';
+    protected $table = 'objEstrategicos';
 
     protected $fillable =[
         'id',

@@ -5,7 +5,7 @@
 @section('content')
     <h2 class="text-2xl font-bold mb-4">Editar las Entidades</h2>
 
-    {{-- Formulario para la creación de entidades --}}
+    {{-- Formulario para la edicion de entidades --}}
 
         <form action="{{ route ('entidades.update' , $entidad->idEntidad )}}" method="POST" class="space-y-4">
             @csrf

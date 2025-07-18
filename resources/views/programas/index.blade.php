@@ -18,7 +18,7 @@
 
     {{-- Tabla para listar todos los programas --}}
 
-    <table style="background-color: #4ce60f;">
+    <table style="background-color: #ccc;">
 
         <thead>
             <tr>

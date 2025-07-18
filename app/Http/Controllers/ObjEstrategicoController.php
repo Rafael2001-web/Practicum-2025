@@ -22,7 +22,8 @@ class ObjEstrategicoController extends Controller
      */
     public function create()
     {
-        return view('objEstrategicos.create');
+        $objEstrategicos = objEstrategico::all();
+        return view('objEstrategicos.create', compact('objEstrategicos'));
     }
 
     /**
@@ -31,7 +32,7 @@ class ObjEstrategicoController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'id'=> 'required|integer|unique:objEstrategico,codigo',
+            'idobjEstrategico'=> 'required|integer|unique:idobjEstrategico',
             'fechaRegistro'=> 'required|date',
             'descripcion'=> 'nullable|string',
             'estado'=> 'required|string',
@@ -61,7 +62,7 @@ class ObjEstrategicoController extends Controller
     {
         
         $request->validate([
-            'id'=> 'required|integer|unique:objEstrategico,codigo',
+            'id'=> 'required|integer|unique:idobjEstrategico,codigo',
             'fechaRegistro'=> 'required|date',
             'descripcion'=> 'nullable|string',
             'estado'=> 'required|string',

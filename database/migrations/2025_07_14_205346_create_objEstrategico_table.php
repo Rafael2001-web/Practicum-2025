@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('objestrategicos', function (Blueprint $table) {
-            $table->id('idobjEstrategicos');
+            $table->id('idobjEstrategico');
             $table->string('descripcion');
             $table->string('estado');
             $table->date('fechaRegistro');
@@ -25,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('objEstrategicos');
+        Schema::dropIfExists('objestrategico');
     }
 };
