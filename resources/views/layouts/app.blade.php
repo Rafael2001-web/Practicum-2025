@@ -73,7 +73,7 @@
           
                 <a href="{{ route('entidades.index') }}">Entidades</a>
                 
-                <a href="">Unidades</a>
+                <a href="{{ route('unidades.index') }}">Unidades</a>
                 <a href="{{ route('objEstrategicos.index') }}">Objetivos Estratégicos</a>
                 <a href="">Objetivos ODS</a>
                 <a href="{{ route('programas.index') }}">Programas</a>

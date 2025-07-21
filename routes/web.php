@@ -7,6 +7,7 @@ use App\Http\Controllers\ProgramaController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\ObjEstrategicoController;
+use App\Http\Controllers\UnidadController;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,6 +33,7 @@ Route::get('/dashboard', function () {
 
 
 Route::resource('entidades', EntidadController::class);
+Route::resource('unidades', UnidadController::class);
 Route::resource('objEstrategicos', ObjEstrategicoController::class);
 
 Route::resource('programas', ProgramaController::class);
