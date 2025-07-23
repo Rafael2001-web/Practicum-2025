@@ -10,6 +10,7 @@ use App\Http\Controllers\ObjEstrategicoController;
 use App\Http\Controllers\UnidadController;
 use App\Http\Controllers\OdsController;
 use App\Http\Controllers\ProyectoController;
+use App\Http\Controllers\PndController;
 /*
 
 /*
@@ -39,6 +40,7 @@ Route::resource('entidades', EntidadController::class);
 Route::resource('unidades', UnidadController::class);
 Route::resource('objEstrategicos', ObjEstrategicoController::class);
 Route::resource('ods', OdsController::class);
+Route::resource('pnd', PndController::class);
 Route::resource('proyectos', ProyectoController::class);
 Route::resource('programas', ProgramaController::class);
 

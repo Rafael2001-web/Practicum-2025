@@ -5,18 +5,18 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Ods extends Model
+class Pnd extends Model
 {
     use HasFactory;
 
-    protected $primaryKey='idOds';
+    protected $primaryKey='idPnd';
     public $timestamps = false;
-    protected $table = 'ods';
+    protected $table = 'pnd';
 
     protected $fillable =[
-        'odsnum',
-        'nombre',
+        'eje',
+        'objetivoN',
         'descripcion'
     ];
-
 }
+
