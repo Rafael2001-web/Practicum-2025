@@ -32,7 +32,7 @@
         color: white;
     }
     nav {
-        background-color: #00a524;
+        background-color: #35e25b;
     }
     nav a {
         color: white;
@@ -75,8 +75,9 @@
                 
                 <a href="{{ route('unidades.index') }}">Unidades</a>
                 <a href="{{ route('objEstrategicos.index') }}">Objetivos Estratégicos</a>
-                <a href="">Objetivos ODS</a>
-                <a href="{{ route('programas.index') }}">Programas</a>
+                <a href="{{ route('ods.index') }}">Objetivos ODS</a>
+                <a href="{{ route('proyectos.index') }}">Proyectos</a>
+                <a href="{{ route('programas.index') }}">Programas</a> 
 
 
         </nav>

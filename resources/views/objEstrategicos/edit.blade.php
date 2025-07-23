@@ -3,17 +3,18 @@
 @section('title','Editar')
 
 @section('content')
-    <h2 class="text-2xl font-bold mb-4">Editar las Entidades</h2>
+    <h2 class="text-2xl font-bold mb-4">Editar los Objetivos Estrégicos</h2>
 
     {{-- Formulario para editar los Objetivos Estrégicos --}}
-        <form action="{{ route ('objEstrategicos.store')}}" method="POST" class="space-y-4">
+
+        <form action="{{ route ('objEstrategicos.update' , $objEstrategicos->idobjEstrategico )}}" method="POST" class="space-y-4">
+
             @csrf
 
             <div>
                 <label class="block">ID</label>
-                <input type="number" name="idobjEstrategico" require value="{{ old('idobjEstrategico') }}">
+                <input type="number" name="idobjEstrategico" require value="{{ old('idobjEstrategico', $objEstrategicos->idobjEstrategico) }}">
             </div>
-
 
             <div>
                 <label class="block">Fecha de Registro</label>
@@ -32,7 +33,7 @@
 
             <button type="submit">Guardar</button>
 
-            <a href="{{route('entidades.index')}}">Volver</a>
+            <a href="{{route('objEstrategicos.index')}}">Volver</a>
             
         </form>
 

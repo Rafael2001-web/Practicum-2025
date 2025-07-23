@@ -32,18 +32,20 @@
 
              <div>
                 <label class="block">Macrosector</label>
-                <input type="text" name="Macrosector" require value="{{ old('macrosector') }}">
+                <input type="text" name="macrosector" require value="{{ old('macrosector') }}">
             </div>
 
              <div>
                 <label class="block">Sector</label>
-                <input type="text" name="Sector" require value="{{ old('sector') }}">
+                <input type="text" name="sector" require value="{{ old('sector') }}">
             </div>
 
+    
             <div>
                 <label class="block">Estado</label>
                 <input type="text" name="estado" require value="{{ old('estado') }}">
             </div>
+
 
 
 

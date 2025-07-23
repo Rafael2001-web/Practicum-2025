@@ -26,6 +26,7 @@
                 <th style="border: 1px solid #4550eb; padding: 8px">Macrosector</th>
                 <th style="border: 1px solid #4550eb; padding: 8px">Sector</th>
                 <th style="border: 1px solid #4550eb; padding: 8px">Estado</th>
+                <th style="border: 1px solid #4550eb; padding: 8px">Acciones</th>
             </tr>
         </thead>
         <tbody>
@@ -33,13 +34,13 @@
             @foreach($unidades as $unidad)
                 <tr>
                     <td style="border: 1px solid #ccc; padding: 8px">{{$unidad->idUnidad}}</td>
-                    <td style="border: 1px solid #ccc; padding: 8px">{{$unidad->Macrosector}}</td>
+                    <td style="border: 1px solid #ccc; padding: 8px">{{$unidad->macrosector}}</td>
                     <td style="border: 1px solid #ccc; padding: 8px">{{$unidad->sector}}</td>
                     <td style="border: 1px solid #ccc; padding: 8px">{{$unidad->estado ? 'Activo' : 'Inactivo'}}</td>
 
                     <td style="border: 1px solid #ccc; padding: 8px">
-                        <a href="{{route('entidades.edit', $unidad->idUnidad)}}">Editar</a>
-                        <form action="{{ route('entidades.destroy', $unidad->idUnidad) }}" method="POST" onsubmit="return confirm('Estas seguro de querer eliminar estas entidad?');">
+                        <a href="{{route('unidades.edit', $unidad->idUnidad)}}">Editar</a>
+                        <form action="{{ route('unidades.destroy', $unidad->idUnidad) }}" method="POST" onsubmit="return confirm('Estas seguro de querer eliminar estas entidad?');">
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="btn btn-sm btn-danger">Eliminar</button>

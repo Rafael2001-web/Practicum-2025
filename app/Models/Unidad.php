@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class unidad extends Model
+class Unidad extends Model
 {
     use HasFactory;
 
@@ -14,7 +14,7 @@ class unidad extends Model
     protected $table = 'unidad';
 
     protected $fillable =[
-        'macroSector',
+        'macrosector',
         'sector',
         'estado'
     ];

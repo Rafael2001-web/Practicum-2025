@@ -38,7 +38,7 @@
 
             <div>
                 <label class="block">Descripción</label>
-                <input type="text" name="Descripción" require value="{{ old('descripcion') }}">
+                <input type="text" name="descripcion" require value="{{ old('descripcion') }}">
             </div>
 
             <div>

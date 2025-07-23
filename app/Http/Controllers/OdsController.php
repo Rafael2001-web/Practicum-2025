@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\ods;
+use App\Models\Ods;
 use Illuminate\Http\Request;
 
 class OdsController extends Controller
@@ -12,7 +12,9 @@ class OdsController extends Controller
      */
     public function index()
     {
-        //
+        $ods = Ods::all();
+        return view('ods.index', compact('ods'));
+
     }
 
     /**
@@ -20,7 +22,8 @@ class OdsController extends Controller
      */
     public function create()
     {
-        //
+        $ods = Ods::all();
+        return view('ods.create', compact('ods'));
     }
 
     /**
@@ -28,38 +31,58 @@ class OdsController extends Controller
      */
     public function store(Request $request)
     {
-        //
-    }
+        $request->validate([
+            'odsnum'=> 'required|integer',
+            'nombre'=> 'required|string',
+            'descripcion'=> 'required|string',
+        ]);
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(ods $ods)
-    {
-        //
+        Ods::create($request->all());
+
+        return redirect()->route('ods.index')->with('success', 'ODS Creado Satisfactoriamente');
+
+
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(ods $ods)
+    public function edit($id)
     {
-        //
+        $ods = Ods::findOrfail($id);
+        return view('ods.edit', compact('ods')); 
     }
+
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, ods $ods)
+    public function update(Request $request, $id)
     {
-        //
+        
+        $request->validate([
+            'odsnum'=> 'required|integer',
+            'nombre'=> 'required|string',
+            'descripcion'=> 'required|string',
+        ]);
+
+        $ods = Ods::findOrfail($id);
+        $ods->update($request->all()); // error
+
+        return redirect()->route('ods.index')->with('success', 'ODS Actualizado Satisfactoriamente');
+
+
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(ods $ods)
+    public function destroy($id)
     {
-        //
+        $ods = Ods::findOrfail($id);
+        $ods->delete();
+
+         return redirect()->route('ods.index')->with('success', 'ODS Eliminado Satisfactoriamente');
+
     }
 }

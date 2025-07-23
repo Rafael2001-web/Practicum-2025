@@ -32,9 +32,9 @@ class UnidadController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'macroSector'=> 'string',
-            'sector'=> 'string',
-            'estado'=> 'string',
+            'macrosector'=> 'required|string',
+            'sector'=> 'required|string',
+            'estado'=> 'required|string',
         ]);
 
         Unidad::create($request->all());
@@ -61,9 +61,9 @@ class UnidadController extends Controller
     {
         
         $request->validate([
-            'macroSector'=> 'string',
-            'sector'=> 'string',
-            'estado'=> 'string',
+            'macrosector'=> 'required|string',
+            'sector'=> 'required|string',
+            'estado'=> 'required|string',
         ]);
 
         $unidades = Unidad::findOrfail($id);

@@ -32,7 +32,7 @@ class ObjEstrategicoController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'idobjEstrategicos'=> 'integer|unique:idobjEstrategico',
+            //'idobjEstrategico'=> 'integer|unique:idobjEstrategico',
             'fechaRegistro'=> 'required|date',
             'descripcion'=> 'required|string',
             'estado'=> 'required|string',
@@ -52,7 +52,7 @@ class ObjEstrategicoController extends Controller
     public function edit($id)
     {
         $objEstrategicos = objEstrategico::findOrfail($id);
-        return view('objEstrategicos.edit', compact('objEstrategico')); 
+        return view('objEstrategicos.edit', compact('objEstrategicos')); 
     }
 
     /**
@@ -62,7 +62,7 @@ class ObjEstrategicoController extends Controller
     {
         
         $request->validate([
-            'id'=> 'required|integer|unique:idobjEstrategico,codigo',
+            //'idobjEstrategico'=> 'integer|unique:idobjEstrategico',
             'fechaRegistro'=> 'required|date',
             'descripcion'=> 'required|string',
             'estado'=> 'required|string',
@@ -84,7 +84,7 @@ class ObjEstrategicoController extends Controller
         $objEstrategicos = objEstrategico::findOrfail($id);
         $objEstrategicos->delete();
 
-         return redirect()->route('$objEstrategicos.index')->with('success', 'Objetivo Estratégico Eliminada Satisfactoriamente');
+         return redirect()->route('objEstrategicos.index')->with('success', 'Objetivo Estratégico Eliminada Satisfactoriamente');
 
     }
 }

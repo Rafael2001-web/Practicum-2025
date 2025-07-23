@@ -8,6 +8,9 @@ use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\ObjEstrategicoController;
 use App\Http\Controllers\UnidadController;
+use App\Http\Controllers\OdsController;
+use App\Http\Controllers\ProyectoController;
+/*
 
 /*
 |--------------------------------------------------------------------------
@@ -35,7 +38,8 @@ Route::get('/dashboard', function () {
 Route::resource('entidades', EntidadController::class);
 Route::resource('unidades', UnidadController::class);
 Route::resource('objEstrategicos', ObjEstrategicoController::class);
-
+Route::resource('ods', OdsController::class);
+Route::resource('proyectos', ProyectoController::class);
 Route::resource('programas', ProgramaController::class);
 
     // Sólo admin puede CRUD de entidades y programas

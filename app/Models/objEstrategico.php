@@ -14,7 +14,7 @@ class objEstrategico extends Model
     protected $table = 'objEstrategicos';
 
     protected $fillable =[
-        'id',
+        //'idobjEstrategico',
         'fechaRegistro',
         'descripcion',
         'estado'

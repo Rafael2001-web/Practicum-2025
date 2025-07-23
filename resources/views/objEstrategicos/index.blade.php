@@ -32,12 +32,12 @@
 
             @foreach($objEstrategicos as $objEstrategico)
                 <tr>
-                    <td style="border: 1px solid #ccc; padding: 8px">{{$Objestrategico->idObjestrategico}}</td>
-                    <td style="border: 1px solid #ccc; padding: 8px">{{$Objestrategico->fechaRegistro}}</td>
-                    <td style="border: 1px solid #ccc; padding: 8px">{{$Objestrategico->descripcion}}</td>
+                    <td style="border: 1px solid #ccc; padding: 8px">{{$objEstrategico->idobjEstrategico}}</td>
+                    <td style="border: 1px solid #ccc; padding: 8px">{{$objEstrategico->fechaRegistro}}</td>
+                    <td style="border: 1px solid #ccc; padding: 8px">{{$objEstrategico->descripcion}}</td>
                     <td style="border: 1px solid #ccc; padding: 8px">
-                        <a href="{{route('objEstrategicos.edit', $Objestrategico->idObjestrategico)}}">Editar</a>
-                        <form action="{{ route('objEstrategicos.destroy', $Objestrategico->idObjestrategico) }}" method="POST" onsubmit="return confirm('Estas seguro de querer eliminar este Objetivo Estratégico?');">
+                         <a href="{{ route('objEstrategicos.edit', $objEstrategico->idobjEstrategico) }}">Editar</a>
+                        <form action="{{ route('objEstrategicos.destroy', $objEstrategico->idobjEstrategico) }}" method="POST" onsubmit="return confirm('Estas seguro de querer eliminar este Objetivo Estratégico?');">
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="btn btn-sm btn-danger">Eliminar</button>
