@@ -3,6 +3,7 @@
 @section('title','Nuevo Programa')
 
 @section('content')
+    <h2 class="text-2xl font-bold mb-4">Crear Programa:</h2>
     
     @if ($errors->any())
         <div>

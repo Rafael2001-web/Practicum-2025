@@ -11,10 +11,11 @@
             @csrf
             @method('PUT')
 
+            {{-- 
             <div>
                 <label class="block">ID</label>
                 <input type="number" name="idUnidad" require value="{{ old('idUnidad', $unidades->idUnidad) }}">
-            </div>
+            </div>--}}
 
              <div>
                 <label class="block">Macrosector</label>

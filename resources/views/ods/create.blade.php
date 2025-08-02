@@ -4,6 +4,8 @@
 
 @section('content')
     
+    <h2 class="text-2xl font-bold mb-4">Crear Objetivos ODS:</h2>
+
     @if ($errors->any())
         <div>
 
@@ -25,10 +27,11 @@
         <form action="{{ route ('ods.store')}}" method="POST" class="space-y-4">
             @csrf
 
+            {{--
             <div>
                 <label class="block">ID</label>
-                <input type="number" name="ID" require value="{{ old('idOds') }}">
-            </div>
+                <input type="number" name="idOds" require value="{{ old('idOds') }}">
+            </div> --}}
 
             <div>
                 <label class="block"># ODS</label>

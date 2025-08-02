@@ -23,7 +23,6 @@
         <thead>
             <tr>
                 <th style="border: 1px solid #4550eb; padding: 8px">ID</th>
-                <th style="border: 1px solid #4550eb; padding: 8px">EJE2</th>
                 <th style="border: 1px solid #4550eb; padding: 8px">EJE</th>
 
                 <th style="border: 1px solid #4550eb; padding: 8px"># Objetivo Nacional</th>
@@ -37,7 +36,7 @@
                 <tr>
                     <td style="border: 1px solid #ccc; padding: 8px">{{$pnd->idPnd}}</td>
                    
-                    <td style="border: 1px solid #ccc; padding: 8px">{{$pnd->eje}}</td>
+                   
                     <td style="border: 1px solid #ccc; padding: 8px">{{$pnd->eje}}</td>
 
 

@@ -32,7 +32,6 @@ class ObjEstrategicoController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            //'idobjEstrategico'=> 'integer|unique:idobjEstrategico',
             'fechaRegistro'=> 'required|date',
             'descripcion'=> 'required|string',
             'estado'=> 'required|string',

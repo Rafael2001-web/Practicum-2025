@@ -3,7 +3,8 @@
 @section('title','Nuevo Objetivo Estrégico')
 
 @section('content')
-    
+    <h2 class="text-2xl font-bold mb-4">Crear Objetivos Estratégicos:</h2>
+
     @if ($errors->any())
         <div>
 
@@ -24,13 +25,7 @@
 
         <form action="{{ route ('objEstrategicos.store')}}" method="POST" class="space-y-4">
             @csrf
-
-            <div>
-                <label class="block">ID</label>
-                <input type="number" name="idobjEstrategico" require value="{{ old('idobjEstrategico') }}">
-            </div>
-
-
+        
             <div>
                 <label class="block">Fecha de Registro</label>
                 <input type="date" name="fechaRegistro" require value="{{ old('fechaRegistro') }}">
@@ -44,6 +39,7 @@
             <div>
                 <label class="block">Estado</label>
                 <input type="text" name="estado" require value="{{ old('estado') }}">
+                
             </div>
 
             <button type="submit">Guardar</button>

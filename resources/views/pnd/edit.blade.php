@@ -11,15 +11,13 @@
             @csrf
             @method('PUT')
 
+
+            {{--
             <div>
                 <label class="block">ID</label>
                 <input type="number" name="idPnd" require value="{{ old('idPnd', $pnd->idPnd) }}">
-            </div>
+            </div>--}}
 
-            <div>
-                <label class="block">Eje2</label>
-                <input type="text" name="eje" require value="{{ old('eje', $pnd->eje) }}">
-            </div>
 
             <div class="form-group">
             <label>Eje</label>

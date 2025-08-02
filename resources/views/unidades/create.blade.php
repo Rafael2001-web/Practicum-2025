@@ -25,10 +25,11 @@
         <form action="{{ route ('unidades.store')}}" method="POST" class="space-y-4">
             @csrf
 
+            {{-- 
             <div>
                 <label class="block">ID</label>
                 <input type="number" name="ID" require value="{{ old('idUnidad') }}">
-            </div>
+            </div>--}}
 
              <div>
                 <label class="block">Macrosector</label>

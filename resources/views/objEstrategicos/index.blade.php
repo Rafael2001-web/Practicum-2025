@@ -26,6 +26,8 @@
                 <th style="border: 1px solid #0933ee; padding: 8px">Fecha de Registro</th>
                 <th style="border: 1px solid #0933ee; padding: 8px">Descripción</th>
                 <th style="border: 1px solid #0933ee; padding: 8px">Estado</th>
+                <th style="border: 1px solid #4550eb; padding: 8px">Acciones</th>
+
             </tr>
         </thead>
         <tbody>
@@ -35,6 +37,7 @@
                     <td style="border: 1px solid #ccc; padding: 8px">{{$objEstrategico->idobjEstrategico}}</td>
                     <td style="border: 1px solid #ccc; padding: 8px">{{$objEstrategico->fechaRegistro}}</td>
                     <td style="border: 1px solid #ccc; padding: 8px">{{$objEstrategico->descripcion}}</td>
+                    <td style="border: 1px solid #ccc; padding: 8px">{{$objEstrategico->estado}}</td>
                     <td style="border: 1px solid #ccc; padding: 8px">
                          <a href="{{ route('objEstrategicos.edit', $objEstrategico->idobjEstrategico) }}">Editar</a>
                         <form action="{{ route('objEstrategicos.destroy', $objEstrategico->idobjEstrategico) }}" method="POST" onsubmit="return confirm('Estas seguro de querer eliminar este Objetivo Estratégico?');">

@@ -25,16 +25,14 @@
         <form action="{{ route ('pnd.store')}}" method="POST" class="space-y-4">
             @csrf
 
+            {{--
             <div>
                 <label class="block">ID</label>
                 <input type="number" name="idPnd" require value="{{ old('idPnd') }}">
             </div>
+            --}}
 
-            <div>
-                <label class="block">Eje2</label>
-                <input type="text" name="eje" require value="{{ old('eje') }}">
-            </div>
-
+            
             <div class="form-group">
             <label>Eje</label>
             <select name="eje" class="form-control" required>
@@ -43,6 +41,9 @@
                 <option value="EJE Desarrollo económico" {{ (old('eje', '') == 'EJE Desarrollo económico') ? 'selected' : '' }}>EJE Desarrollo económico</option>
                 <option value="EJE Infraestructura" {{ (old('eje', '') == 'EJE Infraestructura') ? 'selected' : '' }}>EJE Infraestructura</option>
                 <option value="EJE Institucional" {{ (old('eje',  '') == 'EJE Institucional') ? 'selected' : '' }}>EJE Institucional</option>
+                
+                <option value="EJE Gestion de Riesgos" {{ (old('eje',  '') == 'EJE Gestion de Riesgos') ? 'selected' : '' }}>EJE Gestion de Riesgos</option>
+
             </select>
         </div>
 

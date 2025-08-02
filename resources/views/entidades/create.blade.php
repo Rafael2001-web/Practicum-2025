@@ -3,6 +3,7 @@
 @section('title','Nueva Entidad')
 
 @section('content')
+    <h2 class="text-2xl font-bold mb-4">Crear Entidades:</h2>
     
     @if ($errors->any())
         <div>
