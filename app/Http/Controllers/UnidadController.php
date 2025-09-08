@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\unidad;
 use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade\Pdf;
+
 
 class UnidadController extends Controller
 {
@@ -40,9 +42,14 @@ class UnidadController extends Controller
         Unidad::create($request->all());
 
         return redirect()->route('unidades.index')->with('success', 'Unidad Creada Satisfactoriamente');
-
-
     }
+
+    public function show(Request $request)
+    {
+        $unidades = Unidad::all();
+        return view('unidades.show', compact('unidades'));
+    }
+
 
     /**
      * Show the form for editing the specified resource.
@@ -84,5 +91,11 @@ class UnidadController extends Controller
 
          return redirect()->route('unidades.index')->with('success', 'Unidad Eliminada Satisfactoriamente');
 
+    }
+
+    public function GenerarPDF(){
+        $unidad = Unidad::all();
+        $pdf =Pdf::loadView('unidades.pdf', compact('unidad'));
+        return $pdf->stream('reporte_unidad.pdf');
     }
 }

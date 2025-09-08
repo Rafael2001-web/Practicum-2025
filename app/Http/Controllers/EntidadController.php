@@ -6,6 +6,7 @@ use App\Models\Entidad;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rules\Unique;
 use Ramsey\Uuid\Type\Integer;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class EntidadController extends Controller
 {
@@ -26,6 +27,13 @@ class EntidadController extends Controller
     {
         return view('entidades.create');
     }
+
+    public function show(Request $request)
+    {
+        $entidad = Entidad::all();
+        return view('entidades.show', compact('entidad'));
+    }
+
 
     /**
      * Store a newly created resource in storage.
@@ -92,4 +100,12 @@ class EntidadController extends Controller
          return redirect()->route('entidades.index')->with('success', 'Entidad Eliminada Satisfactoriamente');
 
     }
+
+    public function GenerarPDF(){
+        $entidad = Entidad::all();
+        $pdf =Pdf::loadView('entidades.pdf', compact('entidad'));
+        return $pdf->stream('reporte_entidad.pdf');
+    }
+
+
 }

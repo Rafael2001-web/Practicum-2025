@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Programa;
 use App\Models\Entidad;
 use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class ProgramaController extends Controller
 {
@@ -73,7 +74,12 @@ class ProgramaController extends Controller
 
         return redirect()->route('programas.index')->with('success', 'Programa Actualizada Satisfactoriamente');
 
+    }
 
+     public function show(Request $request)
+    {
+        $programa = Programa::all();
+        return view('programas.show', compact('programa'));
     }
 
     /**
@@ -86,5 +92,11 @@ class ProgramaController extends Controller
 
          return redirect()->route('programas.index')->with('success', 'Programa Eliminada Satisfactoriamente');
 
+    }
+
+    public function GenerarPDF(){
+        $programa = Programa::all();
+        $pdf =Pdf::loadView('programas.pdf', compact('programa'));
+        return $pdf->stream('reporte_programa.pdf');
     }
 }

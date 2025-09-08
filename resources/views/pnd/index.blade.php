@@ -45,6 +45,7 @@
                     <td style="border: 1px solid #ccc; padding: 8px">{{$pnd->descripcion }}</td>
 
                     <td style="border: 1px solid #ccc; padding: 8px">
+                        <a href="{{route('pnd.show', $pnd->idPnd)}}">Ver</a>
                         <a href="{{route('pnd.edit', $pnd->idPnd)}}">Editar</a>
                         <form action="{{ route('pnd.destroy', $pnd->idPnd) }}" method="POST" onsubmit="return confirm('Estas seguro de querer eliminar este Objetivo PND?');">
                             @csrf

@@ -11,6 +11,7 @@ use App\Http\Controllers\UnidadController;
 use App\Http\Controllers\OdsController;
 use App\Http\Controllers\ProyectoController;
 use App\Http\Controllers\PndController;
+use App\Http\Controllers\PlanController;
 /*
 
 /*
@@ -36,19 +37,37 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 
-Route::resource('entidades', EntidadController::class);
-Route::resource('unidades', UnidadController::class);
-Route::resource('objEstrategicos', ObjEstrategicoController::class);
+//Route::resource('entidades', EntidadController::class);
+//Route::resource('unidades', UnidadController::class);
+//Route::resource('objEstrategicos', ObjEstrategicoController::class);
 Route::resource('ods', OdsController::class);
-Route::resource('pnd', PndController::class);
+//Route::resource('pnd', PndController::class);
+//Route::resource('planes', PlanController::class);
 Route::resource('proyectos', ProyectoController::class);
+//Route::resource('programas', ProgramaController::class);
+
+
+
+//Rutas para exportacion de pdf.
+Route::get('/entidades/pdf', [EntidadController::class, 'generarPdf'])->name('entidades.pdf');
+Route::resource('entidades', EntidadController::class);
+
+Route::get('/unidades/pdf', [UnidadController::class, 'generarPdf'])->name('unidades.pdf');
+Route::resource('unidades', UnidadController::class);
+
+Route::get('/pnd/pdf', [PndController::class, 'generarPdf'])->name('pnd.pdf');
+Route::resource('pnd', PndController::class);
+
+Route::get('/planes/pdf', [PlanController::class, 'generarPdf'])->name('planes.pdf');
+Route::resource('planes', PlanController::class);
+
+Route::get('/programas/pdf', [ProgramaController::class, 'generarPdf'])->name('programas.pdf');
 Route::resource('programas', ProgramaController::class);
 
-    // Sólo admin puede CRUD de entidades y programas
-    //Route::middleware('role:admin')->group(function () {
-        //Route::resource('entidades', EntidadController::class);
-        //Route::resource('programas', ProgramaController::class);
-    //});
+
+Route::get('/objEstrategicos/pdf', [ObjEstrategicoController::class, 'generarPdf'])->name('objEstrategicos.pdf');
+Route::resource('objEstrategicos', ObjEstrategicoController::class);
+
 
 //Rutas para los perfiles
  Route::middleware('auth')->group(function () {

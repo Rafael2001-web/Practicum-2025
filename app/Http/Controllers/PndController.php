@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\pnd;
 use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class PndController extends Controller
 {
@@ -24,6 +25,16 @@ class PndController extends Controller
     {
          $pnd = Pnd::all();
         return view('pnd.create', compact('pnd'));
+    }
+
+    
+    /**
+     * Display the specified resource.
+     */
+   public function show(Request $request)
+    {
+        $pnd = Pnd::all();
+        return view('pnd.show', compact('pnd'));
     }
 
     /**
@@ -84,5 +95,11 @@ class PndController extends Controller
 
          return redirect()->route('pnd.index')->with('success', 'ODS Eliminado Satisfactoriamente');
 
+    }
+
+    public function GenerarPDF(){
+        $pnd = Pnd::all();
+        $pdf =Pdf::loadView('pnd.pdf', compact('pnd'));
+        return $pdf->stream('reporte_pnd.pdf');
     }
 }

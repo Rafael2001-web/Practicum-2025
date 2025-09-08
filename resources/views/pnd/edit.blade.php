@@ -1,11 +1,11 @@
 @extends('layouts.app')
 
-@section('title','Editar PND')
+@section('title','Editar Planes')
 
 @section('content')
-    <h2 class="text-2xl font-bold mb-4">Editar las Objetivos PND</h2>
+    <h2 class="text-2xl font-bold mb-4">Editar las Planes</h2>
 
-    {{-- Formulario para la edicion de PND --}}
+    {{-- Formulario para la edicion de Planes--}}
 
         <form action="{{ route ('pnd.update' , $pnd->idPnd )}}" method="POST" class="space-y-4">
             @csrf
@@ -42,7 +42,7 @@
 
             <button type="submit">Actualizar</button>
 
-            <a href="{{route('unidades.index')}}">Volver</a>
+            <a href="{{route('pnd.index')}}">Volver</a>
             
         </form>
 

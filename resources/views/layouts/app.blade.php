@@ -72,7 +72,9 @@
             {{-- Enlaces sólo para admin --}}
           
                 <a href="{{ route('entidades.index') }}">Entidades</a>
-                <a href="{{ route('unidades.index') }}">Unidades</a>
+                <a href="{{ route('unidades.index') }}">Unidades</a>  
+                <a href="{{ route('planes.index') }}">Planes</a>
+                
                 <a href="{{ route('proyectos.index') }}">Proyectos</a>
                 <a href="{{ route('programas.index') }}">Programas</a>
                 <a href="{{ route('pnd.index') }}">Objetivos PND</a>

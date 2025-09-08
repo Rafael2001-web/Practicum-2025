@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\objEstrategico;
 use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class ObjEstrategicoController extends Controller
 {
@@ -24,6 +25,12 @@ class ObjEstrategicoController extends Controller
     {
         $objEstrategicos = objEstrategico::all();
         return view('objEstrategicos.create', compact('objEstrategicos'));
+    }
+
+    public function show(Request $request)
+    {
+         $objEstrategicos = objEstrategico::all();
+        return view('objEstrategicos.show', compact('objEstrategicos'));
     }
 
     /**
@@ -85,5 +92,11 @@ class ObjEstrategicoController extends Controller
 
          return redirect()->route('objEstrategicos.index')->with('success', 'Objetivo Estratégico Eliminada Satisfactoriamente');
 
+    }
+
+    public function GenerarPDF(){
+        $objEstrategicos = objEstrategico::all();
+        $pdf =Pdf::loadView('objEstrategicos.pdf', compact('objEstrategicos'));
+        return $pdf->stream('reporte_objEstrategicos.pdf');
     }
 }

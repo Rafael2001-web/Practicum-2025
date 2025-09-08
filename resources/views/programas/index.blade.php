@@ -38,6 +38,7 @@
                     <td style="border: 1px solid #ccc; padding: 8px">{{$programa->nombre}}</td>
                     <td style="border: 1px solid #ccc; padding: 8px">{{$programa->descripcion}}</td>
                     <td style="border: 1px solid #ccc; padding: 8px">
+                        <a href="{{route('programas.show', $programa->idPrograma)}}">Ver</a>
                         <a href="{{route('programas.edit', $programa->idPrograma)}}">Editar</a>
                         <form action="{{ route('programas.destroy', $programa->idPrograma) }}" method="POST" onsubmit="return confirm('Estas seguro de querer eliminar este programa?');">
                             @csrf

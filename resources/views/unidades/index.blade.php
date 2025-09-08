@@ -39,6 +39,7 @@
                     <td style="border: 1px solid #ccc; padding: 8px">{{$unidad->estado ? 'Activo' : 'Inactivo'}}</td>
 
                     <td style="border: 1px solid #ccc; padding: 8px">
+                        <a href="{{route('unidades.show', $unidad->idUnidad)}}">Ver</a>
                         <a href="{{route('unidades.edit', $unidad->idUnidad)}}">Editar</a>
                         <form action="{{ route('unidades.destroy', $unidad->idUnidad) }}" method="POST" onsubmit="return confirm('Estas seguro de querer eliminar estas entidad?');">
                             @csrf

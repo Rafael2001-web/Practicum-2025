@@ -39,7 +39,8 @@
                     <td style="border: 1px solid #ccc; padding: 8px">{{$objEstrategico->descripcion}}</td>
                     <td style="border: 1px solid #ccc; padding: 8px">{{$objEstrategico->estado}}</td>
                     <td style="border: 1px solid #ccc; padding: 8px">
-                         <a href="{{ route('objEstrategicos.edit', $objEstrategico->idobjEstrategico) }}">Editar</a>
+                        <a href="{{ route('objEstrategicos.show', $objEstrategico->idobjEstrategico) }}">Ver</a>
+                        <a href="{{ route('objEstrategicos.edit', $objEstrategico->idobjEstrategico) }}">Editar</a>
                         <form action="{{ route('objEstrategicos.destroy', $objEstrategico->idobjEstrategico) }}" method="POST" onsubmit="return confirm('Estas seguro de querer eliminar este Objetivo Estratégico?');">
                             @csrf
                             @method('DELETE')

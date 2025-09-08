@@ -1,22 +1,44 @@
-@extends('layouts.app')
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f2f2f2;
+        padding: 20xp;
+    }
+    h1{
+        text-aling: center;
+        color: #333333;
+    }
+    table{
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+        background-color: #fff;
+        box-shadow: 0 0 10px rgba(0,0,0,0.1)
+    }
+    th, td {
+        border: 1px solid #ddd;
+        padding: 12px;
+        text-aling: left;
+    }
+    th {
+        background-color: #f2f2f2;
+    }
+    tr:nth-child(even) {
+        background-color: #f9f9f9;
+    }
+    tr:hover {
+        background-color: #e9e9e9;
+    }
+    </style>
 
-@section('title','Entidades')
 
-@section('content')
-    <h2 class="text-2xl font-bold mb-4">Listado de entidades:</h2>
 
-    {{-- Validacion mensaje --}}
-        @if (session('success'))
-            <div>
-                {{session('success')}}
-            </div>
-        @endif
 
-    {{--Boton para llamar al formulario crear entidades --}}
 
-        <a href="{{route('entidades.create')}}">+ Nueva Entidad</a>
+    <h1>Listado de entidades</h1>
 
-    {{-- Tabla para listar todas las entidades --}}
+    
+    {{-- Tabla para listar todas los PND --}}
 
     <table style="background-color: #f8f8fa;">
 
@@ -29,12 +51,12 @@
                 <th style="border: 1px solid #4550eb; padding: 8px">Estado</th>
                 <th style="border: 1px solid #4550eb; padding: 8px">Fecha de Creación</th>
                 <th style="border: 1px solid #4550eb; padding: 8px">Fecha de Actualización</th>
-                <th style="border: 1px solid #4550eb; padding: 8px">Acciones</th>
+            
             </tr>
         </thead>
         <tbody>
 
-            @foreach($entidades as $entidad)
+            @foreach($entidad as $entidad)
                 <tr>
                     <td style="border: 1px solid #ccc; padding: 8px">{{$entidad->idEntidad}}</td>
                     <td style="border: 1px solid #ccc; padding: 8px">{{$entidad->codigo}}</td>
@@ -43,17 +65,7 @@
                     <td style="border: 1px solid #ccc; padding: 8px">{{$entidad->estado}}</td>
                     <td style="border: 1px solid #ccc; padding: 8px">{{$entidad->fechaCreacion}}</td>
                     <td style="border: 1px solid #ccc; padding: 8px">{{$entidad->fechaActualizacion}}</td>
-                    <td style="border: 1px solid #ccc; padding: 8px">
-                        <a href="{{route('entidades.show', $entidad->idEntidad)}}">Ver</a>
-                        <a href="{{route('entidades.edit', $entidad->idEntidad)}}">Editar</a>
-                        <form action="{{ route('entidades.destroy', $entidad->idEntidad) }}" method="POST" onsubmit="return confirm('Estas seguro de querer eliminar estas entidad?');">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn btn-sm btn-danger">Eliminar</button>
-                        </form>
-                        </td>
-                    
-
+                   
 
                 </tr>
             @endforeach
@@ -66,6 +78,4 @@
 
     </table>
 
-
-
-@endsection
+<a href="{{ URL('entidades/pdf') }}" target="_blank" ><button style="background-color: #64df64; color: rgb(255, 255, 255);">Generar reporte</button></a>
