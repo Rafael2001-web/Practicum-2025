@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -25,7 +26,7 @@ class ProyectoFactory extends Factory
         'fecha_fin' => $this->faker->dateTimeBetween('now', '+1 year'),
         'presupuesto' => $this->faker->numberBetween(10000, 1000000),
         'estado' => $this->faker->randomElement(['borrador', 'aprobado', 'ejecucion', 'completado']),
-        'user_id' => User::factory()
+        'user_id' => User::inRandomOrder()->first()->id,
     ];
 }
 
