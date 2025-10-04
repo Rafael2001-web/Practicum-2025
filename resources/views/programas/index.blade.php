@@ -1,9 +1,11 @@
-@extends('layouts.app')
-
+<x-app-layout>
 @section('title','Programas')
 
-@section('content')
-    <h2 class="text-2xl font-bold mb-4">Listado de Programas:</h2>
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-white leading-tight">
+            {{ __('Programas') }}
+        </h2>
+    </x-slot>
 
     {{-- Validacion mensaje --}}
         @if (session('success'))
@@ -51,15 +53,6 @@
 
                 </tr>
             @endforeach
-
-         
-
         </tbody>
-
-
-
     </table>
-
-
-
-@endsection
+</x-app-layout>

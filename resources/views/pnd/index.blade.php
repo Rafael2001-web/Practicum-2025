@@ -1,20 +1,20 @@
-@extends('layouts.app')
-
-@section('title','PND')
-
-@section('content')
-    <h2 class="text-2xl font-bold mb-4">Listado de Objetivos PND:</h2>
-
+<x-app-layout>
+    @section('title', 'PND')
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-white leading-tight">
+            {{ __('Plan Nacional de Desarrollo') }}
+        </h2>
+    </x-slot>
     {{-- Validacion mensaje --}}
-        @if (session('success'))
-            <div>
-                {{session('success')}}
-            </div>
-        @endif
+    @if (session('success'))
+        <div>
+            {{ session('success') }}
+        </div>
+    @endif
 
-    {{--Boton para llamar al formulario crear PND --}}
+    {{-- Boton para llamar al formulario crear PND --}}
 
-        <a href="{{route('pnd.create')}}">+ Nuevo Objetivo PND</a>
+    <a href="{{ route('pnd.create') }}">+ Nuevo Objetivo PND</a>
 
     {{-- Tabla para listar todas los PND --}}
 
@@ -31,42 +31,25 @@
             </tr>
         </thead>
         <tbody>
-
-            @foreach($pnd as $pnd)
+            @foreach ($pnd as $pnd)
                 <tr>
-                    <td style="border: 1px solid #ccc; padding: 8px">{{$pnd->idPnd}}</td>
-                   
-                   
-                    <td style="border: 1px solid #ccc; padding: 8px">{{$pnd->eje}}</td>
-
-
-
-                    <td style="border: 1px solid #ccc; padding: 8px">{{$pnd->objetivoN }}</td>
-                    <td style="border: 1px solid #ccc; padding: 8px">{{$pnd->descripcion }}</td>
+                    <td style="border: 1px solid #ccc; padding: 8px">{{ $pnd->idPnd }}</td>
+                    <td style="border: 1px solid #ccc; padding: 8px">{{ $pnd->eje }}</td>
+                    <td style="border: 1px solid #ccc; padding: 8px">{{ $pnd->objetivoN }}</td>
+                    <td style="border: 1px solid #ccc; padding: 8px">{{ $pnd->descripcion }}</td>
 
                     <td style="border: 1px solid #ccc; padding: 8px">
-                        <a href="{{route('pnd.show', $pnd->idPnd)}}">Ver</a>
-                        <a href="{{route('pnd.edit', $pnd->idPnd)}}">Editar</a>
-                        <form action="{{ route('pnd.destroy', $pnd->idPnd) }}" method="POST" onsubmit="return confirm('Estas seguro de querer eliminar este Objetivo PND?');">
+                        <a href="{{ route('pnd.show', $pnd->idPnd) }}">Ver</a>
+                        <a href="{{ route('pnd.edit', $pnd->idPnd) }}">Editar</a>
+                        <form action="{{ route('pnd.destroy', $pnd->idPnd) }}" method="POST"
+                            onsubmit="return confirm('Estas seguro de querer eliminar este Objetivo PND?');">
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="btn btn-sm btn-danger">Eliminar</button>
                         </form>
                     </td>
-                    
-
-
                 </tr>
             @endforeach
-
-         
-
         </tbody>
-
-
-
     </table>
-
-
-
-@endsection
+</x-app-layout>

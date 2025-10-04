@@ -1,6 +1,4 @@
-@extends('layouts.app')
-
-@section('content')
+<x-app-layout>
 <div class="min-h-screen bg-light">
     <!-- Header Section -->
     <div class="bg-primary text-white py-8">
@@ -189,5 +187,4 @@
         @endauth
     </div>
 </div>
-@endsection
-
+</x-app-layout>

@@ -1,10 +1,10 @@
-@extends('layouts.app')
-
+<x-app-layout>
 @section('title','Editar')
-
-@section('content')
-    <h2 class="text-2xl font-bold mb-4">Editar las Unidades</h2>
-
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-white leading-tight">
+            {{ __('Editar Unidades') }}
+        </h2>
+    </x-slot>
     {{-- Formulario para la edicion de unidades --}}
 
         <form action="{{ route ('unidades.update' , $unidades->idUnidad )}}" method="POST" class="space-y-4">
@@ -37,7 +37,4 @@
             <a href="{{route('unidades.index')}}">Volver</a>
             
         </form>
-
-
-
-@endsection
+</x-app-layout>

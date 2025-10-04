@@ -1,9 +1,11 @@
-@extends('layouts.app')
-
+<x-app-layout>
 @section('title','Editar Planes')
 
-@section('content')
-    <h2 class="text-2xl font-bold mb-4">Editar las Objetivos Planes</h2>
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-white leading-tight">
+            {{ __('Editar Planes') }}
+        </h2>
+    </x-slot>
 
     {{-- Formulario para la edicion de PND --}}
 
@@ -54,6 +56,4 @@
             <a href="{{route('planes.index')}}">Volver</a>
             
         </form>
-
-
-@endsection
+<x-app-layout

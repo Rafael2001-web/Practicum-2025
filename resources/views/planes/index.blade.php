@@ -1,10 +1,11 @@
-@extends('layouts.app')
-
+<x-app-layout>
 @section('title','Planes')
 
-@section('content')
-    <h2 class="text-2xl font-bold mb-4">Listado de Planes:</h2>
-
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-white leading-tight">
+            {{ __('Planes') }}
+        </h2>
+    </x-slot>
     {{-- Validacion mensaje --}}
         @if (session('success'))
             <div>
@@ -58,19 +59,8 @@
                         </form>
                     </td>
                     
-
-
                 </tr>
             @endforeach
-
-         
-
         </tbody>
-
-
-
     </table>
-
-
-
-@endsection
+</x-app-layout>
