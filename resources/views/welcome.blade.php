@@ -5,6 +5,10 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <title>SIPeIP 2.0 - Sistema Integrado de Planificación e Inversión Pública</title>
+        
+        <!-- Favicon -->
+        <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,{{ base64_encode('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><circle cx="100" cy="100" r="90" fill="#002216" opacity="0.1"/><g stroke="#00feb8" stroke-width="3" fill="none"><rect x="60" y="50" width="80" height="100" rx="5" ry="5"/><line x1="75" y1="70" x2="125" y2="70"/><line x1="75" y1="85" x2="125" y2="85"/><line x1="75" y1="100" x2="125" y2="100"/><line x1="75" y1="115" x2="105" y2="115"/><polyline points="75,120 85,110 95,125 105,115 115,130"/><circle cx="85" cy="110" r="2" fill="#00feb8"/><circle cx="95" cy="125" r="2" fill="#00feb8"/><circle cx="105" cy="115" r="2" fill="#00feb8"/><circle cx="115" cy="130" r="2" fill="#00feb8"/></g><text x="100" y="175" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#002216">SIPeIP</text></svg>') }}">
+        <link rel="apple-touch-icon" href="data:image/svg+xml;base64,{{ base64_encode('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><circle cx="100" cy="100" r="90" fill="#002216" opacity="0.1"/><g stroke="#00feb8" stroke-width="3" fill="none"><rect x="60" y="50" width="80" height="100" rx="5" ry="5"/><line x1="75" y1="70" x2="125" y2="70"/><line x1="75" y1="85" x2="125" y2="85"/><line x1="75" y1="100" x2="125" y2="100"/><line x1="75" y1="115" x2="105" y2="115"/><polyline points="75,120 85,110 95,125 105,115 115,130"/><circle cx="85" cy="110" r="2" fill="#00feb8"/><circle cx="95" cy="125" r="2" fill="#00feb8"/><circle cx="105" cy="115" r="2" fill="#00feb8"/><circle cx="115" cy="130" r="2" fill="#00feb8"/></g><text x="100" y="175" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#002216">SIPeIP</text></svg>') }}">
 
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
@@ -51,11 +55,7 @@
             <div class="flex flex-col items-center justify-center min-h-screen px-6">
                 <!-- Logo/Icono del sistema -->
                 <div class="mb-8">
-                    <div class="w-24 h-24 bg-primary rounded-full flex items-center justify-center shadow-lg">
-                        <svg class="w-12 h-12 text-secondary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
-                        </svg>
-                    </div>
+                    <x-application-logo class="w-24 h-24 text-secondary" />
                 </div>
 
                 <!-- Título principal -->
