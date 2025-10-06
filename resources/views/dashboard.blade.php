@@ -32,7 +32,7 @@
                             </div>
                             <div class="ml-4">
                                 <p class="text-sm font-medium text-neutral">Entidades</p>
-                                <p class="text-2xl font-semibold text-primary">--</p>
+                                <p class="text-2xl font-semibold text-primary">{{ $numEntidades }}</p>
                             </div>
                         </div>
                     </div>
@@ -46,7 +46,7 @@
                             </div>
                             <div class="ml-4">
                                 <p class="text-sm font-medium text-neutral">Proyectos</p>
-                                <p class="text-2xl font-semibold text-primary">--</p>
+                                <p class="text-2xl font-semibold text-primary">{{ $numProyectos }}</p>
                             </div>
                         </div>
                     </div>
@@ -60,7 +60,7 @@
                             </div>
                             <div class="ml-4">
                                 <p class="text-sm font-medium text-neutral">Programas</p>
-                                <p class="text-2xl font-semibold text-primary">--</p>
+                                <p class="text-2xl font-semibold text-primary">{{ $numProgramas }}</p>
                             </div>
                         </div>
                     </div>
@@ -74,7 +74,7 @@
                             </div>
                             <div class="ml-4">
                                 <p class="text-sm font-medium text-neutral">Usuarios</p>
-                                <p class="text-2xl font-semibold text-primary">--</p>
+                                <p class="text-2xl font-semibold text-primary">{{ $numUsuarios }}</p>
                             </div>
                         </div>
                     </div>

@@ -12,6 +12,7 @@ use App\Http\Controllers\OdsController;
 use App\Http\Controllers\ProyectoController;
 use App\Http\Controllers\PndController;
 use App\Http\Controllers\PlanController;
+use App\Http\Controllers\DashboardController;
 /*
 
 /*
@@ -32,10 +33,9 @@ Route::get('/', function () {
 });
 
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
-
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+});
 
 //Route::resource('entidades', EntidadController::class);
 //Route::resource('unidades', UnidadController::class);
