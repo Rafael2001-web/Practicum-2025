@@ -78,7 +78,7 @@
                                                     Ver
                                                 </a>
                                                 <a href="{{ route('entidades.edit', $entidad->idEntidad) }}" 
-                                                   class="text-indigo-600 hover:text-indigo-900 font-medium transition-colors duration-150">
+                                                   class="text-neutral hover:text-primary font-medium transition-colors duration-150">
                                                     Editar
                                                 </a>
                                                 <form action="{{ route('entidades.destroy', $entidad->idEntidad) }}" method="POST" 
