@@ -1,69 +1,47 @@
-<style>
-    body {
-        font-family: Arial, sans-serif;
-        background-color: #f2f2f2;
-        padding: 20xp;
-    }
-    h1{
-        text-aling: center;
-        color: #333333;
-    }
-    table{
-        width: 100%;
-        border-collapse: collapse;
-        margin-top: 20px;
-        background-color: #fff;
-        box-shadow: 0 0 10px rgba(0,0,0,0.1)
-    }
-    th, td {
-        border: 1px solid #ddd;
-        padding: 12px;
-        text-aling: left;
-    }
-    th {
-        background-color: #f2f2f2;
-    }
-    tr:nth-child(even) {
-        background-color: #f9f9f9;
-    }
-    tr:hover {
-        background-color: #e9e9e9;
-    }
-    </style>
+<x-app-layout>
+    @section('title', 'Objetivos Estratégicos')
 
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-white leading-tight">
+            {{ __('Listado de Objetivos Estratégicos') }}
+        </h2>
+    </x-slot>
 
+    <x-table 
+        :headers="[
+            ['label' => 'ID', 'type' => 'text'],
+            ['label' => 'Fecha de Registro', 'type' => 'date'],
+            ['label' => 'Descripción', 'type' => 'text'],
+            ['label' => 'Estado', 'type' => 'badge']
+        ]"
+        :csv="true"
+        :print="true"
+        id="objestrategicos-show-table"
+        title="Listado de Objetivos Estratégicos"
+    >
+        <x-slot name="buttons">
+            <a href="{{ URL('objEstrategicos/pdf') }}" target="_blank" 
+               class="inline-flex items-center px-4 py-2 bg-color1 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-color2 active:bg-color1 focus:outline-none focus:border-color1 focus:ring ring-color1 disabled:opacity-25 transition ease-in-out duration-150">
+                Generar Reporte PDF
+            </a>
+        </x-slot>
 
-    <h1>Listado de Objetivos Estratégicos</h1>
-
-    
-    {{-- Tabla para listar todos los Objetivos Estratégicos --}}
-
-    <table style="background-color: #f8f8fa;">
-
-        <thead>
-            <tr>
-                <th style="border: 1px solid #0933ee; padding: 8px">Id</th>
-                <th style="border: 1px solid #0933ee; padding: 8px">Fecha de Registro</th>
-                <th style="border: 1px solid #0933ee; padding: 8px">Descripción</th>
-                <th style="border: 1px solid #0933ee; padding: 8px">Estado</th>
-
-            </tr>
-        </thead>
         <tbody>
-
             @foreach($objEstrategicos as $objEstrategico)
-                <tr>
-                    <td style="border: 1px solid #ccc; padding: 8px">{{$objEstrategico->idobjEstrategico}}</td>
-                    <td style="border: 1px solid #ccc; padding: 8px">{{$objEstrategico->fechaRegistro}}</td>
-                    <td style="border: 1px solid #ccc; padding: 8px">{{$objEstrategico->descripcion}}</td>
-                    <td style="border: 1px solid #ccc; padding: 8px">{{$objEstrategico->estado}}</td>
-                    
+                <tr class="hover:bg-gray-50">
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ $objEstrategico->idobjEstrategico }}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ $objEstrategico->fechaRegistro }}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ $objEstrategico->descripcion }}</td>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full 
+                            @if ($objEstrategico->estado == 'activo') bg-green-100 text-green-800
+                            @elseif($objEstrategico->estado == 'inactivo') bg-red-100 text-red-800
+                            @else bg-gray-100 text-gray-800 @endif">
+                            {{ ucfirst($objEstrategico->estado) }}
+                        </span>
+                    </td>
                 </tr>
             @endforeach
-
         </tbody>
-
-
-
-    </table>
-<a href="{{ URL('objEstrategicos/pdf') }}" target="_blank" ><button style="background-color: #64df64; color: rgb(255, 255, 255);">Generar reporte</button></a>
+    </x-table>
+</x-app-layout>

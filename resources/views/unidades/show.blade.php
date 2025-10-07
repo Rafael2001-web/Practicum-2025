@@ -1,70 +1,44 @@
-<style>
-    body {
-        font-family: Arial, sans-serif;
-        background-color: #f2f2f2;
-        padding: 20xp;
-    }
-    h1{
-        text-aling: center;
-        color: #333333;
-    }
-    table{
-        width: 100%;
-        border-collapse: collapse;
-        margin-top: 20px;
-        background-color: #fff;
-        box-shadow: 0 0 10px rgba(0,0,0,0.1)
-    }
-    th, td {
-        border: 1px solid #ddd;
-        padding: 12px;
-        text-aling: left;
-    }
-    th {
-        background-color: #f2f2f2;
-    }
-    tr:nth-child(even) {
-        background-color: #f9f9f9;
-    }
-    tr:hover {
-        background-color: #e9e9e9;
-    }
-    </style>
+<x-app-layout>
+    @section('title', 'Listado de Unidades')
 
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-white leading-tight">
+            {{ __('Listado de Unidades') }}
+        </h2>
+    </x-slot>
 
+    <x-table 
+        :headers="[
+            ['label' => 'ID', 'type' => 'text'],
+            ['label' => 'Macrosector', 'type' => 'text'],
+            ['label' => 'Sector', 'type' => 'text'],
+            ['label' => 'Estado', 'type' => 'text']
+        ]"
+        :csv="true"
+        :print="true"
+        id="unidades-show-table"
+        title="Listado de Unidades"
+    >
+        <x-slot name="buttons">
+            <a href="{{ URL('unidades/pdf') }}" target="_blank" 
+               class="inline-flex items-center px-4 py-2 bg-color1 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-color2 active:bg-color1 focus:outline-none focus:border-color1 focus:ring ring-color1 disabled:opacity-25 transition ease-in-out duration-150">
+                Generar Reporte PDF
+            </a>
+        </x-slot>
 
-
-
-    <h1>Listado de entidades</h1>
-
-    
-    {{-- Tabla para listar todas las entidades --}}
-
-    <table style="background-color: #f8f8fa;">
-
-        <thead>
-            <tr>
-                <th style="border: 1px solid #4550eb; padding: 8px">ID</th>
-                <th style="border: 1px solid #4550eb; padding: 8px">Macrosector</th>
-                <th style="border: 1px solid #4550eb; padding: 8px">Sector</th>
-                <th style="border: 1px solid #4550eb; padding: 8px">Estado</th>
-            </tr>
-        </thead>
         <tbody>
-
             @foreach($unidades as $unidad)
-                <tr>
-                    <td style="border: 1px solid #ccc; padding: 8px">{{$unidad->idUnidad}}</td>
-                    <td style="border: 1px solid #ccc; padding: 8px">{{$unidad->macrosector}}</td>
-                    <td style="border: 1px solid #ccc; padding: 8px">{{$unidad->sector}}</td>
-                    <td style="border: 1px solid #ccc; padding: 8px">{{$unidad->estado ? 'Activo' : 'Inactivo'}}</td>
-                    
+                <tr class="hover:bg-gray-50">
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ $unidad->idUnidad }}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ $unidad->macrosector }}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ $unidad->sector }}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full {{ $unidad->estado ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800' }}">
+                            {{ $unidad->estado ? 'Activo' : 'Inactivo' }}
+                        </span>
+                    </td>
                 </tr>
             @endforeach
-    
-
         </tbody>
-
-    </table>
-
-<a href="{{ URL('unidades/pdf') }}" target="_blank" ><button style="background-color: #64df64; color: rgb(255, 255, 255);">Generar reporte</button></a>
+    </x-table>
+</x-app-layout>

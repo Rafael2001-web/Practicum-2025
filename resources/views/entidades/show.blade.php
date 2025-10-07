@@ -1,81 +1,53 @@
-<style>
-    body {
-        font-family: Arial, sans-serif;
-        background-color: #f2f2f2;
-        padding: 20xp;
-    }
-    h1{
-        text-aling: center;
-        color: #333333;
-    }
-    table{
-        width: 100%;
-        border-collapse: collapse;
-        margin-top: 20px;
-        background-color: #fff;
-        box-shadow: 0 0 10px rgba(0,0,0,0.1)
-    }
-    th, td {
-        border: 1px solid #ddd;
-        padding: 12px;
-        text-aling: left;
-    }
-    th {
-        background-color: #f2f2f2;
-    }
-    tr:nth-child(even) {
-        background-color: #f9f9f9;
-    }
-    tr:hover {
-        background-color: #e9e9e9;
-    }
-    </style>
+<x-app-layout>
+    @section('title', 'Listado de Entidades')
 
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-white leading-tight">
+            {{ __('Listado de Entidades') }}
+        </h2>
+    </x-slot>
 
+    <x-table 
+        :headers="[
+            ['label' => 'ID', 'type' => 'text'],
+            ['label' => 'Código', 'type' => 'text'],
+            ['label' => 'Subsector', 'type' => 'text'],
+            ['label' => 'Nivel de Gobierno', 'type' => 'text'],
+            ['label' => 'Estado', 'type' => 'badge'],
+            ['label' => 'Fecha de Creación', 'type' => 'date'],
+            ['label' => 'Fecha de Actualización', 'type' => 'date']
+        ]"
+        :csv="true"
+        :print="true"
+        id="entidades-show-table"
+        title="Listado de Entidades"
+    >
+        <x-slot name="buttons">
+            <a href="{{ URL('entidades/pdf') }}" target="_blank" 
+               class="inline-flex items-center px-4 py-2 bg-color1 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-color2 active:bg-color1 focus:outline-none focus:border-color1 focus:ring ring-color1 disabled:opacity-25 transition ease-in-out duration-150">
+                Generar Reporte PDF
+            </a>
+        </x-slot>
 
-
-
-    <h1>Listado de entidades</h1>
-
-    
-    {{-- Tabla para listar todas los PND --}}
-
-    <table style="background-color: #f8f8fa;">
-
-        <thead>
-            <tr>
-                <th style="border: 1px solid #4550eb; padding: 8px">ID</th>
-                <th style="border: 1px solid #4550eb; padding: 8px">Código</th>
-                <th style="border: 1px solid #4550eb; padding: 8px">Subsector</th>
-                <th style="border: 1px solid #4550eb; padding: 8px">Nivel de Gobierno</th>
-                <th style="border: 1px solid #4550eb; padding: 8px">Estado</th>
-                <th style="border: 1px solid #4550eb; padding: 8px">Fecha de Creación</th>
-                <th style="border: 1px solid #4550eb; padding: 8px">Fecha de Actualización</th>
-            
-            </tr>
-        </thead>
         <tbody>
-
             @foreach($entidad as $entidad)
-                <tr>
-                    <td style="border: 1px solid #ccc; padding: 8px">{{$entidad->idEntidad}}</td>
-                    <td style="border: 1px solid #ccc; padding: 8px">{{$entidad->codigo}}</td>
-                    <td style="border: 1px solid #ccc; padding: 8px">{{$entidad->subSector}}</td>
-                    <td style="border: 1px solid #ccc; padding: 8px">{{$entidad->nivelGobierno}}</td>
-                    <td style="border: 1px solid #ccc; padding: 8px">{{$entidad->estado}}</td>
-                    <td style="border: 1px solid #ccc; padding: 8px">{{$entidad->fechaCreacion}}</td>
-                    <td style="border: 1px solid #ccc; padding: 8px">{{$entidad->fechaActualizacion}}</td>
-                   
-
+                <tr class="hover:bg-gray-50">
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ $entidad->idEntidad }}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ $entidad->codigo }}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ $entidad->subSector }}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ $entidad->nivelGobierno }}</td>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full 
+                            @if ($entidad->estado == 'activo') bg-green-100 text-green-800
+                            @elseif($entidad->estado == 'inactivo') bg-red-100 text-red-800
+                            @else bg-gray-100 text-gray-800 @endif">
+                            {{ ucfirst($entidad->estado) }}
+                        </span>
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ $entidad->fechaCreacion }}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ $entidad->fechaActualizacion }}</td>
                 </tr>
             @endforeach
-
-         
-
         </tbody>
-
-
-
-    </table>
-
-<a href="{{ URL('entidades/pdf') }}" target="_blank" ><button style="background-color: #64df64; color: rgb(255, 255, 255);">Generar reporte</button></a>
+    </x-table>
+</x-app-layout>

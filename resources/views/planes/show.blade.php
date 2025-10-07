@@ -1,78 +1,55 @@
-<style>
-    body {
-        font-family: Arial, sans-serif;
-        background-color: #f2f2f2;
-        padding: 20xp;
-    }
-    h1{
-        text-aling: center;
-        color: #333333;
-    }
-    table{
-        width: 100%;
-        border-collapse: collapse;
-        margin-top: 20px;
-        background-color: #fff;
-        box-shadow: 0 0 10px rgba(0,0,0,0.1)
-    }
-    th, td {
-        border: 1px solid #ddd;
-        padding: 12px;
-        text-aling: left;
-    }
-    th {
-        background-color: #f2f2f2;
-    }
-    tr:nth-child(even) {
-        background-color: #f9f9f9;
-    }
-    tr:hover {
-        background-color: #e9e9e9;
-    }
-    </style>
+<x-app-layout>
+    @section('title', 'Listado de Planes')
 
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-white leading-tight">
+            {{ __('Listado de Planes') }}
+        </h2>
+    </x-slot>
 
+    <x-table 
+        :headers="[
+            ['label' => 'ID', 'type' => 'text'],
+            ['label' => 'Código', 'type' => 'text'],
+            ['label' => 'Nombre', 'type' => 'text'],
+            ['label' => 'Entidad', 'type' => 'text'],
+            ['label' => 'Presupuesto', 'type' => 'currency'],
+            ['label' => 'Fecha Inicio', 'type' => 'date'],
+            ['label' => 'Fecha Fin', 'type' => 'date'],
+            ['label' => 'Estado', 'type' => 'badge']
+        ]"
+        :csv="true"
+        :print="true"
+        id="planes-show-table"
+        title="Listado de Planes"
+    >
+        <x-slot name="buttons">
+            <a href="{{ URL('planes/pdf') }}" target="_blank" 
+               class="inline-flex items-center px-4 py-2 bg-color1 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-color2 active:bg-color1 focus:outline-none focus:border-color1 focus:ring ring-color1 disabled:opacity-25 transition ease-in-out duration-150">
+                Generar Reporte PDF
+            </a>
+        </x-slot>
 
-
-
-    <h1>Listado de planes</h1>
-
-    
-    {{-- Tabla para listar todas los Planes --}}
-
-    <table style="background-color: #f8f8fa;">
-
-        <thead>
-            <tr>
-                <th style="border: 1px solid #4550eb; padding: 8px">ID</th>
-                <th style="border: 1px solid #4550eb; padding: 8px">Código</th>
-                <th style="border: 1px solid #4550eb; padding: 8px">Nombre</th>
-                <th style="border: 1px solid #4550eb; padding: 8px">Entidad</th>
-                <th style="border: 1px solid #4550eb; padding: 8px">Presupuesto</th>
-                <th style="border: 1px solid #4550eb; padding: 8px">Fecha Inicio</th>
-                <th style="border: 1px solid #4550eb; padding: 8px">Fecha Fin</th>
-                <th style="border: 1px solid #4550eb; padding: 8px">Estado</th>
-            </tr>
-        </thead>
         <tbody>
-
             @foreach($planes as $plan)
-                <tr>
-                    <td style="border: 1px solid #ccc; padding: 8px">{{$plan->idPlan}}</td>
-                   
-                    <td style="border: 1px solid #ccc; padding: 8px">{{$plan->codigo}}</td>
-                    <td style="border: 1px solid #ccc; padding: 8px">{{$plan->nombre}}</td>
-                    <td style="border: 1px solid #ccc; padding: 8px">{{$plan->entidad}}</td>
-                    <td style="border: 1px solid #ccc; padding: 8px">{{$plan->presupuesto}}</td>
-                    <td style="border: 1px solid #ccc; padding: 8px">{{$plan->fecha_inicio}}</td>
-                    <td style="border: 1px solid #ccc; padding: 8px">{{$plan->fecha_fin}}</td>
-                    <td style="border: 1px solid #ccc; padding: 8px">{{$plan->estado}}</td>
-
+                <tr class="hover:bg-gray-50">
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ $plan->idPlan }}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ $plan->codigo }}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ $plan->nombre }}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ $plan->entidad }}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">${{ number_format($plan->presupuesto, 2) }}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ $plan->fecha_inicio }}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ $plan->fecha_fin }}</td>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full 
+                            @if ($plan->estado == 'activo') bg-green-100 text-green-800
+                            @elseif($plan->estado == 'inactivo') bg-red-100 text-red-800
+                            @else bg-gray-100 text-gray-800 @endif">
+                            {{ ucfirst($plan->estado) }}
+                        </span>
+                    </td>
                 </tr>
             @endforeach
- 
         </tbody>
-
-    </table>
-
-<a href="{{ URL('planes/pdf') }}" target="_blank" ><button style="background-color: #64df64; color: rgb(255, 255, 255);">Generar reporte</button></a>
+    </x-table>
+</x-app-layout>
