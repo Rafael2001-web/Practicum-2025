@@ -74,7 +74,7 @@ class UnidadController extends Controller
         ]);
 
         $unidades = Unidad::findOrfail($id);
-        $unidades->update($request->all()); // error
+        $unidades->update($request->all());
 
         return redirect()->route('unidades.index')->with('success', 'Unidad Actualizada Satisfactoriamente');
 

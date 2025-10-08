@@ -12,7 +12,7 @@ class ProyectoController extends Controller
      */
     public function index()
     {
-        $proyectos = Proyecto::latest()->paginate(10);
+        $proyectos = Proyecto::all();
         return view('proyectos.index', compact('proyectos')); 
     }
 

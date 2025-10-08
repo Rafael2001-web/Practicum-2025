@@ -59,20 +59,33 @@
                                                    class="text-secondary hover:text-accent font-medium transition-colors duration-150">
                                                     Ver
                                                 </a>
-                                                <a href="{{ route('pnd.edit', $pnd->idPnd) }}" 
-                                                   class="text-neutral hover:text-primary font-medium transition-colors duration-150">
+                                                <button x-data 
+                                                        x-on:click="
+                                                            $dispatch('open-modal', 'edit-pnd-modal');
+                                                            // Llenar los campos del formulario
+                                                            document.getElementById('edit-pnd-form').action = '{{ route('pnd.update', $pnd->idPnd) }}';
+                                                            document.getElementById('edit_eje').value = {{ json_encode($pnd->eje) }};
+                                                            document.getElementById('edit_objetivoN').value = '{{ $pnd->objetivoN }}';
+                                                            document.getElementById('edit_descripcion').value = {{ json_encode($pnd->descripcion) }};
+                                                        "
+                                                        class="text-neutral hover:text-primary font-medium transition-colors duration-150">
                                                     Editar
-                                                </a>
-                                                <form action="{{ route('pnd.destroy', $pnd->idPnd) }}" method="POST" 
-                                                      class="inline-block"
-                                                      onsubmit="return confirm('¿Estás seguro de querer eliminar este Objetivo PND?');">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit" 
-                                                            class="text-red-600 hover:text-red-900 font-medium transition-colors duration-150">
+                                                </button>
+                                                <button x-data 
+                                                        x-on:click="
+                                                            $dispatch('open-modal', 'delete-pnd-modal');
+                                                            document.getElementById('delete-pnd-form').action = '{{ route('pnd.destroy', $pnd->idPnd) }}';
+                                                            document.getElementById('delete-pnd-name').textContent = {{ json_encode($pnd->objetivoN) }};
+                                                        "
+                                                        class="text-red-600 hover:text-red-900 font-medium transition-colors duration-150">
+                                                    <svg class="w-4 h-4 inline mr-1" fill="none"
+                                                        stroke="currentColor" viewBox="0 0 24 24">
+                                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                                            stroke-width="2"
+                                                            d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                                                    </svg>
                                                         Eliminar
-                                                    </button>
-                                                </form>
+                                                </button>
                                             </div>
                                         </td>
                                     </tr>
@@ -84,4 +97,55 @@
             </div>
         </div>
     </div>
+
+    {{-- Delete Modal --}}
+    <x-modal name="delete-pnd-modal" maxWidth="md">
+        <div class="p-6">
+            <div class="flex items-center justify-between mb-6">
+                <h3 class="text-lg font-semibold text-primary">
+                    Confirmar Eliminación
+                </h3>
+                <button x-on:click="$dispatch('close-modal', 'delete-pnd-modal')"
+                    class="text-neutral hover:text-primary transition-colors duration-150">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+            </div>
+            
+            <div class="mb-6">
+                <div class="flex items-center mb-4">
+                    <div class="mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-red-100">
+                        <svg class="h-6 w-6 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z"/>
+                        </svg>
+                    </div>
+                </div>
+                <div class="text-center">
+                    <h3 class="text-lg leading-6 font-medium text-primary mb-2">
+                        ¿Estás seguro de que deseas eliminar este objetivo PND?
+                    </h3>
+                    <p class="text-sm text-neutral">
+                        El objetivo "<span id="delete-pnd-name" class="font-semibold"></span>" será eliminado permanentemente. Esta acción no se puede deshacer.
+                    </p>
+                </div>
+            </div>
+            
+            <div class="flex justify-end space-x-3">
+                <x-secondary-button x-on:click="$dispatch('close-modal', 'delete-pnd-modal')">
+                    Cancelar
+                </x-secondary-button>
+                <form id="delete-pnd-form" method="POST" class="inline">
+                    @csrf
+                    @method('DELETE')
+                    <x-danger-button type="submit">
+                        Eliminar Objetivo PND
+                    </x-danger-button>
+                </form>
+            </div>
+        </div>
+    </x-modal>
+
+    {{-- Edit Modal --}}
+    @include('pnd.edit')
 </x-app-layout>
