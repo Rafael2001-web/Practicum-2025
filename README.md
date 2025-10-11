@@ -147,7 +147,9 @@ Todos los módulos principales incluyen:
 
 ## 📚 Documentación Adicional
 
+- **[QUICKSTART.md](QUICKSTART.md)**: Guía rápida con comandos y referencias útiles
 - **[FACTORIES_SEEDERS.md](FACTORIES_SEEDERS.md)**: Guía completa sobre factories y seeders para generar datos de prueba realistas
+- **[CONTRIBUTING.md](CONTRIBUTING.md)**: Guía para contribuir al proyecto
 
 ## 🛠️ Tecnologías Utilizadas
 
