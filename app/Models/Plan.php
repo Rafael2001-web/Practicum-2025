@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 
 
-class plan extends Model
+class Plan extends Model
 {
     use HasFactory;
 
