@@ -39,6 +39,11 @@
                     <x-nav-link :href="route('ods.index')" :active="request()->routeIs('ods.*')">
                         {{ __('ODS') }}
                     </x-nav-link>
+                    @can('manage users')
+                    <x-nav-link :href="route('usuarios.index')" :active="request()->routeIs('usuarios.*')">
+                        {{ __('Usuarios') }}
+                    </x-nav-link>
+                    @endcan
                 </div>
             </div>
 
@@ -94,6 +99,11 @@
             <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>
+            @can('manage users')
+                <x-responsive-nav-link :href="route('usuarios.index')" :active="request()->routeIs('usuarios.*')">
+                    {{ __('Usuarios') }}
+                </x-responsive-nav-link>
+            @endcan
             <x-responsive-nav-link :href="route('entidades.index')" :active="request()->routeIs('entidades.*')">
                 {{ __('Entidades') }}
             </x-responsive-nav-link>

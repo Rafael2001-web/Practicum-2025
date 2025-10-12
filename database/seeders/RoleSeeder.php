@@ -17,6 +17,9 @@ class RoleSeeder extends Seeder
     {
         // Crear roles
         $adminRole = Role::firstOrCreate(['name' => 'admin']);
+        $managerRole = Role::firstOrCreate(['name' => 'manager']);
+        $editorRole = Role::firstOrCreate(['name' => 'editor']);
+        $viewerRole = Role::firstOrCreate(['name' => 'viewer']);
 
         // Crear permisos
         $permissions = [
@@ -30,6 +33,13 @@ class RoleSeeder extends Seeder
             'create proyectos',
             'edit proyectos',
             'delete proyectos',
+            'manage entidades',
+            'view entidades',
+            'create entidades',
+            'edit entidades',
+            'delete entidades',
+            'manage reports',
+            'view reports',
         ];
 
         foreach ($permissions as $permission) {
@@ -38,9 +48,27 @@ class RoleSeeder extends Seeder
 
         // Asignar permisos a roles
         $adminRole->givePermissionTo(Permission::all());
+        
+        $managerRole->givePermissionTo([
+            'manage proyectos', 'view proyectos', 'create proyectos', 'edit proyectos',
+            'manage entidades', 'view entidades', 'create entidades', 'edit entidades',
+            'view users', 'manage reports', 'view reports'
+        ]);
+
+        $editorRole->givePermissionTo([
+            'view proyectos', 'create proyectos', 'edit proyectos',
+            'view entidades', 'create entidades', 'edit entidades',
+            'view users', 'view reports'
+        ]);
+
+        $viewerRole->givePermissionTo([
+            'view proyectos', 'view entidades', 'view users', 'view reports'
+        ]);
 
         // Asignar a usuario admin el rol admin
         $adminUser = User::where('email', 'admin@example.com')->first();
-        $adminUser->assignRole($adminRole);
+        if($adminUser) {
+            $adminUser->assignRole($adminRole);
+        }
     }
 }
