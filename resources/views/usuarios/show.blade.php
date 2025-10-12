@@ -51,12 +51,17 @@
                                 <h3 class="text-2xl font-bold text-primary">{{ $usuario->name }}</h3>
                                 <p class="text-neutral font-mono">{{ $usuario->email }}</p>
                                 <div class="mt-2">
-                                    <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium
-                                        @if ($usuario->role == 'admin') bg-red-100 text-red-800
-                                        @elseif($usuario->role == 'user') bg-green-100 text-green-800
-                                        @else bg-gray-100 text-gray-800 @endif">
-                                        {{ ucfirst($usuario->role ?? 'Sin rol') }}
-                                    </span>
+                                    @if($usuario->roles->count() > 0)
+                                        @foreach($usuario->roles as $role)
+                                            <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-blue-100 text-blue-800 mr-2">
+                                                {{ $role->name }}
+                                            </span>
+                                        @endforeach
+                                    @else
+                                        <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-gray-100 text-gray-800">
+                                            Sin roles asignados
+                                        </span>
+                                    @endif
                                 </div>
                             </div>
                         </div>
@@ -83,10 +88,6 @@
                                         <dt class="text-sm font-medium text-gray-500">Correo Electrónico</dt>
                                         <dd class="text-sm text-gray-900 font-mono">{{ $usuario->email }}</dd>
                                     </div>
-                                    <div>
-                                        <dt class="text-sm font-medium text-gray-500">Rol del Sistema</dt>
-                                        <dd class="text-sm text-gray-900">{{ ucfirst($usuario->role ?? 'Sin rol') }}</dd>
-                                    </div>
                                 </dl>
                             </div>
 
@@ -99,9 +100,9 @@
                                     Roles y Permisos
                                 </h4>
                                 <div class="space-y-4">
-                                    {{-- Roles de Spatie --}}
+                                    {{-- Roles asignados --}}
                                     <div>
-                                        <dt class="text-sm font-medium text-gray-500 mb-2">Roles Asignados (Spatie)</dt>
+                                        <dt class="text-sm font-medium text-gray-500 mb-2">Roles Asignados</dt>
                                         @if($usuario->roles->count() > 0)
                                             <div class="flex flex-wrap gap-2">
                                                 @foreach($usuario->roles as $role)

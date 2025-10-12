@@ -67,25 +67,10 @@
                         </div>
                     </div>
 
-                    {{-- Rol del sistema --}}
-                    <div>
-                        <label for="create_role" class="block text-sm font-medium text-gray-700 mb-1">
-                            Rol del sistema <span class="text-red-500">*</span>
-                        </label>
-                        <select id="create_role" 
-                                name="role" 
-                                required
-                                class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary">
-                            <option value="">Seleccione un rol</option>
-                            <option value="admin">Administrador</option>
-                            <option value="user">Usuario</option>
-                        </select>
-                    </div>
-
-                    {{-- Roles de Spatie --}}
+                    {{-- Roles y permisos --}}
                     <div>
                         <label class="block text-sm font-medium text-gray-700 mb-2">
-                            Roles y permisos (Spatie)
+                            Roles y permisos <span class="text-red-500">*</span>
                         </label>
                         <div id="create_spatie_roles" class="space-y-2 max-h-32 overflow-y-auto border border-gray-200 rounded-md p-3">
                             {{-- Los roles se cargarán dinámicamente con JavaScript --}}

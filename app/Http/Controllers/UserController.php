@@ -44,8 +44,7 @@ class UserController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:8|confirmed',
-            'role' => 'required|in:admin,user',
-            'spatie_roles' => 'nullable|array',
+            'spatie_roles' => 'required|array|min:1',
             'spatie_roles.*' => 'exists:roles,id'
         ]);
 
@@ -53,7 +52,6 @@ class UserController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-            'role' => $request->role,
         ]);
 
         // Asignar roles de Spatie si se proporcionaron
@@ -103,15 +101,13 @@ class UserController extends Controller
                 Rule::unique('users')->ignore($usuario->id),
             ],
             'password' => 'nullable|string|min:8|confirmed',
-            'role' => 'required|in:admin,user',
-            'spatie_roles' => 'nullable|array',
+            'spatie_roles' => 'required|array|min:1',
             'spatie_roles.*' => 'exists:roles,id'
         ]);
 
         $usuario->update([
             'name' => $request->name,
             'email' => $request->email,
-            'role' => $request->role,
         ]);
 
         // Actualizar contraseña solo si se proporcionó

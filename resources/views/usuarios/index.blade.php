@@ -29,8 +29,7 @@
                                 ['label' => 'ID', 'type' => 'text'],
                                 ['label' => 'Nombre', 'type' => 'text'],
                                 ['label' => 'Email', 'type' => 'text'],
-                                ['label' => 'Rol', 'type' => 'badge'],
-                                ['label' => 'Roles Spatie', 'type' => 'text'],
+                                ['label' => 'Roles', 'type' => 'text'],
                                 ['label' => 'Fecha de Registro', 'type' => 'date'],
                                 ['label' => 'Acciones', 'type' => 'actions']
                             ]"
@@ -66,14 +65,6 @@
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap text-sm text-neutral">
                                             <span class="font-mono text-sm">{{ $usuario->email }}</span>
-                                        </td>
-                                        <td class="px-6 py-4 whitespace-nowrap">
-                                            <span class="px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full transition-colors duration-150
-                                                @if ($usuario->role == 'admin') bg-red-100 text-red-800
-                                                @elseif($usuario->role == 'user') bg-accent/20 text-primary
-                                                @else bg-gray-100 text-gray-800 @endif">
-                                                {{ ucfirst($usuario->role ?? 'Sin rol') }}
-                                            </span>
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap text-sm text-neutral">
                                             @if($usuario->roles->count() > 0)
