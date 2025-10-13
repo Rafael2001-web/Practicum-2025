@@ -16,6 +16,9 @@ class DatabaseSeeder extends Seeder
             // Primero los usuarios (necesarios para proyectos)
             AdminUserSeeder::class,
             
+            // Roles y permisos (después de usuarios)
+            RoleSeeder::class,
+            
             // Entidades base del sistema
             EntidadSeeder::class,
             UnidadSeeder::class,
