@@ -12,39 +12,158 @@
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                    <!-- Dashboard -->
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
+                        <svg class="w-4 h-4 inline mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2H5a2 2 0 00-2 2v0z"/>
+                        </svg>
                         {{ __('Dashboard') }}
                     </x-nav-link>
-                    <x-nav-link :href="route('entidades.index')" :active="request()->routeIs('entidades.*')">
-                        {{ __('Entidades') }}
-                    </x-nav-link>
-                    <x-nav-link :href="route('unidades.index')" :active="request()->routeIs('unidades.*')">
-                        {{ __('Unidades') }}
-                    </x-nav-link>
-                    <x-nav-link :href="route('planes.index')" :active="request()->routeIs('planes.*')">
-                        {{ __('Planes') }}
-                    </x-nav-link>
-                    <x-nav-link :href="route('proyectos.index')" :active="request()->routeIs('proyectos.*')">
-                        {{ __('Proyectos') }}
-                    </x-nav-link>
-                    <x-nav-link :href="route('programas.index')" :active="request()->routeIs('programas.*')">
-                        {{ __('Programas') }}
-                    </x-nav-link>
-                    <x-nav-link :href="route('pnd.index')" :active="request()->routeIs('pnd.*')">
-                        {{ __('PND') }}
-                    </x-nav-link>
-                    <x-nav-link :href="route('objEstrategicos.index')" :active="request()->routeIs('objEstrategicos.*')">
-                        {{ __('Obj. Estratégicos') }}
-                    </x-nav-link>
-                    <x-nav-link :href="route('ods.index')" :active="request()->routeIs('ods.*')">
-                        {{ __('ODS') }}
-                    </x-nav-link>
-                    @can('manage users')
-                    <x-nav-link :href="route('usuarios.index')" :active="request()->routeIs('usuarios.*')">
-                        {{ __('Usuarios') }}
-                    </x-nav-link>
-                    @endcan
+
+                    <!-- Aquí irían otros nav-links normales si los hubiera -->
                 </div>
+            </div>
+
+            <!-- Navigation Dropdowns (ubicados como el Settings dropdown) -->
+            <div class="hidden sm:flex sm:items-center sm:space-x-4">
+                <!-- Dropdowns -->
+                <!-- Dropdown de Estructura -->
+                <x-dropdown align="left" width="56">
+                    <x-slot name="trigger">
+                        <button class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-white bg-primary hover:text-gray-200 focus:outline-none transition ease-in-out duration-150">
+                            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/>
+                            </svg>
+                            <div>{{ __('Estructura') }}</div>
+                            <div class="ms-1">
+                                <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                                </svg>
+                            </div>
+                        </button>
+                        </x-slot>
+
+                        <x-slot name="content">
+                            <x-dropdown-link :href="route('entidades.index')" :class="request()->routeIs('entidades.*') ? 'bg-light text-primary' : ''">
+                                <svg class="w-4 h-4 inline mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 14v3m4-3v3m4-3v3M3 21h18M3 10h18M10.5 3L12 2l1.5 1H21l-1 6H4l-1-6h7.5z"/>
+                                </svg>
+                                {{ __('Entidades') }}
+                            </x-dropdown-link>
+                            <x-dropdown-link :href="route('unidades.index')" :class="request()->routeIs('unidades.*') ? 'bg-light text-primary' : ''">
+                                <svg class="w-4 h-4 inline mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/>
+                                </svg>
+                                {{ __('Unidades') }}
+                            </x-dropdown-link>
+                        </x-slot>
+                    </x-dropdown>
+
+                <!-- Dropdown de Planificación -->
+                <x-dropdown align="left" width="56">
+                    <x-slot name="trigger">
+                        <button class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-white bg-primary hover:text-gray-200 focus:outline-none transition ease-in-out duration-150">
+                            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"/>
+                            </svg>
+                            <div>{{ __('Planificación') }}</div>
+                            <div class="ms-1">
+                                <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                                </svg>
+                            </div>
+                        </button>
+                        </x-slot>
+
+                        <x-slot name="content">
+                            <x-dropdown-link :href="route('planes.index')" :class="request()->routeIs('planes.*') ? 'bg-light text-primary' : ''">
+                                <svg class="w-4 h-4 inline mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                                </svg>
+                                {{ __('Planes') }}
+                            </x-dropdown-link>
+                            <x-dropdown-link :href="route('pnd.index')" :class="request()->routeIs('pnd.*') ? 'bg-light text-primary' : ''">
+                                <svg class="w-4 h-4 inline mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7v8a2 2 0 002 2h6M8 7V5a2 2 0 012-2h4.586a1 1 0 01.707.293l4.414 4.414a1 1 0 01.293.707V15a2 2 0 01-2 2h-2M8 7H6a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2v-2"/>
+                                </svg>
+                                {{ __('PND') }}
+                            </x-dropdown-link>
+                            <x-dropdown-link :href="route('objEstrategicos.index')" :class="request()->routeIs('objEstrategicos.*') ? 'bg-light text-primary' : ''">
+                                <svg class="w-4 h-4 inline mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
+                                </svg>
+                                {{ __('Obj. Estratégicos') }}
+                            </x-dropdown-link>
+                            <x-dropdown-link :href="route('ods.index')" :class="request()->routeIs('ods.*') ? 'bg-light text-primary' : ''">
+                                <svg class="w-4 h-4 inline mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                </svg>
+                                {{ __('ODS') }}
+                            </x-dropdown-link>
+                        </x-slot>
+                    </x-dropdown>
+
+                <!-- Dropdown de Ejecución -->
+                <x-dropdown align="left" width="56">
+                    <x-slot name="trigger">
+                        <button class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-white bg-primary hover:text-gray-200 focus:outline-none transition ease-in-out duration-150">
+                            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                            </svg>
+                            <div>{{ __('Ejecución') }}</div>
+                            <div class="ms-1">
+                                <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                                </svg>
+                            </div>
+                        </button>
+                        </x-slot>
+
+                        <x-slot name="content">
+                            <x-dropdown-link :href="route('proyectos.index')" :class="request()->routeIs('proyectos.*') ? 'bg-light text-primary' : ''">
+                                <svg class="w-4 h-4 inline mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/>
+                                </svg>
+                                {{ __('Proyectos') }}
+                            </x-dropdown-link>
+                            <x-dropdown-link :href="route('programas.index')" :class="request()->routeIs('programas.*') ? 'bg-light text-primary' : ''">
+                                <svg class="w-4 h-4 inline mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/>
+                                </svg>
+                                {{ __('Programas') }}
+                            </x-dropdown-link>
+                        </x-slot>
+                    </x-dropdown>
+
+                    <!-- Dropdown: Administración -->
+                @can('manage users')
+                <!-- Dropdown de Administración -->
+                <x-dropdown align="left" width="56">
+                    <x-slot name="trigger">
+                        <button class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-white bg-primary hover:text-gray-200 focus:outline-none transition ease-in-out duration-150">
+                            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+                            </svg>
+                            <div>{{ __('Admin') }}</div>
+                            <div class="ms-1">
+                                <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                                </svg>
+                            </div>
+                        </button>
+                        </x-slot>
+
+                        <x-slot name="content">
+                            <x-dropdown-link :href="route('usuarios.index')" :class="request()->routeIs('usuarios.*') ? 'bg-light text-primary' : ''">
+                                <svg class="w-4 h-4 inline mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z"/>
+                                </svg>
+                                {{ __('Usuarios') }}
+                            </x-dropdown-link>
+                        </x-slot>
+                </x-dropdown>
+                @endcan
             </div>
 
             <!-- Settings Dropdown -->
@@ -96,38 +215,89 @@
     <!-- Responsive Navigation Menu -->
     <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden bg-primary">
         <div class="pt-2 pb-3 space-y-1">
+            <!-- Dashboard -->
             <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
+                <svg class="w-4 h-4 inline mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2H5a2 2 0 00-2 2v0z"/>
+                </svg>
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>
-            @can('manage users')
-                <x-responsive-nav-link :href="route('usuarios.index')" :active="request()->routeIs('usuarios.*')">
-                    {{ __('Usuarios') }}
-                </x-responsive-nav-link>
-            @endcan
-            <x-responsive-nav-link :href="route('entidades.index')" :active="request()->routeIs('entidades.*')">
+
+            <!-- Estructura Organizacional -->
+            <div class="px-3 py-2">
+                <div class="text-xs font-semibold text-white/70 uppercase tracking-wide">{{ __('Estructura') }}</div>
+            </div>
+            <x-responsive-nav-link :href="route('entidades.index')" :active="request()->routeIs('entidades.*')" class="pl-8">
+                <svg class="w-4 h-4 inline mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 14v3m4-3v3m4-3v3M3 21h18M3 10h18M10.5 3L12 2l1.5 1H21l-1 6H4l-1-6h7.5z"/>
+                </svg>
                 {{ __('Entidades') }}
             </x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('unidades.index')" :active="request()->routeIs('unidades.*')">
+            <x-responsive-nav-link :href="route('unidades.index')" :active="request()->routeIs('unidades.*')" class="pl-8">
+                <svg class="w-4 h-4 inline mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/>
+                </svg>
                 {{ __('Unidades') }}
             </x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('planes.index')" :active="request()->routeIs('planes.*')">
+
+            <!-- Planificación -->
+            <div class="px-3 py-2 mt-4">
+                <div class="text-xs font-semibold text-white/70 uppercase tracking-wide">{{ __('Planificación') }}</div>
+            </div>
+            <x-responsive-nav-link :href="route('planes.index')" :active="request()->routeIs('planes.*')" class="pl-8">
+                <svg class="w-4 h-4 inline mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                </svg>
                 {{ __('Planes') }}
             </x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('proyectos.index')" :active="request()->routeIs('proyectos.*')">
-                {{ __('Proyectos') }}
-            </x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('programas.index')" :active="request()->routeIs('programas.*')">
-                {{ __('Programas') }}
-            </x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('pnd.index')" :active="request()->routeIs('pnd.*')">
+            <x-responsive-nav-link :href="route('pnd.index')" :active="request()->routeIs('pnd.*')" class="pl-8">
+                <svg class="w-4 h-4 inline mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7v8a2 2 0 002 2h6M8 7V5a2 2 0 012-2h4.586a1 1 0 01.707.293l4.414 4.414a1 1 0 01.293.707V15a2 2 0 01-2 2h-2M8 7H6a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2v-2"/>
+                </svg>
                 {{ __('PND') }}
             </x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('objEstrategicos.index')" :active="request()->routeIs('objEstrategicos.*')">
+            <x-responsive-nav-link :href="route('objEstrategicos.index')" :active="request()->routeIs('objEstrategicos.*')" class="pl-8">
+                <svg class="w-4 h-4 inline mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
+                </svg>
                 {{ __('Obj. Estratégicos') }}
             </x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('ods.index')" :active="request()->routeIs('ods.*')">
+            <x-responsive-nav-link :href="route('ods.index')" :active="request()->routeIs('ods.*')" class="pl-8">
+                <svg class="w-4 h-4 inline mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                </svg>
                 {{ __('ODS') }}
             </x-responsive-nav-link>
+
+            <!-- Ejecución -->
+            <div class="px-3 py-2 mt-4">
+                <div class="text-xs font-semibold text-white/70 uppercase tracking-wide">{{ __('Ejecución') }}</div>
+            </div>
+            <x-responsive-nav-link :href="route('proyectos.index')" :active="request()->routeIs('proyectos.*')" class="pl-8">
+                <svg class="w-4 h-4 inline mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/>
+                </svg>
+                {{ __('Proyectos') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('programas.index')" :active="request()->routeIs('programas.*')" class="pl-8">
+                <svg class="w-4 h-4 inline mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/>
+                </svg>
+                {{ __('Programas') }}
+            </x-responsive-nav-link>
+
+            <!-- Administración -->
+            @can('manage users')
+            <div class="px-3 py-2 mt-4">
+                <div class="text-xs font-semibold text-white/70 uppercase tracking-wide">{{ __('Administración') }}</div>
+            </div>
+            <x-responsive-nav-link :href="route('usuarios.index')" :active="request()->routeIs('usuarios.*')" class="pl-8">
+                <svg class="w-4 h-4 inline mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z"/>
+                </svg>
+                {{ __('Usuarios') }}
+            </x-responsive-nav-link>
+            @endcan
         </div>
 
         <!-- Responsive Settings Options -->
