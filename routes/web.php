@@ -14,6 +14,8 @@ use App\Http\Controllers\PndController;
 use App\Http\Controllers\PlanController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\RoleController;
+use App\Http\Controllers\PermissionController;
 
 /*
 
@@ -46,6 +48,8 @@ Route::middleware('auth')->group(function () {
      Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
      Route::resource('usuarios', UserController::class)->middleware('can:manage users');
+     Route::resource('roles', RoleController::class)->middleware('can:manage users');
+     Route::resource('permissions', PermissionController::class)->middleware('can:manage users');
      //Route::resource('entidades', EntidadController::class);
      //Route::resource('unidades', UnidadController::class);
      //Route::resource('objEstrategicos', ObjEstrategicoController::class);
