@@ -28,9 +28,9 @@ class EntidadController extends Controller
         return view('entidades.create');
     }
 
-    public function show(Request $request)
+    public function show($id)
     {
-        $entidad = Entidad::all();
+        $entidad = Entidad::findOrFail($id);
         return view('entidades.show', compact('entidad'));
     }
 
