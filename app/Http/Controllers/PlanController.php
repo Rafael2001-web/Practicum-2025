@@ -27,10 +27,10 @@ class PlanController extends Controller
     }
 
 
-     public function show(Request $request)
+    public function show($id)
     {
-        $planes = Plan::all();
-        return view('planes.show', compact('planes'));
+        $plan = Plan::findOrFail($id);
+        return view('planes.show', compact('plan'));
     }
 
     /**

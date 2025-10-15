@@ -82,7 +82,15 @@
                                                     </svg> 
                                                    Ver
                                                 </a>
-                                                <button onclick="openEditModal({{ $plan->idPlan }}, {{ json_encode($plan->nombre) }}, {{ json_encode($plan->entidad) }}, '{{ $plan->presupuesto }}', {{ json_encode($plan->estado) }}, '{{ $plan->fecha_inicio }}', '{{ $plan->fecha_fin }}')"
+                                                <button onclick="openEditModal({
+                                                    idPlan: {{ $plan->idPlan }},
+                                                    nombre: {{ json_encode($plan->nombre) }},
+                                                    entidad: {{ json_encode($plan->entidad) }},
+                                                    presupuesto: '{{ $plan->presupuesto }}',
+                                                    estado: {{ json_encode($plan->estado) }},
+                                                    fecha_inicio: '{{ $plan->fecha_inicio }}',
+                                                    fecha_fin: '{{ $plan->fecha_fin }}'
+                                                })" 
                                                         class="text-neutral hover:text-primary font-medium transition-colors duration-150">
                                                     <svg class="w-4 h-4 inline mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -90,7 +98,7 @@
                                                     </svg>
                                                         Editar
                                                 </button>
-                                                <button onclick="openDeleteModal({{ $plan->idPlan }}, {{ json_encode($plan->nombre) }})"
+                                                <button onclick="openDeleteModal('{{ route('planes.destroy', $plan->idPlan) }}')"
                                                         class="text-red-600 hover:text-red-900 font-medium transition-colors duration-150">
                                                    <svg class="w-4 h-4 inline mr-1" fill="none"
                                                         stroke="currentColor" viewBox="0 0 24 24">
@@ -116,31 +124,4 @@
     @include('planes.partials.create-modal')
     @include('planes.partials.edit-modal')
     @include('planes.partials.delete-modal')
-
-    <script>
-        function openCreateModal() {
-            document.querySelector('[x-ref="create-plan-modal"]').style.display = 'flex';
-        }
-
-        function openEditModal(id, nombre, entidad, presupuesto, estado, fechaInicio, fechaFin) {
-            document.getElementById('edit-plan-form').action = `/planes/${id}`;
-            document.getElementById('edit_nombre').value = nombre;
-            document.getElementById('edit_entidad').value = entidad;
-            document.getElementById('edit_presupuesto').value = presupuesto;
-            document.getElementById('edit_estado').value = estado;
-            document.getElementById('edit_fecha_inicio').value = fechaInicio;
-            document.getElementById('edit_fecha_fin').value = fechaFin;
-            document.querySelector('[x-ref="edit-plan-modal"]').style.display = 'flex';
-        }
-
-        function openDeleteModal(id, nombre) {
-            document.getElementById('delete-plan-form').action = `/planes/${id}`;
-            document.getElementById('delete-plan-name').textContent = nombre;
-            document.querySelector('[x-ref="delete-plan-modal"]').style.display = 'flex';
-        }
-
-        function closeModal(modalRef) {
-            document.querySelector(`[x-ref="${modalRef}"]`).style.display = 'none';
-        }
-    </script>
 </x-app-layout>
