@@ -26,10 +26,10 @@ class ObjEstrategicoController extends Controller
         return redirect()->route('objEstrategicos.index');
     }
 
-    public function show(Request $request)
+    public function show($id)
     {
-         $objEstrategicos = objEstrategico::all();
-        return view('objEstrategicos.show', compact('objEstrategicos'));
+        $objEstrategico = objEstrategico::findOrFail($id);
+        return view('objEstrategicos.show', compact('objEstrategico'));
     }
 
     /**
