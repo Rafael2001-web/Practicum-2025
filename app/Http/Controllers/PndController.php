@@ -23,11 +23,8 @@ class PndController extends Controller
      */
     public function create()
     {
-         $pnd = Pnd::all();
-        return view('pnd.create', compact('pnd'));
-    }
-
-    
+        return redirect()->route('pnd.index');
+    }    
     /**
      * Display the specified resource.
      */
@@ -60,8 +57,7 @@ class PndController extends Controller
      */
     public function edit($id)
     {
-        $pnd = Pnd::findOrfail($id);
-        return view('pnd.edit', compact('pnd')); 
+        return redirect()->route('pnd.index');
     }
 
 

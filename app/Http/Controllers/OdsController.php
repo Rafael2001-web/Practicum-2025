@@ -22,8 +22,7 @@ class OdsController extends Controller
      */
     public function create()
     {
-        $ods = Ods::all();
-        return view('ods.create', compact('ods'));
+        return redirect()->route('ods.index');
     }
 
     /**
@@ -49,8 +48,7 @@ class OdsController extends Controller
      */
     public function edit($id)
     {
-        $ods = Ods::findOrfail($id);
-        return view('ods.edit', compact('ods')); 
+        return redirect()->route('ods.index');
     }
 
 

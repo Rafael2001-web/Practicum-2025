@@ -35,14 +35,14 @@
                         ]" :csv="true" :print="true" id="unidades-table"
                             title="Gestión de Unidades">
                             <x-slot name="buttons">
-                                <a href="{{ route('unidades.create') }}"
-                                    class="inline-flex items-center px-4 py-2 bg-secondary border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-accent active:bg-secondary focus:outline-none focus:border-secondary focus:ring ring-secondary/20 disabled:opacity-25 transition ease-in-out duration-150 shadow-sm">
+                                <button onclick="openCreateModal()"
+                                        class="inline-flex items-center px-4 py-2 bg-secondary border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-accent active:bg-secondary focus:outline-none focus:border-secondary focus:ring ring-secondary/20 disabled:opacity-25 transition ease-in-out duration-150 shadow-sm">
                                     <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                             d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
                                     </svg>
                                     Nueva Unidad
-                                </a>
+                                </button>
                             </x-slot>
 
                             <tbody>
@@ -75,16 +75,8 @@
                                                     </svg>
                                                     Ver
                                                 </a>
-                                                <button x-data
-                                                    x-on:click="
-                                                            $dispatch('open-modal', 'edit-unidad-modal');
-                                                            // Llenar los campos del formulario
-                                                            document.getElementById('edit-unidad-form').action = '{{ route('unidades.update', $unidad->idUnidad) }}';
-                                                            document.getElementById('edit_macrosector').value = {{ json_encode($unidad->macrosector) }};
-                                                            document.getElementById('edit_sector').value = {{ json_encode($unidad->sector) }};
-                                                            document.getElementById('edit_estado').value = '{{ $unidad->estado }}';
-                                                        "
-                                                    class="text-neutral hover:text-primary font-medium transition-colors duration-150">
+                                                <button onclick="openEditModal({{ json_encode($unidad) }})"
+                                                        class="text-neutral hover:text-primary font-medium transition-colors duration-150">
                                                     <svg class="w-4 h-4 inline mr-1" fill="none"
                                                         stroke="currentColor" viewBox="0 0 24 24">
                                                         <path stroke-linecap="round" stroke-linejoin="round"
@@ -93,13 +85,8 @@
                                                     </svg>
                                                     Editar
                                                 </button>
-                                                <button x-data
-                                                    x-on:click="
-                                                            $dispatch('open-modal', 'delete-unidad-modal');
-                                                            document.getElementById('delete-unidad-form').action = '{{ route('unidades.destroy', $unidad->idUnidad) }}';
-                                                            document.getElementById('delete-unidad-name').textContent = {{ json_encode($unidad->sector) }};
-                                                        "
-                                                    class="text-red-600 hover:text-red-900 font-medium transition-colors duration-150">
+                                                <button onclick="openDeleteModal({{ json_encode($unidad) }})"
+                                                        class="text-red-600 hover:text-red-900 font-medium transition-colors duration-150">
                                                     <svg class="w-4 h-4 inline mr-1" fill="none"
                                                         stroke="currentColor" viewBox="0 0 24 24">
                                                         <path stroke-linecap="round" stroke-linejoin="round"
@@ -121,56 +108,74 @@
     </div>
 
     {{-- Delete Modal --}}
-    <x-modal name="delete-unidad-modal" maxWidth="md">
-        <div class="p-6">
-            <div class="flex items-center justify-between mb-6">
-                <h3 class="text-lg font-semibold text-primary">
-                    Confirmar Eliminación
-                </h3>
-                <button x-on:click="$dispatch('close-modal', 'delete-unidad-modal')"
-                    class="text-neutral hover:text-primary transition-colors duration-150">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M6 18L18 6M6 6l12 12" />
-                    </svg>
-                </button>
-            </div>
-
-            <div class="mb-6">
-                <div class="flex items-center mb-4">
-                    <div
-                        class="mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-red-100">
-                        <svg class="h-6 w-6 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z" />
-                        </svg>
-                    </div>
-                </div>
-                <div class="text-center">
-                    <h3 class="text-lg leading-6 font-medium text-primary mb-2">
-                        ¿Estás seguro de que deseas eliminar esta unidad?
-                    </h3>
-                    <p class="text-sm text-neutral">
-                        La unidad "<span id="delete-unidad-name" class="font-semibold"></span>" será eliminada
-                        permanentemente. Esta acción no se puede deshacer.
-                    </p>
-                </div>
-            </div>
-
-            <div class="flex justify-end space-x-3">
-                <x-secondary-button x-on:click="$dispatch('close-modal', 'delete-unidad-modal')">
-                    Cancelar
-                </x-secondary-button>
-                <form id="delete-unidad-form" method="POST" class="inline">
-                    @csrf
-                    @method('DELETE')
-                    <x-danger-button type="submit">
-                        Eliminar Unidad
-                    </x-danger-button>
-                </form>
-            </div>
         </div>
-    </x-modal>
+
+    {{-- Incluir modales --}}
+    @include('unidades.partials.create-modal')
+    @include('unidades.partials.edit-modal')
+    @include('unidades.partials.delete-modal')
+
+    <script>
+        function openCreateModal() {
+            document.getElementById('createModal').classList.remove('hidden');
+        }
+
+        function closeCreateModal() {
+            document.getElementById('createModal').classList.add('hidden');
+        }
+
+        function openEditModal(unidad) {
+            document.getElementById('editForm').action = `/unidades/${unidad.idUnidad}`;
+            document.getElementById('edit_macrosector').value = unidad.macrosector;
+            document.getElementById('edit_sector').value = unidad.sector;
+            document.getElementById('edit_estado').value = unidad.estado;
+            document.getElementById('editModal').classList.remove('hidden');
+        }
+
+        function closeEditModal() {
+            document.getElementById('editModal').classList.add('hidden');
+        }
+
+        function openDeleteModal(unidad) {
+            document.getElementById('deleteForm').action = `/unidades/${unidad.idUnidad}`;
+            document.getElementById('deleteModal').classList.remove('hidden');
+        }
+
+        function closeDeleteModal() {
+            document.getElementById('deleteModal').classList.add('hidden');
+        }
+
+        // Ejecutar cuando el DOM esté listo
+        document.addEventListener('DOMContentLoaded', function() {
+            // Cerrar modal al hacer clic fuera de él
+            const createModal = document.getElementById('createModal');
+            if (createModal) {
+                createModal.addEventListener('click', function(e) {
+                    if (e.target === this) {
+                        closeCreateModal();
+                    }
+                });
+            }
+            
+            const editModal = document.getElementById('editModal');
+            if (editModal) {
+                editModal.addEventListener('click', function(e) {
+                    if (e.target === this) {
+                        closeEditModal();
+                    }
+                });
+            }
+            
+            const deleteModal = document.getElementById('deleteModal');
+            if (deleteModal) {
+                deleteModal.addEventListener('click', function(e) {
+                    if (e.target === this) {
+                        closeDeleteModal();
+                    }
+                });
+            }
+        });
+    </script>
 
     {{-- Edit Modal --}}
     @include('unidades.edit')

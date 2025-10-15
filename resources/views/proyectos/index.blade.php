@@ -38,13 +38,13 @@
                             title="Gestión de Proyectos de Inversión"
                         >
                             <x-slot name="buttons">
-                                <a href="{{ route('proyectos.create') }}" 
+                                <button onclick="openCreateModal()"
                                    class="inline-flex items-center px-4 py-2 bg-secondary border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-accent active:bg-secondary focus:outline-none focus:border-secondary focus:ring ring-secondary/20 disabled:opacity-25 transition ease-in-out duration-150 shadow-sm">
                                     <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"/>
                                     </svg>
                                     Nuevo Proyecto
-                                </a>
+                                </button>
                             </x-slot>
 
                             <tbody>
@@ -78,19 +78,7 @@
                                                     </svg> 
                                                    Ver
                                                 </a>
-                                                <button x-data 
-                                                        x-on:click="
-                                                            $dispatch('open-modal', 'edit-proyecto-modal');
-                                                            // Llenar los campos del formulario
-                                                            document.getElementById('edit-proyecto-form').action = '{{ route('proyectos.update', $proyecto) }}';
-                                                            document.getElementById('edit_nombre').value = {{ json_encode($proyecto->nombre) }};
-                                                            document.getElementById('edit_descripcion').value = {{ json_encode($proyecto->descripcion) }};
-                                                            document.getElementById('edit_sector').value = {{ json_encode($proyecto->sector) }};
-                                                            document.getElementById('edit_fecha_inicio').value = '{{ \Carbon\Carbon::parse($proyecto->fecha_inicio)->format('Y-m-d') }}';
-                                                            document.getElementById('edit_fecha_fin').value = '{{ \Carbon\Carbon::parse($proyecto->fecha_fin)->format('Y-m-d') }}';
-                                                            document.getElementById('edit_presupuesto').value = '{{ $proyecto->presupuesto }}';
-                                                            document.getElementById('edit_estado').value = {{ json_encode($proyecto->estado) }};
-                                                        "
+                                                <button onclick="openEditModal({{ $proyecto->id }}, {{ json_encode($proyecto->codigo) }}, {{ json_encode($proyecto->nombre) }}, {{ json_encode($proyecto->descripcion) }}, {{ json_encode($proyecto->sector) }}, '{{ \Carbon\Carbon::parse($proyecto->fecha_inicio)->format('Y-m-d') }}', '{{ \Carbon\Carbon::parse($proyecto->fecha_fin)->format('Y-m-d') }}', '{{ $proyecto->presupuesto }}', {{ json_encode($proyecto->estado) }}, '{{ $proyecto->user_id }}')"
                                                         class="text-neutral hover:text-primary font-medium transition-colors duration-150">
                                                     <svg class="w-4 h-4 inline mr-1" fill="none"
                                                         stroke="currentColor" viewBox="0 0 24 24">
@@ -100,12 +88,7 @@
                                                     </svg>
                                                         Editar
                                                 </button>
-                                                <button x-data 
-                                                        x-on:click="
-                                                            $dispatch('open-modal', 'delete-proyecto-modal');
-                                                            document.getElementById('delete-proyecto-form').action = '{{ route('proyectos.destroy', $proyecto) }}';
-                                                            document.getElementById('delete-proyecto-name').textContent = {{ json_encode($proyecto->nombre) }};
-                                                        "
+                                                <button onclick="openDeleteModal({{ $proyecto->id }}, {{ json_encode($proyecto->nombre) }})"
                                                         class="text-red-600 hover:text-red-900 font-medium transition-colors duration-150">
                                                     <svg class="w-4 h-4 inline mr-1" fill="none"
                                                         stroke="currentColor" viewBox="0 0 24 24">
@@ -127,54 +110,38 @@
         </div>
     </div>
 
-    {{-- Delete Modal --}}
-    <x-modal name="delete-proyecto-modal" maxWidth="md">
-        <div class="p-6">
-            <div class="flex items-center justify-between mb-6">
-                <h3 class="text-lg font-semibold text-primary">
-                    Confirmar Eliminación
-                </h3>
-                <button x-on:click="$dispatch('close-modal', 'delete-proyecto-modal')"
-                    class="text-neutral hover:text-primary transition-colors duration-150">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                    </svg>
-                </button>
-            </div>
-            
-            <div class="mb-6">
-                <div class="flex items-center mb-4">
-                    <div class="mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-red-100">
-                        <svg class="h-6 w-6 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z"/>
-                        </svg>
-                    </div>
-                </div>
-                <div class="text-center">
-                    <h3 class="text-lg leading-6 font-medium text-primary mb-2">
-                        ¿Estás seguro de que deseas eliminar este proyecto?
-                    </h3>
-                    <p class="text-sm text-neutral">
-                        El proyecto "<span id="delete-proyecto-name" class="font-semibold"></span>" será eliminado permanentemente. Esta acción no se puede deshacer.
-                    </p>
-                </div>
-            </div>
-            
-            <div class="flex justify-end space-x-3">
-                <x-secondary-button x-on:click="$dispatch('close-modal', 'delete-proyecto-modal')">
-                    Cancelar
-                </x-secondary-button>
-                <form id="delete-proyecto-form" method="POST" class="inline">
-                    @csrf
-                    @method('DELETE')
-                    <x-danger-button type="submit">
-                        Eliminar Proyecto
-                    </x-danger-button>
-                </form>
-            </div>
-        </div>
-    </x-modal>
+    {{-- Modales --}}
+    @include('proyectos.partials.create-modal')
+    @include('proyectos.partials.edit-modal')
+    @include('proyectos.partials.delete-modal')
 
-    {{-- Edit Modal --}}
-    @include('proyectos.edit')
+    <script>
+        function openCreateModal() {
+            document.querySelector('[x-ref="create-proyecto-modal"]').style.display = 'flex';
+        }
+
+        function openEditModal(id, codigo, nombre, descripcion, sector, fechaInicio, fechaFin, presupuesto, estado, userId) {
+            document.getElementById('edit-proyecto-form').action = `/proyectos/${id}`;
+            document.getElementById('edit_codigo').value = codigo;
+            document.getElementById('edit_nombre').value = nombre;
+            document.getElementById('edit_descripcion').value = descripcion;
+            document.getElementById('edit_sector').value = sector;
+            document.getElementById('edit_fecha_inicio').value = fechaInicio;
+            document.getElementById('edit_fecha_fin').value = fechaFin;
+            document.getElementById('edit_presupuesto').value = presupuesto;
+            document.getElementById('edit_estado').value = estado;
+            document.getElementById('edit_user_id').value = userId;
+            document.querySelector('[x-ref="edit-proyecto-modal"]').style.display = 'flex';
+        }
+
+        function openDeleteModal(id, nombre) {
+            document.getElementById('delete-proyecto-form').action = `/proyectos/${id}`;
+            document.getElementById('delete-proyecto-name').textContent = nombre;
+            document.querySelector('[x-ref="delete-proyecto-modal"]').style.display = 'flex';
+        }
+
+        function closeModal(modalRef) {
+            document.querySelector(`[x-ref="${modalRef}"]`).style.display = 'none';
+        }
+    </script>
 </x-app-layout>

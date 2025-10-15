@@ -40,13 +40,13 @@
                             id="entidades-table"
                         >
                             <x-slot name="buttons">
-                                <a href="{{ route('entidades.create') }}" 
-                                   class="inline-flex items-center px-4 py-2 bg-secondary border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-accent active:bg-secondary focus:outline-none focus:border-secondary focus:ring ring-secondary/20 disabled:opacity-25 transition ease-in-out duration-150 shadow-sm">
+                                <button onclick="openCreateModal()" 
+                                        class="inline-flex items-center px-4 py-2 bg-secondary border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-accent active:bg-secondary focus:outline-none focus:border-secondary focus:ring ring-secondary/20 disabled:opacity-25 transition ease-in-out duration-150 shadow-sm">
                                     <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"/>
                                     </svg>
                                     Nueva Entidad
-                                </a>
+                                </button>
                             </x-slot>
 
                             <tbody>
@@ -89,7 +89,7 @@
                                                     </svg>
                                                     Editar
                                                 </button>
-                                                <button onclick="openDeleteModal('{{ route('entidades.destroy', $entidad->idEntidad) }}')" 
+                                                <button onclick="openDeleteModal({{ json_encode($entidad) }})" 
                                                         class="text-red-600 hover:text-red-900 font-medium transition-colors duration-150">
                                                     <svg class="w-4 h-4 inline mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
@@ -108,7 +108,72 @@
         </div>
     </div>
 
-    <!-- Modales -->
-    <x-delete-modal title="Eliminar Entidad" message="¿Estás seguro de que deseas eliminar esta entidad? Esta acción no se puede deshacer." />
-    @include('entidades.edit')
+    {{-- Incluir modales --}}
+    @include('entidades.partials.create-modal')
+    @include('entidades.partials.edit-modal')
+    @include('entidades.partials.delete-modal')
+
+    <script>
+        function openCreateModal() {
+            document.getElementById('createModal').classList.remove('hidden');
+        }
+
+        function closeCreateModal() {
+            document.getElementById('createModal').classList.add('hidden');
+        }
+
+        function openEditModal(entidad) {
+            document.getElementById('editForm').action = `/entidades/${entidad.idEntidad}`;
+            document.getElementById('edit_codigo').value = entidad.codigo;
+            document.getElementById('edit_subSector').value = entidad.subSector;
+            document.getElementById('edit_nivelGobierno').value = entidad.nivelGobierno;
+            document.getElementById('edit_estado').value = entidad.estado;
+            document.getElementById('edit_fechaCreacion').value = entidad.fechaCreacion;
+            document.getElementById('editModal').classList.remove('hidden');
+        }
+
+        function closeEditModal() {
+            document.getElementById('editModal').classList.add('hidden');
+        }
+
+        function openDeleteModal(entidad) {
+            document.getElementById('deleteForm').action = `/entidades/${entidad.idEntidad}`;
+            document.getElementById('deleteModal').classList.remove('hidden');
+        }
+
+        function closeDeleteModal() {
+            document.getElementById('deleteModal').classList.add('hidden');
+        }
+
+        // Ejecutar cuando el DOM esté listo
+        document.addEventListener('DOMContentLoaded', function() {
+            // Cerrar modal al hacer clic fuera de él
+            const createModal = document.getElementById('createModal');
+            if (createModal) {
+                createModal.addEventListener('click', function(e) {
+                    if (e.target === this) {
+                        closeCreateModal();
+                    }
+                });
+            }
+            
+            const editModal = document.getElementById('editModal');
+            if (editModal) {
+                editModal.addEventListener('click', function(e) {
+                    if (e.target === this) {
+                        closeEditModal();
+                    }
+                });
+            }
+            
+            const deleteModal = document.getElementById('deleteModal');
+            if (deleteModal) {
+                deleteModal.addEventListener('click', function(e) {
+                    if (e.target === this) {
+                        closeDeleteModal();
+                    }
+                });
+            }
+        });
+    </script>
 </x-app-layout>

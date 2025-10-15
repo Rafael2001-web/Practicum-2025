@@ -24,11 +24,8 @@ class ProgramaController extends Controller
      */
     public function create()
     {
-        $entidades = Entidad::all();
-        return view('programas.create', compact('entidades'));
-    }
-
-    /**
+        return redirect()->route('programas.index');
+    }    /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
@@ -52,12 +49,8 @@ class ProgramaController extends Controller
      */
     public function edit($id)
     {
-        $programa = Programa::findOrfail($id);
-        $entidades = Entidad::all();
-        return view('programas.edit', compact('programa','entidades')); 
-    }
-
-    /**
+        return redirect()->route('programas.index');
+    }    /**
      * Update the specified resource in storage.
      */
     public function update(Request $request, $id)

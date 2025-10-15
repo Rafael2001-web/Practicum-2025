@@ -21,7 +21,7 @@ class ProyectoController extends Controller
      */
     public function create()
     {
-        return view('proyectos.create');
+        return redirect()->route('proyectos.index');
     }
 
     /**
@@ -65,7 +65,7 @@ class ProyectoController extends Controller
      */
      public function edit(Proyecto $proyecto)
     {
-        return view('proyectos.edit', compact('proyecto'));
+        return redirect()->route('proyectos.index');
     }
 
     /**

@@ -23,7 +23,7 @@ class PlanController extends Controller
      */
     public function create()
     {
-        return view('planes.create');
+        return redirect()->route('planes.index');
     }
 
 
@@ -61,8 +61,7 @@ class PlanController extends Controller
      */
     public function edit($id)
     {
-        $plan = Plan::findOrfail($id);
-        return view('planes.edit', compact('plan')); 
+        return redirect()->route('planes.index');
     }
 
     /**

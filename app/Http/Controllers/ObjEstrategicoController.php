@@ -23,8 +23,7 @@ class ObjEstrategicoController extends Controller
      */
     public function create()
     {
-        $objEstrategicos = objEstrategico::all();
-        return view('objEstrategicos.create', compact('objEstrategicos'));
+        return redirect()->route('objEstrategicos.index');
     }
 
     public function show(Request $request)
@@ -57,8 +56,7 @@ class ObjEstrategicoController extends Controller
      */
     public function edit($id)
     {
-        $objEstrategicos = objEstrategico::findOrfail($id);
-        return view('objEstrategicos.edit', compact('objEstrategicos')); 
+        return redirect()->route('objEstrategicos.index');
     }
 
     /**
