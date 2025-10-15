@@ -9,102 +9,157 @@
 
 ---
 
-## 🎭 Actores del Sistema
+## 🎭 Actores del Sistema - Asignación Específica por CRUD
 
-### 1. **Desarrollador/Soporte Técnico**
-- **Descripción**: Personal técnico responsable del mantenimiento, desarrollo y soporte del sistema
-- **Responsabilidades**: 
-  - Gestión de usuarios del sistema
-  - Mantenimiento de entidades
-  - Configuración de unidades organizacionales
-  - Soporte técnico general
+### 1. **👑 Administrador del Sistema**
+- **CRUD Principal**: **Usuarios** 
+- **Permisos Especiales**: 
+  - ✅ **CRUD COMPLETO**: Usuarios (Crear, Ver, Editar, Eliminar)
+  - 👀 **SOLO LECTURA**: Todos los demás CRUDs (para supervisión)
+- **Descripción**: Administrador principal con gestión exclusiva de usuarios y supervisión general
+- **Responsabilidad**: Gestión de accesos, roles y seguridad del sistema
 
-### 2. **Administrador del Sistema (TI)**
-- **Descripción**: Administrador principal con acceso completo al sistema
-- **Responsabilidades**:
-  - Gestión completa de usuarios
-  - Gestión de entidades públicas
-  - Gestión de unidades organizacionales
-  - Supervisión general del sistema
+### 2. **🏢 Gestor de Entidades**
+- **CRUD Principal**: **Entidades**
+- **Permisos**:
+  - ✅ **CRUD COMPLETO**: Entidades (Crear, Ver, Editar, Eliminar)
+  - 👀 **SOLO LECTURA**: Programas (para verificar relaciones)
+- **Descripción**: Especialista en administración de entidades públicas
+- **Responsabilidad**: Mantener actualizado el catálogo de entidades del sector público
 
-### 3. **Revisor Institucional**
-- **Descripción**: Personal encargado de la revisión y validación de contenido estratégico
-- **Responsabilidades**:
-  - Gestión de objetivos estratégicos
-  - Alineación con objetivos institucionales
-  - Gestión de ODS (Objetivos de Desarrollo Sostenible)
-  - Gestión de PND (Plan Nacional de Desarrollo)
-  - Gestión de planes institucionales
-  - Gestión de programas institucionales
+### 3. **🏗️ Coordinador de Unidades**
+- **CRUD Principal**: **Unidades**
+- **Permisos**:
+  - ✅ **CRUD COMPLETO**: Unidades (Crear, Ver, Editar, Eliminar)
+  - 👀 **SOLO LECTURA**: Usuarios, Entidades (para contexto organizacional)
+- **Descripción**: Responsable de la estructura organizacional interna
+- **Responsabilidad**: Gestión de unidades organizacionales y estructura interna
 
-### 4. **Técnico de Planificación**
-- **Descripción**: Especialista en planificación estratégica y proyectos
-- **Responsabilidades**:
-  - Gestión de programas
-  - Ingreso y seguimiento de planes
+### 4. **🎯 Especialista en ODS**
+- **CRUD Principal**: **ODS (Objetivos de Desarrollo Sostenible)**
+- **Permisos**:
+  - ✅ **CRUD COMPLETO**: ODS (Crear, Ver, Editar, Eliminar)
+  - 👀 **SOLO LECTURA**: Objetivos Estratégicos, Planes (para alineación)
+- **Descripción**: Experto en Agenda 2030 y desarrollo sostenible
+- **Responsabilidad**: Alineación institucional con los ODS de la ONU
 
-### 5. **Planificador Institucional**
-- **Descripción**: Responsable de la planificación estratégica a nivel institucional
-- **Responsabilidades**:
-  - Gestión integral de la planificación institucional
+### 5. **🎯 Planificador Estratégico**
+- **CRUD Principal**: **Objetivos Estratégicos**
+- **Permisos**:
+  - ✅ **CRUD COMPLETO**: Objetivos Estratégicos (Crear, Ver, Editar, Eliminar)
+  - 👀 **SOLO LECTURA**: ODS, PND, Planes (para alineación estratégica)
+- **Descripción**: Especialista en planificación estratégica institucional
+- **Responsabilidad**: Definir y mantener objetivos estratégicos alineados
 
-### 6. **Autoridad Validante**
-- **Descripción**: Personal con autoridad para aprobar y validar elementos estratégicos
-- **Responsabilidades**:
-  - Validación final de elementos del sistema
+### 6. **🇵🇪 Analista de PND**
+- **CRUD Principal**: **PND (Plan Nacional de Desarrollo)**
+- **Permisos**:
+  - ✅ **CRUD COMPLETO**: PND (Crear, Ver, Editar, Eliminar)
+  - 👀 **SOLO LECTURA**: Objetivos Estratégicos, Planes (para coherencia nacional)
+- **Descripción**: Especialista en políticas nacionales de desarrollo
+- **Responsabilidad**: Mantener coherencia con el Plan Nacional de Desarrollo
 
-### 7. **Auditor/Control Interno**
-- **Descripción**: Personal encargado del control y auditoría interna
-- **Responsabilidades**:
-  - Gestión de reportes
-  - Gestión de recursos para auditoría
-  - Descarga de reportes del sistema
+### 7. **📋 Gestor de Planes**
+- **CRUD Principal**: **Planes**
+- **Permisos**:
+  - ✅ **CRUD COMPLETO**: Planes (Crear, Ver, Editar, Eliminar)
+  - 👀 **SOLO LECTURA**: Objetivos Estratégicos, PND, ODS, Programas (para alineación)
+- **Descripción**: Coordinador de planes institucionales y operativos
+- **Responsabilidad**: Gestión integral de la planificación institucional
 
-### 8. **Usuario Externo**
-- **Descripción**: Usuarios externos que consultan información pública
-- **Responsabilidades**:
-  - Ingreso de planes (según permisos)
-  - Consulta de información pública
+### 8. **📊 Coordinador de Programas**
+- **CRUD Principal**: **Programas**
+- **Permisos**:
+  - ✅ **CRUD COMPLETO**: Programas (Crear, Ver, Editar, Eliminar)
+  - 👀 **SOLO LECTURA**: Entidades, Planes (para vinculación correcta)
+- **Descripción**: Especialista en programas institucionales y su ejecución
+- **Responsabilidad**: Gestión de programas vinculados a entidades
+
+### 9. **📈 Analista de Proyectos**
+- **CRUD Principal**: **Proyectos**
+- **Permisos**:
+  - ✅ **CRUD COMPLETO**: Proyectos (Crear, Ver, Editar, Eliminar)
+  - 👀 **SOLO LECTURA**: Planes, Programas, Usuarios (para asignaciones)
+- **Descripción**: Especialista en gestión y seguimiento de proyectos
+- **Responsabilidad**: Administrar portafolio de proyectos institucionales
+
+### 10. **👁️ Supervisor General**
+- **CRUD Principal**: **Ninguno (Solo Supervisión)**
+- **Permisos**:
+  - 👀 **SOLO LECTURA**: TODOS los CRUDs (supervisión completa)
+  - 📊 **REPORTES**: Acceso a todos los reportes del sistema
+- **Descripción**: Supervisor con visión integral del sistema
+- **Responsabilidad**: Monitoreo, reportes y supervisión general
 
 ---
 
-## 📝 Casos de Uso por Actor
+## 📝 Casos de Uso por Actor - Asignación Específica
 
-### **Desarrollador/Soporte Técnico**
-- CU-01: Gestionar Usuarios
-- CU-02: Gestionar Entidades  
-- CU-03: Gestionar Unidades
+### **👑 Administrador del Sistema**
+- **CU-01**: ✅ Gestionar Usuarios (CRUD Completo)
+- **CU-02**: 👀 Consultar Entidades (Solo Lectura)
+- **CU-03**: 👀 Consultar Unidades (Solo Lectura)
+- **CU-04**: 👀 Consultar Objetivos Estratégicos (Solo Lectura)
+- **CU-05**: 👀 Consultar ODS (Solo Lectura)
+- **CU-06**: 👀 Consultar PND (Solo Lectura)
+- **CU-07**: 👀 Consultar Planes (Solo Lectura)
+- **CU-08**: 👀 Consultar Programas (Solo Lectura)
+- **CU-09**: 👀 Consultar Proyectos (Solo Lectura)
 
-### **Administrador del Sistema (TI)**
-- CU-01: Gestionar Usuarios
-- CU-02: Gestionar Entidades
-- CU-03: Gestionar Unidades
+### **🏢 Gestor de Entidades**
+- **CU-02**: ✅ Gestionar Entidades (CRUD Completo)
+- **CU-08**: 👀 Consultar Programas (Solo Lectura - para verificar relaciones)
 
-### **Revisor Institucional**
-- CU-04: Gestionar Objetivos Estratégicos
-- CU-05: Gestionar ODS
-- CU-06: Gestionar PND
-- CU-07: Gestionar Planes
-- CU-08: Gestionar Programas
+### **🏗️ Coordinador de Unidades**
+- **CU-03**: ✅ Gestionar Unidades (CRUD Completo)
+- **CU-01**: 👀 Consultar Usuarios (Solo Lectura - para contexto)
+- **CU-02**: 👀 Consultar Entidades (Solo Lectura - para contexto)
 
-### **Técnico de Planificación**
-- CU-08: Gestionar Programas
-- CU-09: Ingresar Planes
+### **🎯 Especialista en ODS**
+- **CU-05**: ✅ Gestionar ODS (CRUD Completo)
+- **CU-04**: 👀 Consultar Objetivos Estratégicos (Solo Lectura - para alineación)
+- **CU-07**: 👀 Consultar Planes (Solo Lectura - para alineación)
 
-### **Planificador Institucional**
-- CU-10: Coordinar Planificación Institucional
+### **🎯 Planificador Estratégico**
+- **CU-04**: ✅ Gestionar Objetivos Estratégicos (CRUD Completo)
+- **CU-05**: 👀 Consultar ODS (Solo Lectura - para alineación)
+- **CU-06**: 👀 Consultar PND (Solo Lectura - para alineación)
+- **CU-07**: 👀 Consultar Planes (Solo Lectura - para alineación)
 
-### **Autoridad Validante**
-- CU-11: Validar Elementos Estratégicos
+### **🇵🇪 Analista de PND**
+- **CU-06**: ✅ Gestionar PND (CRUD Completo)
+- **CU-04**: 👀 Consultar Objetivos Estratégicos (Solo Lectura - para coherencia)
+- **CU-07**: 👀 Consultar Planes (Solo Lectura - para coherencia)
 
-### **Auditor/Control Interno**
-- CU-12: Gestionar Reportes
-- CU-13: Gestionar Recursos
-- CU-14: Descargar Reportes
+### **📋 Gestor de Planes**
+- **CU-07**: ✅ Gestionar Planes (CRUD Completo)
+- **CU-04**: 👀 Consultar Objetivos Estratégicos (Solo Lectura - para alineación)
+- **CU-05**: 👀 Consultar ODS (Solo Lectura - para alineación)
+- **CU-06**: 👀 Consultar PND (Solo Lectura - para alineación)
+- **CU-08**: 👀 Consultar Programas (Solo Lectura - para alineación)
 
-### **Usuario Externo**
-- CU-09: Ingresar Planes (limitado)
-- CU-15: Consultar Información Pública
+### **📊 Coordinador de Programas**
+- **CU-08**: ✅ Gestionar Programas (CRUD Completo)
+- **CU-02**: 👀 Consultar Entidades (Solo Lectura - para vinculación)
+- **CU-07**: 👀 Consultar Planes (Solo Lectura - para vinculación)
+
+### **📈 Analista de Proyectos**
+- **CU-09**: ✅ Gestionar Proyectos (CRUD Completo)
+- **CU-07**: 👀 Consultar Planes (Solo Lectura - para vinculación)
+- **CU-08**: 👀 Consultar Programas (Solo Lectura - para vinculación)
+- **CU-01**: 👀 Consultar Usuarios (Solo Lectura - para asignaciones)
+
+### **👁️ Supervisor General**
+- **CU-01**: 👀 Consultar Usuarios (Solo Lectura)
+- **CU-02**: 👀 Consultar Entidades (Solo Lectura)
+- **CU-03**: 👀 Consultar Unidades (Solo Lectura)
+- **CU-04**: 👀 Consultar Objetivos Estratégicos (Solo Lectura)
+- **CU-05**: 👀 Consultar ODS (Solo Lectura)
+- **CU-06**: 👀 Consultar PND (Solo Lectura)
+- **CU-07**: 👀 Consultar Planes (Solo Lectura)
+- **CU-08**: 👀 Consultar Programas (Solo Lectura)
+- **CU-09**: 👀 Consultar Proyectos (Solo Lectura)
+- **CU-10**: 📊 Generar Reportes Integrales
 
 ---
 
@@ -276,25 +331,31 @@
 
 ---
 
-## 📊 Matriz de Actor-Caso de Uso
+## 📊 Matriz de Permisos por Actor
 
-| Caso de Uso | Dev/Soporte | Admin TI | Revisor | Técnico Plan | Planificador | Autoridad | Auditor | Usuario Ext |
-|-------------|-------------|----------|---------|--------------|--------------|-----------|---------|-------------|
-| CU-01 Usuarios | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ |
-| CU-02 Entidades | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ |
-| CU-03 Unidades | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ |
-| CU-04 Obj. Estratégicos | ❌ | ❌ | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ |
-| CU-05 ODS | ❌ | ❌ | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ |
-| CU-06 PND | ❌ | ❌ | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ |
-| CU-07 Planes | ❌ | ❌ | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ |
-| CU-08 Programas | ❌ | ❌ | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ |
-| CU-09 Ingresar Planes | ❌ | ❌ | ❌ | ✅ | ❌ | ❌ | ❌ | ✅ |
-| CU-10 Coord. Institucional | ❌ | ❌ | ❌ | ❌ | ✅ | ❌ | ❌ | ❌ |
-| CU-11 Validar Elementos | ❌ | ❌ | ❌ | ❌ | ❌ | ✅ | ❌ | ❌ |
-| CU-12 Gest. Reportes | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ✅ | ❌ |
-| CU-13 Gest. Recursos | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ✅ | ❌ |
-| CU-14 Desc. Reportes | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ✅ | ❌ |
-| CU-15 Consulta Pública | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ✅ |
+| CRUD/Actor | 👑 Admin | 🏢 Gest.Ent | 🏗️ Coord.Unid | 🎯 Esp.ODS | 🎯 Plan.Estrat | 🇵🇪 Anal.PND | 📋 Gest.Planes | 📊 Coord.Prog | 📈 Anal.Proy | 👁️ Supervisor |
+|------------|----------|-------------|---------------|------------|---------------|--------------|----------------|---------------|-------------|---------------|
+| **Usuarios** | ✅ CRUD | ❌ | 👀 Lectura | ❌ | ❌ | ❌ | ❌ | ❌ | 👀 Lectura | 👀 Lectura |
+| **Entidades** | 👀 Lectura | ✅ CRUD | 👀 Lectura | ❌ | ❌ | ❌ | ❌ | 👀 Lectura | ❌ | 👀 Lectura |
+| **Unidades** | 👀 Lectura | ❌ | ✅ CRUD | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | 👀 Lectura |
+| **ODS** | 👀 Lectura | ❌ | ❌ | ✅ CRUD | 👀 Lectura | ❌ | 👀 Lectura | ❌ | ❌ | 👀 Lectura |
+| **Obj. Estratégicos** | 👀 Lectura | ❌ | ❌ | 👀 Lectura | ✅ CRUD | 👀 Lectura | 👀 Lectura | ❌ | ❌ | 👀 Lectura |
+| **PND** | 👀 Lectura | ❌ | ❌ | ❌ | 👀 Lectura | ✅ CRUD | 👀 Lectura | ❌ | ❌ | 👀 Lectura |
+| **Planes** | 👀 Lectura | ❌ | ❌ | 👀 Lectura | 👀 Lectura | 👀 Lectura | ✅ CRUD | 👀 Lectura | 👀 Lectura | 👀 Lectura |
+| **Programas** | 👀 Lectura | 👀 Lectura | ❌ | ❌ | ❌ | ❌ | 👀 Lectura | ✅ CRUD | 👀 Lectura | 👀 Lectura |
+| **Proyectos** | 👀 Lectura | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ✅ CRUD | 👀 Lectura |
+
+### **Leyenda:**
+- ✅ **CRUD**: Create, Read, Update, Delete (Permisos completos)
+- 👀 **Lectura**: Solo consulta (Read only)
+- ❌ **Sin Acceso**: No tiene permisos
+- 📊 **Reportes**: Acceso especial a reportes
+
+### **Principios de Asignación:**
+1. **🎯 Un actor = Un CRUD principal** (responsabilidad única)
+2. **👀 Lectura cruzada** solo para contexto necesario
+3. **🔒 Seguridad por segregación** de funciones
+4. **📊 Supervisor** tiene visión completa pero sin modificación
 
 ---
 
