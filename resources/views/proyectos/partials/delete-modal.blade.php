@@ -1,47 +1,50 @@
-{{-- Delete Modal --}}
-<x-modal name="delete-proyecto-modal" maxWidth="md">
-    <div class="p-6">
-        <div class="flex items-center justify-between mb-6">
-            <h3 class="text-lg font-semibold text-primary">
-                Confirmar Eliminación
-            </h3>
-            <button onclick="closeModal('delete-proyecto-modal')"
-                class="text-neutral hover:text-primary transition-colors duration-150">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+{{-- Modal de confirmación de eliminación --}}
+<div id="deleteModal" class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full hidden z-50">
+    <div class="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white">
+        <div class="mt-3 text-center">
+            <div class="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-red-100">
+                <svg class="h-6 w-6 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16c-.77.833.192 2.5 1.732 2.5z"/>
                 </svg>
-            </button>
-        </div>
-        
-        <div class="mb-6">
-            <div class="flex items-center mb-4">
-                <div class="mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-red-100">
-                    <svg class="h-6 w-6 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z"/>
-                    </svg>
-                </div>
             </div>
-            <div class="text-center">
-                <h3 class="text-lg leading-6 font-medium text-primary mb-2">
-                    ¿Estás seguro de que deseas eliminar este proyecto?
-                </h3>
-                <p class="text-sm text-neutral">
-                    El proyecto "<span id="delete-proyecto-name" class="font-semibold"></span>" será eliminado permanentemente. Esta acción no se puede deshacer.
+            <h3 class="text-lg font-medium text-gray-900 mt-2">Confirmar eliminación</h3>
+            <div class="mt-2 px-7 py-3">
+                <p class="text-sm text-gray-500">
+                    ¿Estás seguro de que deseas eliminar este proyecto? Esta acción no se puede deshacer.
                 </p>
             </div>
-        </div>
-        
-        <div class="flex justify-end space-x-3">
-            <x-secondary-button type="button" onclick="closeModal('delete-proyecto-modal')">
-                Cancelar
-            </x-secondary-button>
-            <form id="delete-proyecto-form" method="POST" class="inline">
-                @csrf
-                @method('DELETE')
-                <x-danger-button type="submit">
-                    Eliminar Proyecto
-                </x-danger-button>
-            </form>
+            <div class="flex justify-center space-x-4 px-4 py-3">
+                <button onclick="closeDeleteModal()" 
+                        class="px-4 py-2 bg-gray-300 text-gray-800 text-base font-medium rounded-md shadow-sm hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-300">
+                    Cancelar
+                </button>
+                <form id="deleteForm" method="POST" style="display: inline;">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" 
+                            class="px-4 py-2 bg-red-600 text-white text-base font-medium rounded-md shadow-sm hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500">
+                        Eliminar
+                    </button>
+                </form>
+            </div>
         </div>
     </div>
-</x-modal>
+</div>
+
+<script>
+    function openDeleteModal(action) {
+        document.getElementById('deleteForm').action = action;
+        document.getElementById('deleteModal').classList.remove('hidden');
+    }
+
+    function closeDeleteModal() {
+        document.getElementById('deleteModal').classList.add('hidden');
+    }
+
+    // Cerrar modal al hacer clic fuera de él
+    document.getElementById('deleteModal').addEventListener('click', function(e) {
+        if (e.target === this) {
+            closeDeleteModal();
+        }
+    });
+</script>

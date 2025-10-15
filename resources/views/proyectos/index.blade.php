@@ -78,7 +78,18 @@
                                                     </svg> 
                                                    Ver
                                                 </a>
-                                                <button onclick="openEditModal({{ $proyecto->id }}, {{ json_encode($proyecto->codigo) }}, {{ json_encode($proyecto->nombre) }}, {{ json_encode($proyecto->descripcion) }}, {{ json_encode($proyecto->sector) }}, '{{ \Carbon\Carbon::parse($proyecto->fecha_inicio)->format('Y-m-d') }}', '{{ \Carbon\Carbon::parse($proyecto->fecha_fin)->format('Y-m-d') }}', '{{ $proyecto->presupuesto }}', {{ json_encode($proyecto->estado) }}, '{{ $proyecto->user_id }}')"
+                                                <button onclick="openEditModal({
+                                                    id: {{ $proyecto->id }},
+                                                    codigo: {{ json_encode($proyecto->codigo) }},
+                                                    nombre: {{ json_encode($proyecto->nombre) }},
+                                                    descripcion: {{ json_encode($proyecto->descripcion) }},
+                                                    sector: {{ json_encode($proyecto->sector) }},
+                                                    fecha_inicio: '{{ \Carbon\Carbon::parse($proyecto->fecha_inicio)->format('Y-m-d') }}',
+                                                    fecha_fin: '{{ \Carbon\Carbon::parse($proyecto->fecha_fin)->format('Y-m-d') }}',
+                                                    presupuesto: '{{ $proyecto->presupuesto }}',
+                                                    estado: {{ json_encode($proyecto->estado) }},
+                                                    user_id: '{{ $proyecto->user_id }}'
+                                                })" 
                                                         class="text-neutral hover:text-primary font-medium transition-colors duration-150">
                                                     <svg class="w-4 h-4 inline mr-1" fill="none"
                                                         stroke="currentColor" viewBox="0 0 24 24">
@@ -88,7 +99,7 @@
                                                     </svg>
                                                         Editar
                                                 </button>
-                                                <button onclick="openDeleteModal({{ $proyecto->id }}, {{ json_encode($proyecto->nombre) }})"
+                                                <button onclick="openDeleteModal('{{ route('proyectos.destroy', $proyecto->id) }}')"
                                                         class="text-red-600 hover:text-red-900 font-medium transition-colors duration-150">
                                                     <svg class="w-4 h-4 inline mr-1" fill="none"
                                                         stroke="currentColor" viewBox="0 0 24 24">
@@ -116,32 +127,6 @@
     @include('proyectos.partials.delete-modal')
 
     <script>
-        function openCreateModal() {
-            document.querySelector('[x-ref="create-proyecto-modal"]').style.display = 'flex';
-        }
-
-        function openEditModal(id, codigo, nombre, descripcion, sector, fechaInicio, fechaFin, presupuesto, estado, userId) {
-            document.getElementById('edit-proyecto-form').action = `/proyectos/${id}`;
-            document.getElementById('edit_codigo').value = codigo;
-            document.getElementById('edit_nombre').value = nombre;
-            document.getElementById('edit_descripcion').value = descripcion;
-            document.getElementById('edit_sector').value = sector;
-            document.getElementById('edit_fecha_inicio').value = fechaInicio;
-            document.getElementById('edit_fecha_fin').value = fechaFin;
-            document.getElementById('edit_presupuesto').value = presupuesto;
-            document.getElementById('edit_estado').value = estado;
-            document.getElementById('edit_user_id').value = userId;
-            document.querySelector('[x-ref="edit-proyecto-modal"]').style.display = 'flex';
-        }
-
-        function openDeleteModal(id, nombre) {
-            document.getElementById('delete-proyecto-form').action = `/proyectos/${id}`;
-            document.getElementById('delete-proyecto-name').textContent = nombre;
-            document.querySelector('[x-ref="delete-proyecto-modal"]').style.display = 'flex';
-        }
-
-        function closeModal(modalRef) {
-            document.querySelector(`[x-ref="${modalRef}"]`).style.display = 'none';
-        }
+        // Las funciones están definidas en los archivos de los modales
     </script>
 </x-app-layout>
