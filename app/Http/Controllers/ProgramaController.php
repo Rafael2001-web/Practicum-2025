@@ -69,9 +69,9 @@ class ProgramaController extends Controller
 
     }
 
-     public function show(Request $request)
+    public function show($id)
     {
-        $programa = Programa::all();
+        $programa = Programa::with('entidad')->findOrFail($id);
         return view('programas.show', compact('programa'));
     }
 

@@ -108,25 +108,33 @@
 
     <script>
         function openCreateModal() {
-            document.querySelector('[x-ref="create-programa-modal"]').style.display = 'flex';
+            document.getElementById('createModal').style.display = 'block';
+        }
+
+        function closeCreateModal() {
+            document.getElementById('createModal').style.display = 'none';
         }
 
         function openEditModal(id, nombre, descripcion, idEntidad) {
-            document.getElementById('edit-programa-form').action = `/programas/${id}`;
+            document.getElementById('editForm').action = `/programas/${id}`;
             document.getElementById('edit_nombre').value = nombre;
             document.getElementById('edit_descripcion').value = descripcion;
             document.getElementById('edit_idEntidad').value = idEntidad;
-            document.querySelector('[x-ref="edit-programa-modal"]').style.display = 'flex';
+            document.getElementById('editModal').style.display = 'block';
+        }
+
+        function closeEditModal() {
+            document.getElementById('editModal').style.display = 'none';
         }
 
         function openDeleteModal(id, nombre) {
-            document.getElementById('delete-programa-form').action = `/programas/${id}`;
+            document.getElementById('deleteForm').action = `/programas/${id}`;
             document.getElementById('delete-programa-name').textContent = nombre;
-            document.querySelector('[x-ref="delete-programa-modal"]').style.display = 'flex';
+            document.getElementById('deleteModal').style.display = 'block';
         }
 
-        function closeModal(modalRef) {
-            document.querySelector(`[x-ref="${modalRef}"]`).style.display = 'none';
+        function closeDeleteModal() {
+            document.getElementById('deleteModal').style.display = 'none';
         }
     </script>
 </x-app-layout>
