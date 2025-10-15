@@ -56,11 +56,18 @@
                                         <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
                                             <div class="flex items-center space-x-3">
                                                 <a href="{{ route('pnd.show', $pnd->idPnd) }}" 
-                                                   class="text-secondary hover:text-accent font-medium transition-colors duration-150">
+                                                   class="text-blue-600 hover:text-blue-900 font-medium transition-colors duration-150">
+                                                    <svg class="w-4 h-4 inline mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
+                                                    </svg>
                                                     Ver
                                                 </a>
                                                 <button onclick="openEditModal({{ $pnd->idPnd }}, {{ json_encode($pnd->eje) }}, '{{ $pnd->objetivoN }}', {{ json_encode($pnd->descripcion) }})"
                                                         class="text-neutral hover:text-primary font-medium transition-colors duration-150">
+                                                    <svg class="w-4 h-4 inline mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
+                                                    </svg>
                                                     Editar
                                                 </button>
                                                 <button onclick="openDeleteModal({{ $pnd->idPnd }}, 'Objetivo {{ $pnd->objetivoN }}')"
@@ -92,25 +99,33 @@
 
     <script>
         function openCreateModal() {
-            document.querySelector('[x-ref="create-pnd-modal"]').style.display = 'flex';
+            document.getElementById('createModal').style.display = 'block';
+        }
+
+        function closeCreateModal() {
+            document.getElementById('createModal').style.display = 'none';
         }
 
         function openEditModal(id, eje, objetivoN, descripcion) {
-            document.getElementById('edit-pnd-form').action = `/pnd/${id}`;
+            document.getElementById('editForm').action = `/pnd/${id}`;
             document.getElementById('edit_eje').value = eje;
             document.getElementById('edit_objetivoN').value = objetivoN;
             document.getElementById('edit_descripcion').value = descripcion;
-            document.querySelector('[x-ref="edit-pnd-modal"]').style.display = 'flex';
+            document.getElementById('editModal').style.display = 'block';
+        }
+
+        function closeEditModal() {
+            document.getElementById('editModal').style.display = 'none';
         }
 
         function openDeleteModal(id, objetivo) {
-            document.getElementById('delete-pnd-form').action = `/pnd/${id}`;
+            document.getElementById('deleteForm').action = `/pnd/${id}`;
             document.getElementById('delete-pnd-name').textContent = objetivo;
-            document.querySelector('[x-ref="delete-pnd-modal"]').style.display = 'flex';
+            document.getElementById('deleteModal').style.display = 'block';
         }
 
-        function closeModal(modalRef) {
-            document.querySelector(`[x-ref="${modalRef}"]`).style.display = 'none';
+        function closeDeleteModal() {
+            document.getElementById('deleteModal').style.display = 'none';
         }
     </script>
 </x-app-layout>

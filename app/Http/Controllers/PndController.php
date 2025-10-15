@@ -28,9 +28,9 @@ class PndController extends Controller
     /**
      * Display the specified resource.
      */
-   public function show(Request $request)
+    public function show($id)
     {
-        $pnd = Pnd::all();
+        $pnd = Pnd::findOrFail($id);
         return view('pnd.show', compact('pnd'));
     }
 
