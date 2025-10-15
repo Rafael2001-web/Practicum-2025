@@ -44,10 +44,10 @@ class UnidadController extends Controller
         return redirect()->route('unidades.index')->with('success', 'Unidad Creada Satisfactoriamente');
     }
 
-    public function show(Request $request)
+    public function show($id)
     {
-        $unidades = Unidad::all();
-        return view('unidades.show', compact('unidades'));
+        $unidad = Unidad::findOrFail($id);
+        return view('unidades.show', compact('unidad'));
     }
 
 
