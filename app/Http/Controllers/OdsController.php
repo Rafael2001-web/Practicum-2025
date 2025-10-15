@@ -44,6 +44,15 @@ class OdsController extends Controller
     }
 
     /**
+     * Display the specified resource.
+     */
+    public function show($id)
+    {
+        $ods = Ods::findOrFail($id);
+        return view('ods.show', compact('ods'));
+    }
+
+    /**
      * Show the form for editing the specified resource.
      */
     public function edit($id)
