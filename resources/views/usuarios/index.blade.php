@@ -38,13 +38,15 @@
                             id="usuarios-table"
                         >
                             <x-slot name="buttons">
-                                <button onclick="openCreateModal()" 
-                                        class="inline-flex items-center px-4 py-2 bg-secondary border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-accent active:bg-secondary focus:outline-none focus:border-secondary focus:ring ring-secondary/20 disabled:opacity-25 transition ease-in-out duration-150 shadow-sm">
-                                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"/>
-                                    </svg>
-                                    Nuevo Usuario
-                                </button>
+                                @can('manage usuarios')
+                                    <button onclick="openCreateModal()" 
+                                            class="inline-flex items-center px-4 py-2 bg-secondary border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-accent active:bg-secondary focus:outline-none focus:border-secondary focus:ring ring-secondary/20 disabled:opacity-25 transition ease-in-out duration-150 shadow-sm">
+                                        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"/>
+                                        </svg>
+                                        Nuevo Usuario
+                                    </button>
+                                @endcan
                             </x-slot>
 
                             <tbody>
@@ -82,15 +84,18 @@
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
                                             <div class="flex items-center space-x-3">
-                                                <a href="{{ route('usuarios.show', $usuario->id) }}" 
-                                                   class="text-secondary hover:text-accent font-medium transition-colors duration-150">
+                                                @canany(['view usuarios', 'manage usuarios'])
+                                                    <a href="{{ route('usuarios.show', $usuario->id) }}" 
+                                                       class="text-secondary hover:text-accent font-medium transition-colors duration-150">
                                                     <svg class="w-4 h-4 inline mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
                                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
                                                     </svg>
                                     Ver
-                                                </a>
-                                                <button onclick="openEditModal({{ json_encode($usuario) }})" 
+                                                    </a>
+                                                @endcanany
+                                                @can('manage usuarios')
+                                                    <button onclick="openEditModal({{ json_encode($usuario) }})" 
                                                         class="text-neutral hover:text-primary font-medium transition-colors duration-150">
                                                     <svg class="w-4 h-4 inline mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
@@ -103,7 +108,8 @@
                                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
                                                     </svg>
                                                     Eliminar
-                                                </button>
+                                                    </button>
+                                                @endcan
                                             </div>
                                         </td>
                                     </tr>
@@ -116,8 +122,9 @@
         </div>
     </div>
 
-    {{-- Modal de confirmación de eliminación --}}
-    <div id="deleteModal" class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full hidden z-50">
+    @can('manage usuarios')
+        {{-- Modal de confirmación de eliminación --}}
+        <div id="deleteModal" class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full hidden z-50">
         <div class="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white">
             <div class="mt-3 text-center">
                 <div class="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-red-100">
@@ -149,27 +156,30 @@
         </div>
     </div>
 
-    {{-- Modal de creación --}}
-    @include('usuarios.partials.create-modal')
+        {{-- Modal de creación --}}
+        @include('usuarios.partials.create-modal')
 
-    {{-- Modal de edición --}}
-    @include('usuarios.partials.edit-modal')
+        {{-- Modal de edición --}}
+        @include('usuarios.partials.edit-modal')
+    @endcan
 
-    <script>
-        function openDeleteModal(action) {
-            document.getElementById('deleteForm').action = action;
-            document.getElementById('deleteModal').classList.remove('hidden');
-        }
-
-        function closeDeleteModal() {
-            document.getElementById('deleteModal').classList.add('hidden');
-        }
-
-        // Cerrar modal al hacer clic fuera de él
-        document.getElementById('deleteModal').addEventListener('click', function(e) {
-            if (e.target === this) {
-                closeDeleteModal();
+    @can('manage usuarios')
+        <script>
+            function openDeleteModal(action) {
+                document.getElementById('deleteForm').action = action;
+                document.getElementById('deleteModal').classList.remove('hidden');
             }
-        });
-    </script>
+
+            function closeDeleteModal() {
+                document.getElementById('deleteModal').classList.add('hidden');
+            }
+
+            // Cerrar modal al hacer clic fuera de él
+            document.getElementById('deleteModal').addEventListener('click', function(e) {
+                if (e.target === this) {
+                    closeDeleteModal();
+                }
+            });
+        </script>
+    @endcan
 </x-app-layout>
