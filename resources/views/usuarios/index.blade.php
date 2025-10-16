@@ -33,8 +33,8 @@
                                 ['label' => 'Fecha de Registro', 'type' => 'date'],
                                 ['label' => 'Acciones', 'type' => 'actions']
                             ]"
-                            :csv="true"
-                            :print="true"
+                            :csv="false"
+                            :print="false"
                             id="usuarios-table"
                         >
                             <x-slot name="buttons">

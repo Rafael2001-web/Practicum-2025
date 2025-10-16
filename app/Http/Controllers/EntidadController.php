@@ -101,7 +101,7 @@ class EntidadController extends Controller
 
     }
 
-    public function GenerarPDF(){
+    public function generarPdf(){
         $entidad = Entidad::all();
         $pdf =Pdf::loadView('entidades.pdf', compact('entidad'));
         return $pdf->stream('reporte_entidad.pdf');

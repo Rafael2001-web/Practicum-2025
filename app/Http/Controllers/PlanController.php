@@ -100,7 +100,7 @@ class PlanController extends Controller
 
     }
 
-    public function GenerarPDF(){
+    public function generarPdf(){
         $plan = Plan::all();
         $pdf =Pdf::loadView('Planes.pdf', compact('plan'));
         return $pdf->stream('reporte_planes.pdf');

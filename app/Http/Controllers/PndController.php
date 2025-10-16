@@ -93,7 +93,7 @@ class PndController extends Controller
 
     }
 
-    public function GenerarPDF(){
+    public function generarPdf(){
         $pnd = Pnd::all();
         $pdf =Pdf::loadView('pnd.pdf', compact('pnd'));
         return $pdf->stream('reporte_pnd.pdf');

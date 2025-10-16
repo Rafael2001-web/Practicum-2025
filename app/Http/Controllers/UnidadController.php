@@ -93,7 +93,7 @@ class UnidadController extends Controller
 
     }
 
-    public function GenerarPDF(){
+    public function generarPdf(){
         $unidad = Unidad::all();
         $pdf =Pdf::loadView('unidades.pdf', compact('unidad'));
         return $pdf->stream('reporte_unidad.pdf');

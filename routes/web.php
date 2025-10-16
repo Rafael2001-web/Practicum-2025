@@ -61,13 +61,11 @@ Route::middleware('auth')->group(function () {
      // 🏢 GESTOR DE ENTIDADES - Ver listado de entidades
      Route::middleware('can.any:view entidades,manage entidades')->group(function() {
           Route::get('/entidades', [EntidadController::class, 'index'])->name('entidades.index');
-          Route::get('/entidades/pdf', [EntidadController::class, 'generarPdf'])->name('entidades.pdf');
      });
 
      // 🏗️ COORDINADOR DE UNIDADES - Ver listado de unidades
      Route::middleware('can.any:view unidades,manage unidades')->group(function() {
           Route::get('/unidades', [UnidadController::class, 'index'])->name('unidades.index');
-          Route::get('/unidades/pdf', [UnidadController::class, 'generarPdf'])->name('unidades.pdf');
      });
 
      // 🎯 ESPECIALISTA EN ODS - Ver listado de ODS
@@ -78,25 +76,21 @@ Route::middleware('auth')->group(function () {
      // 🎯 PLANIFICADOR ESTRATÉGICO - Ver listado de objetivos estratégicos
      Route::middleware('can.any:view objetivos_estrategicos,manage objetivos_estrategicos')->group(function() {
           Route::get('/objEstrategicos', [ObjEstrategicoController::class, 'index'])->name('objEstrategicos.index');
-          Route::get('/objEstrategicos/pdf', [ObjEstrategicoController::class, 'generarPdf'])->name('objEstrategicos.pdf');
      });
 
      // 🇵🇪 ANALISTA DE PND - Ver listado de PND
      Route::middleware('can.any:view pnd,manage pnd')->group(function() {
           Route::get('/pnd', [PndController::class, 'index'])->name('pnd.index');
-          Route::get('/pnd/pdf', [PndController::class, 'generarPdf'])->name('pnd.pdf');
      });
 
      // 📋 GESTOR DE PLANES - Ver listado de planes
      Route::middleware('can.any:view planes,manage planes')->group(function() {
           Route::get('/planes', [PlanController::class, 'index'])->name('planes.index');
-          Route::get('/planes/pdf', [PlanController::class, 'generarPdf'])->name('planes.pdf');
      });
 
      // 📊 COORDINADOR DE PROGRAMAS - Ver listado de programas
      Route::middleware('can.any:view programas,manage programas')->group(function() {
           Route::get('/programas', [ProgramaController::class, 'index'])->name('programas.index');
-          Route::get('/programas/pdf', [ProgramaController::class, 'generarPdf'])->name('programas.pdf');
      });
 
      // 📈 ANALISTA DE PROYECTOS - Ver listado de proyectos
@@ -159,9 +153,13 @@ Route::middleware('auth')->group(function () {
      // RUTAS DE REPORTES (Supervisor General y roles con permisos)
      // ==================================================================================
      Route::middleware('can:generate reports')->group(function() {
-          // Aquí se pueden agregar rutas específicas de reportes cuando se implementen
-          // Route::get('/reportes', [ReporteController::class, 'index'])->name('reportes.index');
-          // Route::post('/reportes/generar', [ReporteController::class, 'generar'])->name('reportes.generar');
+          Route::get('/entidades/pdf', [EntidadController::class, 'generarPdf'])->name('entidades.pdf');
+          Route::get('/programas/pdf', [ProgramaController::class, 'generarPdf'])->name('programas.pdf');
+          Route::get('/proyectos/pdf', [ProyectoController::class, 'generarPdf'])->name('proyectos.pdf');
+          Route::get('/unidades/pdf', [UnidadController::class, 'generarPdf'])->name('unidades.pdf');
+          Route::get('/objEstrategicos/pdf', [ObjEstrategicoController::class, 'generarPdf'])->name('objEstrategicos.pdf');
+          Route::get('/pnd/pdf', [PndController::class, 'generarPdf'])->name('pnd.pdf');
+          Route::get('/planes/pdf', [PlanController::class, 'generarPdf'])->name('planes.pdf');
      });
 });
 

@@ -44,8 +44,8 @@
                                 ['label' => 'Fecha de Creación', 'type' => 'date'],
                                 ['label' => 'Acciones', 'type' => 'actions']
                             ]"
-                            :csv="true"
-                            :print="true"
+                            :csv="false"
+                            :print="false"
                             id="roles-table"
                         >
                             <x-slot name="buttons">

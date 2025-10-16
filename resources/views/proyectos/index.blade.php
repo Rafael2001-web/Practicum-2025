@@ -32,8 +32,8 @@
                                 ['label' => 'Estado', 'type' => 'badge'],
                                 ['label' => 'Acciones', 'type' => 'actions']
                             ]"
-                            :csv="true"
-                            :print="true"
+                            :csv="false"
+                            :print="false"
                             id="proyectos-table"
                             title="Gestión de Proyectos de Inversión"
                         >

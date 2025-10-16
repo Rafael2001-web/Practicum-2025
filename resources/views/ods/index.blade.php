@@ -31,8 +31,8 @@
                                 ['label' => 'Descripción', 'type' => 'text'],
                                 ['label' => 'Acciones', 'type' => 'actions']
                             ]"
-                            :csv="true"
-                            :print="true"
+                            :csv="false"
+                            :print="false"
                             id="ods-table"
                             title="Gestión de Objetivos de Desarrollo Sostenible"
                         >
