@@ -25,7 +25,7 @@ class User extends Authenticatable
 
     public function isAdmin(): bool
     {
-        return $this->hasRole('admin');
+        return $this->hasRole('Administrador del Sistema');
     }
 
     public function proyectos()

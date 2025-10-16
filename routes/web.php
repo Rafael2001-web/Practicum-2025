@@ -47,37 +47,67 @@ Route::middleware('auth')->group(function () {
      Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
      Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-     Route::resource('usuarios', UserController::class)->middleware('can:manage users');
-     Route::resource('roles', RoleController::class)->middleware('can:manage roles');
-     Route::resource('permissions', PermissionController::class)->middleware('can:manage permissions');
-     //Route::resource('entidades', EntidadController::class);
-     //Route::resource('unidades', UnidadController::class);
-     //Route::resource('objEstrategicos', ObjEstrategicoController::class);
-     Route::resource('ods', OdsController::class);
-     //Route::resource('pnd', PndController::class);
-     //Route::resource('planes', PlanController::class);
-     Route::resource('proyectos', ProyectoController::class);
-     //Route::resource('programas', ProgramaController::class);
+     // 👑 ADMINISTRADOR DEL SISTEMA - Gestión de Usuarios
+     Route::middleware('can:manage usuarios')->group(function() {
+          Route::resource('usuarios', UserController::class);
+          Route::resource('roles', RoleController::class);
+          Route::resource('permissions', PermissionController::class);
+     });
 
-     //Rutas para exportacion de pdf.
-     Route::get('/entidades/pdf', [EntidadController::class, 'generarPdf'])->name('entidades.pdf');
-     Route::resource('entidades', EntidadController::class);
+     // 🏢 GESTOR DE ENTIDADES - CRUD Completo de Entidades
+     Route::middleware('can:manage entidades')->group(function() {
+          Route::resource('entidades', EntidadController::class);
+          Route::get('/entidades/pdf', [EntidadController::class, 'generarPdf'])->name('entidades.pdf');
+     });
 
-     Route::get('/unidades/pdf', [UnidadController::class, 'generarPdf'])->name('unidades.pdf');
-     Route::resource('unidades', UnidadController::class);
+     // 🏗️ COORDINADOR DE UNIDADES - CRUD Completo de Unidades
+     Route::middleware('can:manage unidades')->group(function() {
+          Route::resource('unidades', UnidadController::class);
+          Route::get('/unidades/pdf', [UnidadController::class, 'generarPdf'])->name('unidades.pdf');
+     });
 
-     Route::get('/pnd/pdf', [PndController::class, 'generarPdf'])->name('pnd.pdf');
-     Route::resource('pnd', PndController::class);
+     // 🎯 ESPECIALISTA EN ODS - CRUD Completo de ODS
+     Route::middleware('can:manage ods')->group(function() {
+          Route::resource('ods', OdsController::class);
+     });
 
-     Route::get('/planes/pdf', [PlanController::class, 'generarPdf'])->name('planes.pdf');
-     Route::resource('planes', PlanController::class);
+     // 🎯 PLANIFICADOR ESTRATÉGICO - CRUD Completo de Objetivos Estratégicos
+     Route::middleware('can:manage objetivos_estrategicos')->group(function() {
+          Route::resource('objEstrategicos', ObjEstrategicoController::class);
+          Route::get('/objEstrategicos/pdf', [ObjEstrategicoController::class, 'generarPdf'])->name('objEstrategicos.pdf');
+     });
 
-     Route::get('/programas/pdf', [ProgramaController::class, 'generarPdf'])->name('programas.pdf');
-     Route::resource('programas', ProgramaController::class);
+     // 🇵🇪 ANALISTA DE PND - CRUD Completo de PND
+     Route::middleware('can:manage pnd')->group(function() {
+          Route::resource('pnd', PndController::class);
+          Route::get('/pnd/pdf', [PndController::class, 'generarPdf'])->name('pnd.pdf');
+     });
 
+     // 📋 GESTOR DE PLANES - CRUD Completo de Planes
+     Route::middleware('can:manage planes')->group(function() {
+          Route::resource('planes', PlanController::class);
+          Route::get('/planes/pdf', [PlanController::class, 'generarPdf'])->name('planes.pdf');
+     });
 
-     Route::get('/objEstrategicos/pdf', [ObjEstrategicoController::class, 'generarPdf'])->name('objEstrategicos.pdf');
-     Route::resource('objEstrategicos', ObjEstrategicoController::class);
+     // 📊 COORDINADOR DE PROGRAMAS - CRUD Completo de Programas
+     Route::middleware('can:manage programas')->group(function() {
+          Route::resource('programas', ProgramaController::class);
+          Route::get('/programas/pdf', [ProgramaController::class, 'generarPdf'])->name('programas.pdf');
+     });
+
+     // 📈 ANALISTA DE PROYECTOS - CRUD Completo de Proyectos
+     Route::middleware('can:manage proyectos')->group(function() {
+          Route::resource('proyectos', ProyectoController::class);
+     });
+
+     // ==================================================================================
+     // RUTAS DE REPORTES (Supervisor General y roles con permisos)
+     // ==================================================================================
+     Route::middleware('can:generate reports')->group(function() {
+          // Aquí se pueden agregar rutas específicas de reportes cuando se implementen
+          // Route::get('/reportes', [ReporteController::class, 'index'])->name('reportes.index');
+          // Route::post('/reportes/generar', [ReporteController::class, 'generar'])->name('reportes.generar');
+     });
 });
 
 

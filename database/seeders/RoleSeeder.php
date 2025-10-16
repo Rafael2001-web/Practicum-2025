@@ -12,111 +12,101 @@ class RoleSeeder extends Seeder
 {
     /**
      * Run the database seeds.
+     * Basado en el documento CASOS_DE_USO.md - Sistema de roles específicos por CRUD
      */
     public function run(): void
     {
-        // Crear los 4 roles principales del sistema
-        $adminRole = Role::firstOrCreate(['name' => 'Administrador']);
-        $plannerRole = Role::firstOrCreate(['name' => 'Técnico de Planificación']);
-        $auditorRole = Role::firstOrCreate(['name' => 'Auditor']);
-        $externalRole = Role::firstOrCreate(['name' => 'Usuario Externo']);
+        // ==================================================================================
+        // CREAR LOS 10 ROLES ESPECÍFICOS DEL SISTEMA SIPEIP 2.0
+        // ==================================================================================
+        
+        $adminRole = Role::firstOrCreate(['name' => 'Administrador del Sistema']);
+        $gestorEntidadesRole = Role::firstOrCreate(['name' => 'Gestor de Entidades']);
+        $coordinadorUnidadesRole = Role::firstOrCreate(['name' => 'Coordinador de Unidades']);
+        $especialistaOdsRole = Role::firstOrCreate(['name' => 'Especialista en ODS']);
+        $planificadorEstrategicoRole = Role::firstOrCreate(['name' => 'Planificador Estratégico']);
+        $analistaPndRole = Role::firstOrCreate(['name' => 'Analista de PND']);
+        $gestorPlanesRole = Role::firstOrCreate(['name' => 'Gestor de Planes']);
+        $coordinadorProgramasRole = Role::firstOrCreate(['name' => 'Coordinador de Programas']);
+        $analistaProyectosRole = Role::firstOrCreate(['name' => 'Analista de Proyectos']);
+        $supervisorGeneralRole = Role::firstOrCreate(['name' => 'Supervisor General']);
 
-        // Crear permisos basados en las rutas del sistema
+        // ==================================================================================
+        // DEFINIR TODOS LOS PERMISOS DEL SISTEMA
+        // ==================================================================================
+        
         $permissions = [
-            // Dashboard
+            // ===== DASHBOARD =====
             'view dashboard',
             
-            // Gestión de Usuarios
-            'manage users',
-            'view users',
-            'create users',
-            'edit users',
-            'delete users',
+            // ===== USUARIOS (Administrador del Sistema) =====
+            'manage usuarios',
+            'view usuarios',
+            'create usuarios',
+            'edit usuarios',
+            'delete usuarios',
             
-            // Gestión de Roles y Permisos
-            'manage roles',
-            'view roles',
-            'create roles',
-            'edit roles',
-            'delete roles',
-            'manage permissions',
-            'view permissions',
-            'create permissions',
-            'edit permissions',
-            'delete permissions',
-            
-            // Gestión de Entidades
+            // ===== ENTIDADES (Gestor de Entidades) =====
             'manage entidades',
             'view entidades',
             'create entidades',
             'edit entidades',
             'delete entidades',
-            'export entidades',
             
-            // Gestión de Unidades Organizacionales
+            // ===== UNIDADES (Coordinador de Unidades) =====
             'manage unidades',
             'view unidades',
             'create unidades',
             'edit unidades',
             'delete unidades',
-            'export unidades',
             
-            // Gestión de Objetivos Estratégicos
-            'manage objetivos estrategicos',
-            'view objetivos estrategicos',
-            'create objetivos estrategicos',
-            'edit objetivos estrategicos',
-            'delete objetivos estrategicos',
-            'export objetivos estrategicos',
-            
-            // Gestión de ODS (Objetivos de Desarrollo Sostenible)
+            // ===== ODS (Especialista en ODS) =====
             'manage ods',
             'view ods',
             'create ods',
             'edit ods',
             'delete ods',
             
-            // Gestión de PND (Plan Nacional de Desarrollo)
+            // ===== OBJETIVOS ESTRATÉGICOS (Planificador Estratégico) =====
+            'manage objetivos_estrategicos',
+            'view objetivos_estrategicos',
+            'create objetivos_estrategicos',
+            'edit objetivos_estrategicos',
+            'delete objetivos_estrategicos',
+            
+            // ===== PND (Analista de PND) =====
             'manage pnd',
             'view pnd',
             'create pnd',
             'edit pnd',
             'delete pnd',
-            'export pnd',
             
-            // Gestión de Planes
+            // ===== PLANES (Gestor de Planes) =====
             'manage planes',
             'view planes',
             'create planes',
             'edit planes',
             'delete planes',
-            'export planes',
             
-            // Gestión de Programas
+            // ===== PROGRAMAS (Coordinador de Programas) =====
             'manage programas',
             'view programas',
             'create programas',
             'edit programas',
             'delete programas',
-            'export programas',
             
-            // Gestión de Proyectos
+            // ===== PROYECTOS (Analista de Proyectos) =====
             'manage proyectos',
             'view proyectos',
             'create proyectos',
             'edit proyectos',
             'delete proyectos',
             
-            // Reportes y Monitoreo
+            // ===== REPORTES Y SUPERVISIÓN =====
             'view reports',
             'generate reports',
             'export reports',
-            
-            // Actividades Operativas
-            'register activities',
-            'monitor goals',
-            'integrate external systems',
-            'assign budgets',
+            'view all_modules', // Para supervisor general
         ];
 
         // Crear todos los permisos
@@ -124,152 +114,243 @@ class RoleSeeder extends Seeder
             Permission::firstOrCreate(['name' => $permission]);
         }
 
-        // **ADMINISTRADOR** - Acceso completo al sistema
-        $adminRole->givePermissionTo(Permission::all());
+        // ==================================================================================
+        // ASIGNAR PERMISOS POR ROL - SEGÚN CASOS DE USO
+        // ==================================================================================
 
-        // **TÉCNICO DE PLANIFICACIÓN** - Gestión completa de planificación y proyectos
-        $plannerRole->givePermissionTo([
-            // Dashboard y navegación
+        // 👑 ADMINISTRADOR DEL SISTEMA
+        // ✅ CRUD COMPLETO: Usuarios
+        // 👀 SOLO LECTURA: Todos los demás CRUDs (supervisión)
+        $adminRole->givePermissionTo([
             'view dashboard',
-            
-            // Gestión completa de entidades de planificación
+            // Gestión completa de usuarios
+            'manage usuarios',
+            'view usuarios',
+            'create usuarios',
+            'edit usuarios',
+            'delete usuarios',
+            // Solo lectura de todos los demás módulos (supervisión)
+            'view entidades',
+            'view unidades',
+            'view ods',
+            'view objetivos_estrategicos',
+            'view pnd',
+            'view planes',
+            'view programas',
+            'view proyectos',
+        ]);
+
+        // 🏢 GESTOR DE ENTIDADES
+        // ✅ CRUD COMPLETO: Entidades
+        // 👀 SOLO LECTURA: Programas (para verificar relaciones)
+        $gestorEntidadesRole->givePermissionTo([
+            'view dashboard',
             'manage entidades',
             'view entidades',
             'create entidades',
             'edit entidades',
             'delete entidades',
-            'export entidades',
-            
-            // Gestión de unidades organizacionales
+            'view programas', // Para verificar relaciones
+        ]);
+
+        // 🏗️ COORDINADOR DE UNIDADES
+        // ✅ CRUD COMPLETO: Unidades
+        // 👀 SOLO LECTURA: Usuarios, Entidades (para contexto organizacional)
+        $coordinadorUnidadesRole->givePermissionTo([
+            'view dashboard',
             'manage unidades',
             'view unidades',
             'create unidades',
             'edit unidades',
             'delete unidades',
-            'export unidades',
-            
-            // Objetivos estratégicos
-            'manage objetivos estrategicos',
-            'view objetivos estrategicos',
-            'create objetivos estrategicos',
-            'edit objetivos estrategicos',
-            'delete objetivos estrategicos',
-            'export objetivos estrategicos',
-            
-            // ODS
+            'view usuarios', // Para contexto organizacional
+            'view entidades', // Para contexto organizacional
+        ]);
+
+        // 🎯 ESPECIALISTA EN ODS
+        // ✅ CRUD COMPLETO: ODS
+        // 👀 SOLO LECTURA: Objetivos Estratégicos, Planes (para alineación)
+        $especialistaOdsRole->givePermissionTo([
+            'view dashboard',
             'manage ods',
             'view ods',
             'create ods',
             'edit ods',
             'delete ods',
-            
-            // PND
+            'view objetivos_estrategicos', // Para alineación
+            'view planes', // Para alineación
+        ]);
+
+        // 🎯 PLANIFICADOR ESTRATÉGICO
+        // ✅ CRUD COMPLETO: Objetivos Estratégicos
+        // 👀 SOLO LECTURA: ODS, PND, Planes (para alineación estratégica)
+        $planificadorEstrategicoRole->givePermissionTo([
+            'view dashboard',
+            'manage objetivos_estrategicos',
+            'view objetivos_estrategicos',
+            'create objetivos_estrategicos',
+            'edit objetivos_estrategicos',
+            'delete objetivos_estrategicos',
+            'view ods', // Para alineación
+            'view pnd', // Para alineación
+            'view planes', // Para alineación
+        ]);
+
+        // 🇵🇪 ANALISTA DE PND
+        // ✅ CRUD COMPLETO: PND
+        // 👀 SOLO LECTURA: Objetivos Estratégicos, Planes (para coherencia nacional)
+        $analistaPndRole->givePermissionTo([
+            'view dashboard',
             'manage pnd',
             'view pnd',
             'create pnd',
             'edit pnd',
             'delete pnd',
-            'export pnd',
-            
-            // Planes
+            'view objetivos_estrategicos', // Para coherencia
+            'view planes', // Para coherencia
+        ]);
+
+        // 📋 GESTOR DE PLANES
+        // ✅ CRUD COMPLETO: Planes
+        // 👀 SOLO LECTURA: Objetivos Estratégicos, ODS, PND, Programas (para alineación)
+        $gestorPlanesRole->givePermissionTo([
+            'view dashboard',
             'manage planes',
             'view planes',
             'create planes',
             'edit planes',
             'delete planes',
-            'export planes',
-            
-            // Programas
+            'view objetivos_estrategicos', // Para alineación
+            'view ods', // Para alineación
+            'view pnd', // Para alineación
+            'view programas', // Para alineación
+        ]);
+
+        // 📊 COORDINADOR DE PROGRAMAS
+        // ✅ CRUD COMPLETO: Programas
+        // 👀 SOLO LECTURA: Entidades, Planes (para vinculación correcta)
+        $coordinadorProgramasRole->givePermissionTo([
+            'view dashboard',
             'manage programas',
             'view programas',
             'create programas',
             'edit programas',
             'delete programas',
-            'export programas',
-            
-            // Proyectos
+            'view entidades', // Para vinculación
+            'view planes', // Para vinculación
+        ]);
+
+        // 📈 ANALISTA DE PROYECTOS
+        // ✅ CRUD COMPLETO: Proyectos
+        // 👀 SOLO LECTURA: Planes, Programas, Usuarios (para asignaciones)
+        $analistaProyectosRole->givePermissionTo([
+            'view dashboard',
             'manage proyectos',
             'view proyectos',
             'create proyectos',
             'edit proyectos',
             'delete proyectos',
-            
-            // Actividades operativas
-            'register activities',
-            'monitor goals',
-            'assign budgets',
-            
-            // Reportes
-            'view reports',
-            'generate reports',
-            'export reports',
-            
-            // Ver usuarios (sin gestión)
-            'view users',
+            'view planes', // Para vinculación
+            'view programas', // Para vinculación
+            'view usuarios', // Para asignaciones
         ]);
 
-        // **AUDITOR** - Solo lectura y reportes para supervisión
-        $auditorRole->givePermissionTo([
-            // Dashboard
+        // 👁️ SUPERVISOR GENERAL
+        // ❌ NINGÚN CRUD COMPLETO
+        // 👀 SOLO LECTURA: TODOS los CRUDs + Reportes
+        $supervisorGeneralRole->givePermissionTo([
             'view dashboard',
-            
-            // Solo visualización de todas las entidades
+            'view all_modules',
+            // Solo lectura de todos los módulos
+            'view usuarios',
             'view entidades',
             'view unidades',
-            'view objetivos estrategicos',
             'view ods',
+            'view objetivos_estrategicos',
             'view pnd',
             'view planes',
             'view programas',
             'view proyectos',
-            'view users',
-            
-            // Reportes completos para auditoría
+            // Acceso completo a reportes
             'view reports',
             'generate reports',
             'export reports',
-            'export entidades',
-            'export unidades',
-            'export objetivos estrategicos',
-            'export pnd',
-            'export planes',
-            'export programas',
-            
-            // Monitoreo de metas
-            'monitor goals',
         ]);
 
-        // **USUARIO EXTERNO** - Acceso limitado solo a consultas básicas
-        $externalRole->givePermissionTo([
-            // Dashboard básico
-            'view dashboard',
-            
-            // Solo visualización de información pública
-            'view entidades',
-            'view unidades',
-            'view objetivos estrategicos',
-            'view ods',
-            'view pnd',
-            'view planes',
-            'view programas',
-            'view proyectos',
-            
-            // Reportes básicos
-            'view reports',
-        ]);
-
-        // Asignar rol de administrador al usuario admin
+        // ==================================================================================
+        // CREAR USUARIO ADMINISTRADOR POR DEFECTO
+        // ==================================================================================
+        
         $adminUser = User::where('email', 'admin@example.com')->first();
-        if($adminUser) {
-            $adminUser->assignRole($adminRole);
+        $adminUser->assignRole($adminRole);
+
+        // ==================================================================================
+        // USUARIOS DE EJEMPLO PARA CADA ROL
+        // ==================================================================================
+
+        $users = [
+            [
+                'name' => 'María González',
+                'email' => 'maria.gonzalez@sipeip.gob.pe',
+                'role' => $gestorEntidadesRole
+            ],
+            [
+                'name' => 'Carlos Mendoza',
+                'email' => 'carlos.mendoza@sipeip.gob.pe',
+                'role' => $coordinadorUnidadesRole
+            ],
+            [
+                'name' => 'Ana Rodríguez',
+                'email' => 'ana.rodriguez@sipeip.gob.pe',
+                'role' => $especialistaOdsRole
+            ],
+            [
+                'name' => 'Luis Fernández',
+                'email' => 'luis.fernandez@sipeip.gob.pe',
+                'role' => $planificadorEstrategicoRole
+            ],
+            [
+                'name' => 'Elena Torres',
+                'email' => 'elena.torres@sipeip.gob.pe',
+                'role' => $analistaPndRole
+            ],
+            [
+                'name' => 'Roberto Silva',
+                'email' => 'roberto.silva@sipeip.gob.pe',
+                'role' => $gestorPlanesRole
+            ],
+            [
+                'name' => 'Carmen López',
+                'email' => 'carmen.lopez@sipeip.gob.pe',
+                'role' => $coordinadorProgramasRole
+            ],
+            [
+                'name' => 'Diego Herrera',
+                'email' => 'diego.herrera@sipeip.gob.pe',
+                'role' => $analistaProyectosRole
+            ],
+            [
+                'name' => 'Patricia Vargas',
+                'email' => 'patricia.vargas@sipeip.gob.pe',
+                'role' => $supervisorGeneralRole
+            ],
+        ];
+
+        foreach ($users as $userData) {
+            $user = User::firstOrCreate([
+                'email' => $userData['email']
+            ], [
+                'name' => $userData['name'],
+                'password' => bcrypt('password123'),
+                'email_verified_at' => now(),
+            ]);
+
+            $user->assignRole($userData['role']);
         }
 
-        // Mensaje de confirmación
-        $this->command->info('✅ Roles y permisos creados exitosamente:');
-        $this->command->info("   - Administrador: " . $adminRole->permissions()->count() . " permisos");
-        $this->command->info("   - Técnico de Planificación: " . $plannerRole->permissions()->count() . " permisos");
-        $this->command->info("   - Auditor: " . $auditorRole->permissions()->count() . " permisos");
-        $this->command->info("   - Usuario Externo: " . $externalRole->permissions()->count() . " permisos");
-        $this->command->info("📊 Total de permisos: " . Permission::count());
+        $this->command->info('✅ Roles y permisos del Sistema SIPEIP 2.0 creados exitosamente');
+        $this->command->info('📋 10 roles específicos con permisos granulares');
+        $this->command->info('👥 10 usuarios de ejemplo creados (admin + 9 especialistas)');
+        $this->command->info('🔑 Contraseña por defecto: password123 (admin: admin123)');
     }
 }
