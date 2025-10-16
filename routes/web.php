@@ -47,57 +47,112 @@ Route::middleware('auth')->group(function () {
      Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
      Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-     // 👑 ADMINISTRADOR DEL SISTEMA - Gestión de Usuarios
-     Route::middleware('can:manage usuarios')->group(function() {
-          Route::resource('usuarios', UserController::class);
-          Route::resource('roles', RoleController::class);
-          Route::resource('permissions', PermissionController::class);
+     // ==================================================================================
+     // RUTAS INDEX - Acceso de LECTURA (view OR manage permissions)
+     // ==================================================================================
+     
+     // 👑 ADMINISTRADOR DEL SISTEMA - Ver listados de usuarios
+     Route::middleware('can.any:view usuarios,manage usuarios')->group(function() {
+          Route::get('/usuarios', [UserController::class, 'index'])->name('usuarios.index');
+          Route::get('/roles', [RoleController::class, 'index'])->name('roles.index');
+          Route::get('/permissions', [PermissionController::class, 'index'])->name('permissions.index');
      });
 
-     // 🏢 GESTOR DE ENTIDADES - CRUD Completo de Entidades
-     Route::middleware('can:manage entidades')->group(function() {
-          Route::resource('entidades', EntidadController::class);
+     // 🏢 GESTOR DE ENTIDADES - Ver listado de entidades
+     Route::middleware('can.any:view entidades,manage entidades')->group(function() {
+          Route::get('/entidades', [EntidadController::class, 'index'])->name('entidades.index');
           Route::get('/entidades/pdf', [EntidadController::class, 'generarPdf'])->name('entidades.pdf');
      });
 
-     // 🏗️ COORDINADOR DE UNIDADES - CRUD Completo de Unidades
-     Route::middleware('can:manage unidades')->group(function() {
-          Route::resource('unidades', UnidadController::class);
+     // 🏗️ COORDINADOR DE UNIDADES - Ver listado de unidades
+     Route::middleware('can.any:view unidades,manage unidades')->group(function() {
+          Route::get('/unidades', [UnidadController::class, 'index'])->name('unidades.index');
           Route::get('/unidades/pdf', [UnidadController::class, 'generarPdf'])->name('unidades.pdf');
      });
 
-     // 🎯 ESPECIALISTA EN ODS - CRUD Completo de ODS
-     Route::middleware('can:manage ods')->group(function() {
-          Route::resource('ods', OdsController::class);
+     // 🎯 ESPECIALISTA EN ODS - Ver listado de ODS
+     Route::middleware('can.any:view ods,manage ods')->group(function() {
+          Route::get('/ods', [OdsController::class, 'index'])->name('ods.index');
      });
 
-     // 🎯 PLANIFICADOR ESTRATÉGICO - CRUD Completo de Objetivos Estratégicos
-     Route::middleware('can:manage objetivos_estrategicos')->group(function() {
-          Route::resource('objEstrategicos', ObjEstrategicoController::class);
+     // 🎯 PLANIFICADOR ESTRATÉGICO - Ver listado de objetivos estratégicos
+     Route::middleware('can.any:view objetivos_estrategicos,manage objetivos_estrategicos')->group(function() {
+          Route::get('/objEstrategicos', [ObjEstrategicoController::class, 'index'])->name('objEstrategicos.index');
           Route::get('/objEstrategicos/pdf', [ObjEstrategicoController::class, 'generarPdf'])->name('objEstrategicos.pdf');
      });
 
-     // 🇵🇪 ANALISTA DE PND - CRUD Completo de PND
-     Route::middleware('can:manage pnd')->group(function() {
-          Route::resource('pnd', PndController::class);
+     // 🇵🇪 ANALISTA DE PND - Ver listado de PND
+     Route::middleware('can.any:view pnd,manage pnd')->group(function() {
+          Route::get('/pnd', [PndController::class, 'index'])->name('pnd.index');
           Route::get('/pnd/pdf', [PndController::class, 'generarPdf'])->name('pnd.pdf');
      });
 
-     // 📋 GESTOR DE PLANES - CRUD Completo de Planes
-     Route::middleware('can:manage planes')->group(function() {
-          Route::resource('planes', PlanController::class);
+     // 📋 GESTOR DE PLANES - Ver listado de planes
+     Route::middleware('can.any:view planes,manage planes')->group(function() {
+          Route::get('/planes', [PlanController::class, 'index'])->name('planes.index');
           Route::get('/planes/pdf', [PlanController::class, 'generarPdf'])->name('planes.pdf');
      });
 
-     // 📊 COORDINADOR DE PROGRAMAS - CRUD Completo de Programas
-     Route::middleware('can:manage programas')->group(function() {
-          Route::resource('programas', ProgramaController::class);
+     // 📊 COORDINADOR DE PROGRAMAS - Ver listado de programas
+     Route::middleware('can.any:view programas,manage programas')->group(function() {
+          Route::get('/programas', [ProgramaController::class, 'index'])->name('programas.index');
           Route::get('/programas/pdf', [ProgramaController::class, 'generarPdf'])->name('programas.pdf');
      });
 
-     // 📈 ANALISTA DE PROYECTOS - CRUD Completo de Proyectos
+     // 📈 ANALISTA DE PROYECTOS - Ver listado de proyectos
+     Route::middleware('can.any:view proyectos,manage proyectos')->group(function() {
+          Route::get('/proyectos', [ProyectoController::class, 'index'])->name('proyectos.index');
+     });
+
+     // ==================================================================================
+     // RUTAS CRUD - Gestión COMPLETA (manage permissions only)
+     // ==================================================================================
+     
+     // 👑 ADMINISTRADOR DEL SISTEMA - Gestión completa de usuarios
+     Route::middleware('can:manage usuarios')->group(function() {
+          Route::resource('usuarios', UserController::class)->except(['index']);
+          Route::resource('roles', RoleController::class)->except(['index']);
+          Route::resource('permissions', PermissionController::class)->except(['index']);
+     });
+
+     // 🏢 GESTOR DE ENTIDADES - CRUD completo de entidades
+     Route::middleware('can:manage entidades')->group(function() {
+          Route::resource('entidades', EntidadController::class)->except(['index']);
+     });
+
+     // 🏗️ COORDINADOR DE UNIDADES - CRUD completo de unidades
+     Route::middleware('can:manage unidades')->group(function() {
+          Route::resource('unidades', UnidadController::class)->except(['index']);
+     });
+
+     // 🎯 ESPECIALISTA EN ODS - CRUD completo de ODS
+     Route::middleware('can:manage ods')->group(function() {
+          Route::resource('ods', OdsController::class)->except(['index']);
+     });
+
+     // 🎯 PLANIFICADOR ESTRATÉGICO - CRUD completo de objetivos estratégicos
+     Route::middleware('can:manage objetivos_estrategicos')->group(function() {
+          Route::resource('objEstrategicos', ObjEstrategicoController::class)->except(['index']);
+     });
+
+     // 🇵🇪 ANALISTA DE PND - CRUD completo de PND
+     Route::middleware('can:manage pnd')->group(function() {
+          Route::resource('pnd', PndController::class)->except(['index']);
+     });
+
+     // 📋 GESTOR DE PLANES - CRUD completo de planes
+     Route::middleware('can:manage planes')->group(function() {
+          Route::resource('planes', PlanController::class)->except(['index']);
+     });
+
+     // 📊 COORDINADOR DE PROGRAMAS - CRUD completo de programas
+     Route::middleware('can:manage programas')->group(function() {
+          Route::resource('programas', ProgramaController::class)->except(['index']);
+     });
+
+     // 📈 ANALISTA DE PROYECTOS - CRUD completo de proyectos
      Route::middleware('can:manage proyectos')->group(function() {
-          Route::resource('proyectos', ProyectoController::class);
+          Route::resource('proyectos', ProyectoController::class)->except(['index']);
      });
 
      // ==================================================================================
