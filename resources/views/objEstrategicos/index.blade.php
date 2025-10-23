@@ -31,8 +31,9 @@
                                 ['label' => 'Estado', 'type' => 'badge'],
                                 ['label' => 'Acciones', 'type' => 'actions']
                             ]"
-                            :csv="false"
-                            :print="false"
+                            :csv="auth()->user()->can('generate reports')"
+                            :print="auth()->user()->can('generate reports')"
+                            :json="auth()->user()->can('generate reports')"
                             id="objestrategicos-table"
                             title="Gestión de Objetivos Estratégicos"
                         >

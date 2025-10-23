@@ -32,8 +32,9 @@
                                 ['label' => 'Descripción', 'type' => 'text'],
                                 ['label' => 'Acciones', 'type' => 'actions']
                             ]"
-                            :csv="false"
-                            :print="false"
+                            :csv="auth()->user()->can('generate reports')"
+                            :print="auth()->user()->can('generate reports')"
+                            :json="auth()->user()->can('generate reports')"
                             id="programas-table"
                             title="Gestión de Programas"
                         >

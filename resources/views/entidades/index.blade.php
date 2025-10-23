@@ -35,9 +35,9 @@
                                 ['label' => 'Fecha de Actualización', 'type' => 'date'],
                                 ['label' => 'Acciones', 'type' => 'actions']
                             ]"
-                            :csv="true"
-                            :print="true"
-                            :json="true"
+                            :csv="auth()->user()->can('generate reports')"
+                            :print="auth()->user()->can('generate reports')"
+                            :json="auth()->user()->can('generate reports')"
                             id="entidades-table"
                         >
                             <x-slot name="buttons">

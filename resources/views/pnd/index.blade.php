@@ -31,8 +31,9 @@
                                 ['label' => 'Descripción', 'type' => 'text'],
                                 ['label' => 'Acciones', 'type' => 'actions']
                             ]"
-                            :csv="false"
-                            :print="false"
+                            :csv="auth()->user()->can('generate reports')"
+                            :print="auth()->user()->can('generate reports')"
+                            :json="auth()->user()->can('generate reports')"
                             id="pnd-table"
                             title="Gestión del Plan Nacional de Desarrollo"
                         >

@@ -32,7 +32,9 @@
                             ['label' => 'Sector', 'type' => 'text'],
                             ['label' => 'Estado', 'type' => 'badge'],
                             ['label' => 'Acciones', 'type' => 'actions'],
-                        ]" :csv="false" :print="false" id="unidades-table"
+                        ]" :csv="auth()->user()->can('generate reports')"
+                            :print="auth()->user()->can('generate reports')"
+                            :json="auth()->user()->can('generate reports')" id="unidades-table"
                             title="Gestión de Unidades">
                             <x-slot name="buttons">
                                 @can('manage unidades')
