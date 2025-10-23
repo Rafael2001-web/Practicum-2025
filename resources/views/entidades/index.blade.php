@@ -35,8 +35,9 @@
                                 ['label' => 'Fecha de Actualización', 'type' => 'date'],
                                 ['label' => 'Acciones', 'type' => 'actions']
                             ]"
-                            :csv="false"
-                            :print="false"
+                            :csv="true"
+                            :print="true"
+                            :json="true"
                             id="entidades-table"
                         >
                             <x-slot name="buttons">

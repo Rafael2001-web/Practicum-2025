@@ -102,6 +102,9 @@ function initTable(table) {
     const exportCsvBtn = document.querySelector(
         `#${table.dataset.table}-export-csv`
     );
+    const exportJsonBtn = document.querySelector(
+        `#${table.dataset.table}-export-json`
+    );
     const printBtn = document.querySelector(`#${table.dataset.table}-print`);
     const columnToggles = document.querySelectorAll(
         `[data-toggle-col-${table.dataset.table}]`
@@ -137,6 +140,11 @@ function initTable(table) {
     // Exportar CSV
     if (exportCsvBtn) {
         exportCsvBtn.addEventListener("click", () => exportTableToCSV(table));
+    }
+
+    // Exportar JSON
+    if (exportJsonBtn) {
+        exportJsonBtn.addEventListener("click", () => exportTableToJSON(table));
     }
 
     // Print
@@ -359,15 +367,34 @@ function renderPagination(table, totalRows, rowsPerPage, currentPage) {
 
 // Exportar a CSV
 function exportTableToCSV(table, filename = "export.csv") {
-    const rows = Array.from(table.querySelectorAll("tr"));
-    const csv = rows
+    // Obtener los headers y identificar columnas de acciones
+    const headers = Array.from(table.querySelectorAll("th"));
+    const actionColumnIndexes = [];
+    headers.forEach((th, index) => {
+        if (th.dataset.type === 'actions') {
+            actionColumnIndexes.push(index);
+        }
+    });
+
+    // Obtener todas las filas (header + datos)
+    const allRows = Array.from(table.querySelectorAll("tr"));
+    
+    // Solo incluir las filas visibles del tbody (para datos filtrados)
+    const headerRow = allRows[0]; // Primera fila (headers)
+    const dataRows = table._filteredRows || Array.from(table.tBodies[0].querySelectorAll("tr"));
+    
+    const rowsToExport = [headerRow, ...dataRows];
+    
+    const csv = rowsToExport
         .map((row) => {
             const cols = Array.from(row.querySelectorAll("th, td"));
             return cols
-                .map((c) => `"${c.innerText.replace(/"/g, '""')}"`)
+                .filter((col, index) => !actionColumnIndexes.includes(index))
+                .map((c) => `"${cleanTextForJSON(c.innerText).replace(/"/g, '""')}"`)
                 .join(",");
         })
         .join("\n");
+        
     const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
     const link = document.createElement("a");
     link.href = URL.createObjectURL(blob);
@@ -379,10 +406,100 @@ function exportTableToCSV(table, filename = "export.csv") {
 
 // Imprimir tabla
 function printTable(table) {
+    // Obtener los headers y identificar columnas de acciones
+    const headers = Array.from(table.querySelectorAll("th"));
+    const actionColumnIndexes = [];
+    headers.forEach((th, index) => {
+        if (th.dataset.type === 'actions') {
+            actionColumnIndexes.push(index);
+        }
+    });
+
+    // Crear una copia de la tabla sin las columnas de acciones
+    const tableClone = table.cloneNode(true);
+    const allRows = Array.from(tableClone.querySelectorAll("tr"));
+    
+    allRows.forEach(row => {
+        const cells = Array.from(row.querySelectorAll("th, td"));
+        // Eliminar columnas de acciones en orden inverso para no afectar los índices
+        actionColumnIndexes.sort((a, b) => b - a).forEach(index => {
+            if (cells[index]) {
+                cells[index].remove();
+            }
+        });
+        
+        // Limpiar texto de emojis en las celdas restantes
+        const remainingCells = Array.from(row.querySelectorAll("th, td"));
+        remainingCells.forEach(cell => {
+            cell.textContent = cleanTextForJSON(cell.textContent);
+        });
+    });
+
+    // Crear el HTML para imprimir con estilos mejorados
+    const printHTML = `
+        <html>
+        <head>
+            <title>Reporte de Tabla</title>
+            <style>
+                body {
+                    font-family: Arial, sans-serif;
+                    margin: 20px;
+                    background: white;
+                }
+                table {
+                    width: 100%;
+                    border-collapse: collapse;
+                    margin: 20px 0;
+                    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+                }
+                th, td {
+                    border: 1px solid #ddd;
+                    padding: 8px 12px;
+                    text-align: left;
+                    font-size: 12px;
+                }
+                th {
+                    background-color: #4a5568;
+                    color: white;
+                    font-weight: bold;
+                    text-transform: uppercase;
+                }
+                tr:nth-child(even) {
+                    background-color: #f8f9fa;
+                }
+                tr:hover {
+                    background-color: #e9ecef;
+                }
+                .print-header {
+                    text-align: center;
+                    margin-bottom: 20px;
+                    border-bottom: 2px solid #4a5568;
+                    padding-bottom: 10px;
+                }
+                .print-date {
+                    text-align: right;
+                    font-size: 10px;
+                    color: #666;
+                    margin-bottom: 10px;
+                }
+                @media print {
+                    body { margin: 0; }
+                    .no-print { display: none; }
+                }
+            </style>
+        </head>
+        <body>
+            <div class="print-date">Generado el: ${new Date().toLocaleString('es-ES')}</div>
+            <div class="print-header">
+                <h2>Reporte de Datos</h2>
+            </div>
+            ${tableClone.outerHTML}
+        </body>
+        </html>
+    `;
+
     const win = window.open("", "", "width=900,height=700");
-    win.document.write("<html><head><title>Print Table</title></head><body>");
-    win.document.write(table.outerHTML);
-    win.document.write("</body></html>");
+    win.document.write(printHTML);
     win.document.close();
     win.print();
 }
@@ -438,4 +555,79 @@ function updateRowInfo(table, pageNum) {
     if (infoDiv) {
         infoDiv.textContent = `${start} a ${end} de ${totalRows}`;
     }
+}
+
+// Función para limpiar texto de emojis y caracteres especiales
+function cleanTextForJSON(text) {
+    return text
+        // Remover emojis
+        .replace(/[\u{1F600}-\u{1F64F}]|[\u{1F300}-\u{1F5FF}]|[\u{1F680}-\u{1F6FF}]|[\u{1F1E0}-\u{1F1FF}]|[\u{2600}-\u{26FF}]|[\u{2700}-\u{27BF}]/gu, '')
+        // Remover caracteres especiales que pueden causar problemas en JSON
+        .replace(/[\u{FE00}-\u{FE0F}]|[\u{200D}]|[\u{20E3}]/gu, '')
+        // Limpiar espacios múltiples
+        .replace(/\s+/g, ' ')
+        // Remover espacios al inicio y final
+        .trim();
+}
+
+// Exportar tabla a JSON
+function exportTableToJSON(table, filename = "export.json") {
+    // Obtener los headers y identificar columnas de acciones
+    const allHeaders = Array.from(table.querySelectorAll("th"));
+    const actionColumnIndexes = [];
+    const headers = [];
+    
+    allHeaders.forEach((th, index) => {
+        if (th.dataset.type === 'actions') {
+            actionColumnIndexes.push(index);
+        } else {
+            headers.push(cleanTextForJSON(th.innerText));
+        }
+    });
+    
+    // Obtener solo las filas visibles (filtradas)
+    const visibleRows = table._filteredRows || Array.from(table.tBodies[0].querySelectorAll("tr"));
+    
+    const data = visibleRows.map(row => {
+        const allCells = Array.from(row.querySelectorAll("td"));
+        const cells = allCells.filter((cell, index) => !actionColumnIndexes.includes(index));
+        const rowData = {};
+        
+        cells.forEach((cell, index) => {
+            if (headers[index]) {
+                // Limpiar el contenido de la celda
+                let cellText = cleanTextForJSON(cell.innerText);
+                
+                // Intentar convertir números
+                const numValue = parseFloat(cellText);
+                if (!isNaN(numValue) && isFinite(numValue) && cellText === numValue.toString()) {
+                    rowData[headers[index]] = numValue;
+                } else if (cellText.toLowerCase() === 'true' || cellText.toLowerCase() === 'false') {
+                    // Convertir booleanos
+                    rowData[headers[index]] = cellText.toLowerCase() === 'true';
+                } else {
+                    rowData[headers[index]] = cellText;
+                }
+            }
+        });
+        
+        return rowData;
+    });
+
+    // Crear el objeto JSON final
+    const jsonData = {
+        exported_at: new Date().toISOString(),
+        total_records: data.length,
+        data: data
+    };
+
+    // Crear el archivo y descargarlo
+    const jsonString = JSON.stringify(jsonData, null, 2);
+    const blob = new Blob([jsonString], { type: "application/json;charset=utf-8;" });
+    const link = document.createElement("a");
+    link.href = URL.createObjectURL(blob);
+    link.setAttribute("download", filename);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
 }
