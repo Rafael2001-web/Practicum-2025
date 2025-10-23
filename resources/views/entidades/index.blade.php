@@ -50,7 +50,6 @@
                                     </button>
                                 @endcan
                                 @can('generate reports')
-                                    {{-- boton pdf 
                                     <a href="{{ route('entidades.documentopdf') }}" target="_blank"
                                        class="inline-flex items-center px-4 py-2 bg-red-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-red-700 active:bg-red-600 focus:outline-none focus:border-red-600 focus:ring ring-red-600/20 disabled:opacity-25 transition ease-in-out duration-150 shadow-sm">
                                         <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -58,7 +57,6 @@
                                         </svg>
                                         Generar PDF
                                     </a>
-                                    --}}
                                 @endcan
                             </x-slot>
 

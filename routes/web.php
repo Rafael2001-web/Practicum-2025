@@ -160,6 +160,15 @@ Route::middleware('auth')->group(function () {
 
      // RUTAS DE REPORTES (Supervisor General y roles con permisos)
      // permiso generate reports
+     Route::middleware('can:generate reports')->prefix('reportes')->group(function() {
+          Route::get('/entidades/pdf', [EntidadController::class, 'documentopdf'])->name('entidades.documentopdf');
+          Route::get('/programas/pdf', [ProgramaController::class, 'documentopdf'])->name('programas.documentopdf');
+          Route::get('/proyectos/pdf', [ProyectoController::class, 'documentopdf'])->name('proyectos.documentopdf');
+          Route::get('/unidades/pdf', [UnidadController::class, 'documentopdf'])->name('unidades.documentopdf');
+          Route::get('/objEstrategicos/pdf', [ObjEstrategicoController::class, 'documentopdf'])->name('objEstrategicos.documentopdf');
+          Route::get('/pnd/pdf', [PndController::class, 'documentopdf'])->name('pnd.documentopdf');
+          Route::get('/planes/pdf', [PlanController::class, 'documentopdf'])->name('planes.documentopdf');
+     });
 });
 
 

@@ -101,12 +101,14 @@ class EntidadController extends Controller
 
     }
 
-    public function pdf(){
-        dd('generar pdf');
+    /**
+     * Generate PDF report of all entities.
+     */
+    public function documentopdf()
+    {
         $entidades = Entidad::all();
         $pdf = Pdf::loadView('entidades.pdf', compact('entidades'));
         return $pdf->download('reporte_entidades.pdf');
     }
-
 
 }

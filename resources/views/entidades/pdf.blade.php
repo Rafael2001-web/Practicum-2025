@@ -63,10 +63,8 @@
                     <td style="border: 1px solid #ccc; padding: 8px">{{$entidad->subSector}}</td>
                     <td style="border: 1px solid #ccc; padding: 8px">{{$entidad->nivelGobierno}}</td>
                     <td style="border: 1px solid #ccc; padding: 8px">{{$entidad->estado}}</td>
-                    <td style="border: 1px solid #ccc; padding: 8px">{{$entidad->fechaCreacion}}</td>
-                    <td style="border: 1px solid #ccc; padding: 8px">{{$entidad->fechaActualizacion}}</td>
-                   
-
+                    <td style="border: 1px solid #ccc; padding: 8px">{{ $entidad->fechaCreacion ? \Carbon\Carbon::parse($entidad->fechaCreacion)->format('d/m/Y') : '-' }}</td>
+                    <td style="border: 1px solid #ccc; padding: 8px">{{ $entidad->fechaActualizacion ? \Carbon\Carbon::parse($entidad->fechaActualizacion)->format('d/m/Y') : '-' }}</td>
                 </tr>
             @endforeach
 

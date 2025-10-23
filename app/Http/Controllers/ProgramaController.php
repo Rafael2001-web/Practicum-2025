@@ -87,7 +87,7 @@ class ProgramaController extends Controller
 
     }
 
-    public function generarPdf(){
+    public function documentopdf(){
         $programa = Programa::all();
         $pdf =Pdf::loadView('programas.pdf', compact('programa'));
         return $pdf->stream('reporte_programa.pdf');

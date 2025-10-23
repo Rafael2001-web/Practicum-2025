@@ -92,7 +92,7 @@ class ObjEstrategicoController extends Controller
 
     }
 
-    public function generarPdf(){
+    public function documentopdf(){
         $objEstrategicos = objEstrategico::all();
         $pdf =Pdf::loadView('objEstrategicos.pdf', compact('objEstrategicos'));
         return $pdf->stream('reporte_objEstrategicos.pdf');
