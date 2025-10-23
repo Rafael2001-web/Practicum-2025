@@ -2,10 +2,10 @@
     body {
         font-family: Arial, sans-serif;
         background-color: #f2f2f2;
-        padding: 20xp;
+        padding: 20px;
     }
     h1{
-        text-aling: center;
+        text-align: center;
         color: #333333;
     }
     table{
@@ -18,7 +18,7 @@
     th, td {
         border: 1px solid #ddd;
         padding: 12px;
-        text-aling: left;
+        text-align: left;
     }
     th {
         background-color: #f2f2f2;
@@ -56,7 +56,7 @@
         </thead>
         <tbody>
 
-            @foreach($entidad as $entidad)
+            @foreach($entidades as $entidad)
                 <tr>
                     <td style="border: 1px solid #ccc; padding: 8px">{{$entidad->idEntidad}}</td>
                     <td style="border: 1px solid #ccc; padding: 8px">{{$entidad->codigo}}</td>

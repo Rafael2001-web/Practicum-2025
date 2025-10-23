@@ -69,7 +69,6 @@
                                 class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary">
                             <option value="">Seleccionar estado...</option>
                             <option value="Activo">Activo</option>
-                            <option value="En Reorganización">En Reorganización</option>
                             <option value="Inactivo">Inactivo</option>
                         </select>
                     </div>
