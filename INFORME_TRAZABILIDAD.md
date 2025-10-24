@@ -39,7 +39,7 @@
 - **Estado**: ✅ **Completamente Trazable**
 - **Contenido**: 90 requisitos funcionales (RF-001 a RF-090)
 - **Formato**: Adaptado correctamente
-- **Eliminaciones**: Sin elementos no trazables (sin 2FA)
+- **Eliminaciones**: Se eliminaron referencias a 2FA de los documentos maestros; no hay requisitos 2FA activos en los archivos válidos.
 
 #### **5. MATRIZ_TRAZABILIDAD.md**
 - **Estado**: ✅ **Documento Maestro**
@@ -52,7 +52,7 @@
 
 #### **1. REQUISITOS_FUNCIONALES.md**
 - **Estado**: ❌ **INCONSISTENTE**
-- **Problema Principal**: Contiene **RF-002 (Autenticación 2FA)** que NO existe en el sistema
+- **Problema Principal**: Contenía referencias a 2FA en archivos antiguos; dichas referencias han sido retiradas de los documentos maestros y del backlog activo.
 - **Impacto**: Rompe trazabilidad con sistema real
 - **Solución**: Usar REQUISITOS_FUNCIONALES_NO_FUNCIONALES.md como fuente válida
 
@@ -126,7 +126,7 @@ Sistema Laravel: User.php + UserController.php
 ## 🚨 **PROBLEMAS CRÍTICOS DETECTADOS**
 
 ### **1. Duplicación de Archivos de Requisitos:**
-- `REQUISITOS_FUNCIONALES.md` ❌ (Con 2FA no trazable)  
+-- `REQUISITOS_FUNCIONALES.md` ❌ (versión antigua que contenía referencias a 2FA; recomendar consolidar y archivar)
 - `REQUISITOS_FUNCIONALES_NO_FUNCIONALES.md` ✅ (Correcto y trazable)
 
 ### **2. Inconsistencia en Numeración de Tareas:**
@@ -134,7 +134,7 @@ Sistema Laravel: User.php + UserController.php
 - **Estándar adoptado**: `TAR-001` (formato de 3 dígitos)
 
 ### **3. Referencias a Funcionalidades No Implementadas:**
-- ❌ Autenticación 2FA (RF-002 en archivo incorrecto)
+- ⚠️ Referencias históricas a 2FA (RF-002 en versiones antiguas) — ya no están en los documentos maestros.
 - ❌ Algunas HU numeradas diferente (HU-001 vs HU-01)
 
 ---
@@ -166,7 +166,7 @@ Sistema Laravel: User.php + UserController.php
    - ✅ Todos los demás archivos están correctos
 
 2. **🔄 Eliminar archivos problemáticos:**
-   - ❌ Eliminar `REQUISITOS_FUNCIONALES.md` (tiene 2FA no trazable)
+    - ⚠️ Revisar y archivar `REQUISITOS_FUNCIONALES.md` si se conserva como histórico; no usarlo como fuente de verdad.
    - ❌ Eliminar `BACKLOG_DETALLADO_PRODUCTO.md` (numeración inconsistente)
 
 3. **📝 Estandarizar numeración:**
@@ -202,7 +202,7 @@ La documentación es **COMPLETAMENTE TRAZABLE** siempre que se usen los **archiv
 6. `MATRIZ_TRAZABILIDAD.md`
 
 ### ❌ **Archivos a Descartar:**
-1. `REQUISITOS_FUNCIONALES.md` (Contiene 2FA no implementado)
+1. `REQUISITOS_FUNCIONALES.md` (Versión antigua; archivar o revisar. 2FA eliminado de archivos maestros)
 2. `BACKLOG_DETALLADO_PRODUCTO.md` (Numeración inconsistente)
 
 **La trazabilidad es PERFECTA con el sistema Laravel implementado cuando se usan los archivos correctos.**

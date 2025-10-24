@@ -45,11 +45,11 @@
 
 | **ID Tarea** | **Tarea** | **ID Historia** | **Estado** |
 |--------------|-----------|-----------------|------------|
-| TAR-019 | Diseñar y documentar el flujo de autenticación con 2FA | HU-06 | Por Hacer |
-| TAR-020 | Implementar autenticación 2FA usando correo o token | HU-06 | Por Hacer |
-| TAR-021 | Desarrollar sistema de bloqueo por intentos fallidos | HU-06 | Por Hacer |
-| TAR-022 | Implementar logging de accesos exitosos y fallidos | HU-06 | Por Hacer |
-| TAR-023 | Crear interfaz de login con validaciones frontend | HU-06 | Por Hacer |
+| TAR-019 | Desarrollar sistema de bloqueo por intentos fallidos | HU-06 | Por Hacer |
+| TAR-020 | Implementar logging de accesos exitosos y fallidos | HU-06 | Por Hacer |
+| TAR-021 | Crear interfaz de login con validaciones frontend | HU-06 | Por Hacer |
+| TAR-022 | (opcional) Documentar posible 2FA para futuras versiones | HU-06 | Por Hacer |
+| TAR-023 | Implementar notificaciones y mensajes de error en login | HU-06 | Por Hacer |
 | TAR-024 | Diseñar página de error 403 personalizada | HU-07 | Por Hacer |
 | TAR-025 | Diseñar página de error 404 personalizada | HU-07 | Por Hacer |
 | TAR-026 | Diseñar página de error 500 personalizada | HU-07 | Por Hacer |

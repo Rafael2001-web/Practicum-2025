@@ -21,7 +21,7 @@
 | NEC-003 | Modificación Controlada de Entidades | Como gestor de entidades necesito poder modificar la información de las entidades registradas (excepto el código único) para mantener los datos actualizados y precisos | Gestor de Entidades |
 | NEC-004 | Control de Estados de Entidades | Como supervisor necesito poder activar o desactivar entidades según su estado operativo actual, manteniendo un historial de cambios para auditoría | Supervisor de Entidades |
 | NEC-005 | Organización Jerárquica | Como planificador estratégico necesito organizar las entidades en estructuras jerárquicas (macrosectores y sectores) para facilitar la planificación y gestión por áreas | Planificador Estratégico |
-| NEC-006 | Autenticación Segura | Como usuario del sistema necesito un proceso de autenticación robusto con doble factor para garantizar la seguridad de mi cuenta y la información institucional | Usuario Final |
+| NEC-006 | Autenticación Segura | Como usuario del sistema necesito un proceso de autenticación robusto (usuario/contraseña) con bloqueo por intentos fallidos para garantizar la seguridad de mi cuenta y la información institucional | Usuario Final |
 | NEC-007 | Manejo de Errores Personalizado | Como usuario necesito páginas de error claras y personalizadas que me orienten sobre qué hacer cuando ocurra un problema en el sistema | Usuario Final |
 | NEC-008 | Gestión de Perfil Personal | Como usuario autenticado necesito poder consultar y modificar mi información personal y cambiar mi contraseña de forma segura | Usuario Autenticado |
 | NEC-009 | Versionado de Planes | Como planificador necesito crear y gestionar diferentes versiones de planes institucionales con la capacidad de comparar cambios entre versiones | Planificador Institucional |
@@ -79,7 +79,7 @@
 ### **Vinculación Necesidades → Historias de Usuario:**
 - **NEC-001** → HU-01 (Gestión de usuarios)
 - **NEC-002, NEC-003, NEC-004, NEC-005** → HU-02, HU-03, HU-04, HU-05 (Gestión de entidades)
-- **NEC-006** → HU-06 (Autenticación 2FA)
+- **NEC-006** → HU-06 (Autenticación: credenciales y bloqueo por intentos fallidos)
 - **NEC-007** → HU-07 (Páginas de error)
 - **NEC-008** → HU-08 (Perfil de usuario)
 - **NEC-009, NEC-010** → HU-09, HU-10, HU-11 (Gestión de planes)

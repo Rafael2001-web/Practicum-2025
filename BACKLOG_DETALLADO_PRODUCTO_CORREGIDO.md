@@ -144,27 +144,25 @@
 
 | **ID Historia de Usuario** | **Como (Rol)** | **Deseo...** | **Para...** |
 |---------------------------|-----------------|--------------|-------------|
-| **HU-06** | Usuario Autenticado (interno o externo) | Acceder al sistema mediante autenticación con múltiples factores | Garantizar la seguridad y acceso controlado a la plataforma |
+| **HU-06** | Usuario Autenticado (interno o externo) | Acceder al sistema mediante autenticación con credenciales (usuario/contraseña) | Garantizar la seguridad y acceso controlado a la plataforma |
 
 #### **TAREAS TÉCNICAS PARA HU-06**
 
 | **ID Tarea** | **Descripción de la Tarea** |
 |--------------|------------------------------|
-| **TAR-019** | Diseñar y documentar el flujo de autenticación con 2FA |
-| **TAR-020** | Implementar autenticación 2FA usando correo o token |
-| **TAR-021** | Desarrollar sistema de bloqueo por intentos fallidos |
-| **TAR-022** | Implementar logging de accesos exitosos y fallidos |
-| **TAR-023** | Crear interfaz de login con validaciones frontend |
+| **TAR-019** | Desarrollar sistema de bloqueo por intentos fallidos |
+| **TAR-020** | Implementar logging de accesos exitosos y fallidos |
+| **TAR-021** | Crear interfaz de login con validaciones frontend |
 
 #### **CRITERIOS DE ACEPTACIÓN Y DETALLES**
 
 | **Criterios de Aceptación** | **Prioridad** | **Estimación** | **Dependencias** | **Sprint** | **Estado** |
 |----------------------------|---------------|----------------|------------------|------------|------------|
-| El sistema valida credenciales y envía código 2FA al correo/SMS | 1 | 4 | - | 2 | Por Hacer |
+| El sistema valida credenciales (usuario/contraseña) | 1 | 3 | - | 2 | Por Hacer |
 | Después de 5 intentos fallidos, la cuenta se bloquea temporalmente | 1 | 3 | TAR-019 | 2 | Por Hacer |
 | Se registra fecha, hora, IP y resultado de cada intento de acceso | 1 | 3 | TAR-020 | 2 | Por Hacer |
 | La interfaz es responsive y muestra mensajes de error claros | 2 | 4 | TAR-021 | 2 | Por Hacer |
-| El sistema cumple con estándares de seguridad para autenticación | 1 | 4 | TAR-019, TAR-020 | 2 | Por Hacer |
+| El sistema cumple con estándares de seguridad aplicables | 1 | 4 | TAR-019, TAR-020 | 2 | Por Hacer |
 
 ---
 

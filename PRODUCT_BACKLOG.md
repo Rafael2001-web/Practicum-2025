@@ -7,7 +7,7 @@
 | **ID Épica** | **Como (Rol)** | **ÉPICA - Deseo...** | **Para...** |
 |-------------|-----------------|----------------------|-------------|
 | **EPIC-01** | Administrador del Sistema | Configurar entidades, usuarios y jerarquías organizacionales | Asegurar una estructura institucional clara y controlada |
-| **EPIC-02** | Usuario Autenticado (interno o externo) | Acceder al sistema mediante autenticación con múltiples factores | Garantizar la seguridad y acceso controlado a la plataforma |
+| **EPIC-02** | Usuario Autenticado (interno o externo) | Acceder al sistema mediante autenticación con credenciales (usuario/contraseña) y bloqueo por intentos fallidos | Garantizar la seguridad y acceso controlado a la plataforma |
 | **EPIC-03** | Usuario Interno | Ingresar planes institucionales con control de versiones | Automatizar, integrar y modernizar la planificación institucional |
 | **EPIC-04** | Usuario Interno | Validar automáticamente el cumplimiento normativo de los planes ingresados | Reducir errores y acelerar el proceso de validación |
 | **EPIC-05** | Planificador Estratégico | Gestionar objetivos estratégicos alineados con la visión institucional | Mantener coherencia en la planificación estratégica |
@@ -37,7 +37,7 @@
 
 | **ID Historia de Usuario** | **Como (Rol)** | **HISTORIA DE USUARIO - Deseo...** | **Para...** |
 |---------------------------|-----------------|-----------------------------------|-------------|
-| **HU-06** | Usuario Autenticado (interno o externo) | Acceder al sistema mediante autenticación con múltiples factores | Garantizar la seguridad y acceso controlado a la plataforma |
+| **HU-06** | Usuario Autenticado (interno o externo) | Acceder al sistema mediante autenticación con credenciales (usuario/contraseña) y bloqueo por intentos fallidos | Garantizar la seguridad y acceso controlado a la plataforma |
 | **HU-07** | Usuario del Sistema | Recibir mensajes de error claros y páginas personalizadas | Entender qué está ocurriendo cuando hay problemas |
 | **HU-08** | Usuario Autenticado | Gestionar mi perfil personal y preferencias | Mantener actualizada mi información en el sistema |
 
@@ -139,7 +139,7 @@
 
 | **ID HU** | **Criterios de Aceptación** | **Prioridad** | **Estimación** | **Dependencia** | **Sprint** | **Estado** |
 |-----------|----------------------------|---------------|----------------|-----------------|------------|------------|
-| **HU-06** | El sistema debe validar credenciales con 2FA (correo/SMS/token). Se debe bloquear el acceso tras 5 intentos fallidos. Registro de logs de acceso exitoso y fallido. | 1 | 4 | - | 2 | Por Hacer |
+| **HU-06** | Validar credenciales y gestionar bloqueo por intentos fallidos | El sistema debe validar credenciales (usuario/contraseña). Después de 5 intentos fallidos, la cuenta se bloqueará temporalmente. Registrar logs de acceso exitoso y fallido. | 1 | 4 | - | 2 | Por Hacer |
 | **HU-07** | Páginas personalizadas para errores 403, 404, 500. Mensajes claros en español. Navegación de regreso disponible. | 2 | 2 | - | 2 | Por Hacer |
 | **HU-08** | El usuario puede editar su información personal, cambiar contraseña, ver sus permisos asignados. | 2 | 3 | HU-06 | 2 | Por Hacer |
 
