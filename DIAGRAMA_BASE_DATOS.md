@@ -251,7 +251,7 @@ Este diagrama muestra la estructura completa de la base de datos del Sistema de 
 
 ---
 
-## 🔗 **DIAGRAMA DE RELACIONES**
+## 🔗 **DIAGRAMA DE RELACIONES MEJORADO**
 
 ```mermaid
 erDiagram
@@ -266,6 +266,13 @@ erDiagram
         timestamp updated_at
     }
     
+    unidad {
+        bigint idUnidad PK
+        varchar macrosector
+        varchar sector
+        varchar estado
+    }
+    
     entidad {
         bigint idEntidad PK
         integer codigo UK
@@ -274,11 +281,26 @@ erDiagram
         varchar estado
         date fechaCreacion
         date fechaActualizacion
+        bigint idUnidad FK
+    }
+    
+    plan {
+        bigint idPlan PK
+        varchar codigo UK
+        varchar nombre
+        bigint idEntidad FK
+        decimal presupuesto
+        date fecha_inicio
+        date fecha_fin
+        varchar estado
+        timestamp created_at
+        timestamp updated_at
     }
     
     programa {
         bigint idPrograma PK
         bigint idEntidad FK
+        bigint idPlan FK
         varchar nombre
         varchar descripcion
         timestamp created_at
@@ -296,19 +318,7 @@ erDiagram
         decimal presupuesto
         varchar estado
         bigint user_id FK
-        timestamp created_at
-        timestamp updated_at
-    }
-    
-    plan {
-        bigint idPlan PK
-        varchar codigo UK
-        varchar nombre
-        text entidad
-        decimal presupuesto
-        date fecha_inicio
-        date fecha_fin
-        varchar estado
+        bigint idPrograma FK
         timestamp created_at
         timestamp updated_at
     }
@@ -374,9 +384,60 @@ erDiagram
         bigint permission_id FK
     }
 
-    %% RELACIONES PRINCIPALES
+    plan_ods {
+        bigint id PK
+        bigint idPlan FK
+        bigint idOds FK
+        decimal porcentaje_contribucion
+        timestamp created_at
+        timestamp updated_at
+    }
+    
+    plan_objetivos_estrategicos {
+        bigint id PK
+        bigint idPlan FK
+        bigint idobjEstrategico FK
+        enum prioridad
+        timestamp created_at
+        timestamp updated_at
+    }
+    
+    plan_pnd {
+        bigint id PK
+        bigint idPlan FK
+        bigint idPnd FK
+        enum nivel_alineacion
+        timestamp created_at
+        timestamp updated_at
+    }
+    
+    proyecto_ods {
+        bigint id PK
+        bigint proyecto_id FK
+        bigint idOds FK
+        text impacto_esperado
+        text indicadores
+        timestamp created_at
+        timestamp updated_at
+    }
+
+    %% JERARQUÍA ORGANIZACIONAL
+    unidad ||--o{ entidad : "Una unidad tiene muchas entidades"
+    entidad ||--o{ plan : "Una entidad tiene muchos planes"
     entidad ||--o{ programa : "Una entidad tiene muchos programas"
+    plan ||--o{ programa : "Un plan tiene muchos programas"
+    programa ||--o{ proyectos : "Un programa tiene muchos proyectos"
     users ||--o{ proyectos : "Un usuario puede tener muchos proyectos"
+    
+    %% ALINEACIÓN ESTRATÉGICA (RELACIONES N:M)
+    plan ||--o{ plan_ods : "Un plan se alinea con varios ODS"
+    ods ||--o{ plan_ods : "Un ODS puede estar en varios planes"
+    plan ||--o{ plan_objetivos_estrategicos : "Un plan tiene varios objetivos estratégicos"
+    objEstrategicos ||--o{ plan_objetivos_estrategicos : "Un objetivo puede estar en varios planes"
+    plan ||--o{ plan_pnd : "Un plan se alinea con varios elementos del PND"
+    pnd ||--o{ plan_pnd : "Un elemento PND puede estar en varios planes"
+    proyectos ||--o{ proyecto_ods : "Un proyecto contribuye a varios ODS"
+    ods ||--o{ proyecto_ods : "Un ODS puede recibir contribución de varios proyectos"
     
     %% RELACIONES DEL SISTEMA DE PERMISOS
     roles ||--o{ model_has_roles : "Un rol puede ser asignado a muchos modelos"
@@ -393,14 +454,31 @@ erDiagram
 
 ## 📋 **RESUMEN DE RELACIONES IDENTIFICADAS**
 
-### 🔗 **RELACIONES DEFINIDAS EN MODELOS**
+### 🔗 **RELACIONES MEJORADAS EN MODELOS**
 
+#### 📊 **JERARQUÍA ORGANIZACIONAL**
 | **Modelo** | **Relación** | **Tipo** | **Descripción** |
 |------------|--------------|----------|-----------------|
+| **Unidad** | `entidades()` | HasMany | Una unidad tiene muchas entidades |
+| **Entidad** | `unidad()` | BelongsTo | Una entidad pertenece a una unidad |
+| **Entidad** | `planes()` | HasMany | Una entidad tiene muchos planes |
 | **Entidad** | `programas()` | HasMany | Una entidad tiene muchos programas |
+| **Plan** | `entidad()` | BelongsTo | Un plan pertenece a una entidad |
+| **Plan** | `programas()` | HasMany | Un plan tiene muchos programas |
 | **Programa** | `entidad()` | BelongsTo | Un programa pertenece a una entidad |
-| **User** | `proyectos()` | HasMany | Un usuario tiene muchos proyectos |
+| **Programa** | `plan()` | BelongsTo | Un programa pertenece a un plan |
+| **Programa** | `proyectos()` | HasMany | Un programa tiene muchos proyectos |
 | **Proyecto** | `user()` | BelongsTo | Un proyecto pertenece a un usuario |
+| **Proyecto** | `programa()` | BelongsTo | Un proyecto pertenece a un programa |
+| **User** | `proyectos()` | HasMany | Un usuario tiene muchos proyectos |
+
+#### 🎯 **ALINEACIÓN ESTRATÉGICA**
+| **Modelo** | **Relación** | **Tipo** | **Descripción** |
+|------------|--------------|----------|-----------------|
+| **Plan** | `ods()` | BelongsToMany | Un plan se alinea con varios ODS |
+| **Plan** | `objetivosEstrategicos()` | BelongsToMany | Un plan tiene varios objetivos estratégicos |
+| **Plan** | `pnd()` | BelongsToMany | Un plan se alinea con varios elementos del PND |
+| **Proyecto** | `ods()` | BelongsToMany | Un proyecto contribuye a varios ODS |
 
 ### 🔗 **RELACIONES DEL SISTEMA DE PERMISOS (SPATIE)**
 
@@ -410,42 +488,56 @@ erDiagram
 | **User ↔ Permission** | Many-to-Many | Los usuarios pueden tener permisos directos |
 | **Role ↔ Permission** | Many-to-Many | Los roles pueden tener múltiples permisos |
 
-### 📊 **TABLAS INDEPENDIENTES (SIN RELACIONES DEFINIDAS)**
+### � **TABLAS PIVOT PARA ALINEACIÓN ESTRATÉGICA**
 
-- **Plan**: Gestión de planes institucionales
-- **ODS**: Catálogo de Objetivos de Desarrollo Sostenible
-- **objEstrategicos**: Objetivos estratégicos institucionales
-- **PND**: Plan Nacional de Desarrollo
-- **Unidad**: Unidades organizacionales por sector
+| **Tabla Pivot** | **Relaciona** | **Campos Adicionales** | **Propósito** |
+|-----------------|---------------|------------------------|---------------|
+| **plan_ods** | Plan ↔ ODS | `porcentaje_contribucion` | Medir contribución a objetivos globales |
+| **plan_objetivos_estrategicos** | Plan ↔ Obj.Estratégicos | `prioridad` | Definir prioridades institucionales |
+| **plan_pnd** | Plan ↔ PND | `nivel_alineacion` | Asegurar cumplimiento normativo nacional |
+| **proyecto_ods** | Proyecto ↔ ODS | `impacto_esperado`, `indicadores` | Seguimiento detallado de impacto |
+
+### 📊 **TABLAS DE CATÁLOGO (MAESTRAS)**
+
+- **ODS**: Catálogo oficial de 17 Objetivos de Desarrollo Sostenible
+- **PND**: Estructura del Plan Nacional de Desarrollo por ejes
+- **objEstrategicos**: Objetivos estratégicos institucionales definidos
 
 ---
 
-## 🎯 **RECOMENDACIONES PARA FUTURAS RELACIONES**
+## ✅ **NUEVA ARQUITECTURA IMPLEMENTADA**
 
-### 🔄 **RELACIONES POTENCIALES A IMPLEMENTAR**
+### 🏗️ **JERARQUÍA ORGANIZACIONAL COMPLETA**
 
-1. **Plan ↔ Entidad**: Vincular planes con entidades específicas
-2. **Proyecto ↔ ODS**: Alinear proyectos con Objetivos de Desarrollo Sostenible
-3. **Programa ↔ Plan**: Relacionar programas con planes institucionales
-4. **objEstrategicos ↔ PND**: Alinear objetivos estratégicos con PND
-5. **Proyecto ↔ objEstrategicos**: Vincular proyectos con objetivos estratégicos
-6. **Plan ↔ Unidad**: Asociar planes con unidades organizacionales
-
-### 🛠️ **CAMPOS DE RELACIÓN SUGERIDOS**
-
-```sql
--- Para vincular Plan con Entidad
-ALTER TABLE plan ADD COLUMN idEntidad BIGINT;
-ALTER TABLE plan ADD FOREIGN KEY (idEntidad) REFERENCES entidad(idEntidad);
-
--- Para vincular Proyecto con ODS
-ALTER TABLE proyectos ADD COLUMN idOds BIGINT;
-ALTER TABLE proyectos ADD FOREIGN KEY (idOds) REFERENCES ods(idOds);
-
--- Para vincular Programa con Plan
-ALTER TABLE programa ADD COLUMN idPlan BIGINT;
-ALTER TABLE programa ADD FOREIGN KEY (idPlan) REFERENCES plan(idPlan);
 ```
+UNIDAD (Macrosector/Sector)
+    ↓ 1:N
+ENTIDAD (Organismo específico)
+    ↓ 1:N
+PLAN (Planificación institucional) ←→ N:M ←→ ODS, PND, Obj.Estratégicos
+    ↓ 1:N
+PROGRAMA (Líneas de acción)
+    ↓ 1:N
+PROYECTO (Iniciativas específicas) ←→ N:M ←→ ODS
+```
+
+### 🎯 **BENEFICIOS DE LA NUEVA ESTRUCTURA**
+
+1. **✅ Integridad Referencial**: Todas las entidades están relacionadas correctamente
+2. **✅ Trazabilidad Completa**: Seguimiento desde planificación hasta ejecución
+3. **✅ Alineación Estratégica**: Vínculos con marcos nacionales e internacionales
+4. **✅ Flexibilidad**: Relaciones N:M para casos complejos de alineación
+5. **✅ Escalabilidad**: Estructura preparada para crecimiento futuro
+
+### � **IMPLEMENTACIÓN RECOMENDADA**
+
+Para implementar estas mejoras, consulta el archivo: **`PROPUESTA_MEJORAS_BASE_DATOS.md`**
+
+El archivo contiene:
+- 📋 **Migraciones detalladas** para cada cambio
+- 🔧 **Modelos Eloquent actualizados** con todas las relaciones
+- 📊 **Scripts SQL** para las tablas pivot
+- 🎯 **Plan de implementación** paso a paso
 
 ---
 

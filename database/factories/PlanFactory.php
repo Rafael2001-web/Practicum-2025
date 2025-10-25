@@ -32,7 +32,7 @@ class PlanFactory extends Factory
                 'Plan de Salud Pública',
                 'Plan de Desarrollo Sostenible'
             ]) . ' ' . $this->faker->year(),
-            'entidad' => $this->faker->company() . ' ' . $this->faker->randomElement(['S.A.', 'Ltda.', 'Gov.']),
+            'idEntidad' => Entidad::inRandomOrder()->first()?->idEntidad ?? Entidad::factory(),
             'presupuesto' => $this->faker->randomFloat(2, 100000, 50000000),
             'fecha_inicio' => $fechaInicio,
             'fecha_fin' => $fechaFin,

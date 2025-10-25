@@ -33,4 +33,29 @@ class User extends Authenticatable
         return $this->hasMany(Proyecto::class);
     }
 
+    // RELACIONES CALCULADAS - Obtener información de jerarquía
+    public function entidades()
+    {
+        return $this->hasManyThrough(
+            Entidad::class,
+            Proyecto::class,
+            'user_id',
+            'idEntidad',
+            'id',
+            'idEntidad'
+        )->distinct();
+    }
+
+    public function programas()
+    {
+        return $this->hasManyThrough(
+            Programa::class,
+            Proyecto::class,
+            'user_id',
+            'idPrograma',
+            'id',
+            'idPrograma'
+        )->distinct();
+    }
+
 }
