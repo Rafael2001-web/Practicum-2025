@@ -55,6 +55,22 @@ class Ods extends Model
         ])->withTimestamps();
     }
 
+    /**
+     * Relación N:M - Un ODS se alinea con múltiples objetivos PND
+     */
+    public function pnd(): BelongsToMany
+    {
+        return $this->belongsToMany(
+            Pnd::class,
+            'pnd_ods_alignment',
+            'idOds',
+            'idPnd'
+        )->withPivot([
+            'nivel_alineacion',
+            'justificacion'
+        ])->withTimestamps();
+    }
+
     // SCOPES ÚTILES
     
     /**

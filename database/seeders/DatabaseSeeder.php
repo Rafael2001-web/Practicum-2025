@@ -28,6 +28,9 @@ class DatabaseSeeder extends Seeder
             PndSeeder::class,
             ObjEstrategicoSeeder::class,
             
+            // Alineaciones estratégicas (después de tener ODS y PND)
+            PndOdsAlignmentSeeder::class,
+            
             // Planificación e inversión
             PlanSeeder::class,
             ProgramaSeeder::class,
