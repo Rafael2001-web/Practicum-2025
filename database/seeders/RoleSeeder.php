@@ -19,7 +19,7 @@ class RoleSeeder extends Seeder
         // ==================================================================================
         // CREAR LOS 10 ROLES ESPECÍFICOS DEL SISTEMA SIPEIP 2.0
         // ==================================================================================
-        
+
         $adminRole = Role::firstOrCreate(['name' => 'Administrador del Sistema']);
         $gestorEntidadesRole = Role::firstOrCreate(['name' => 'Gestor de Entidades']);
         $coordinadorUnidadesRole = Role::firstOrCreate(['name' => 'Coordinador de Unidades']);
@@ -27,6 +27,7 @@ class RoleSeeder extends Seeder
         $planificadorEstrategicoRole = Role::firstOrCreate(['name' => 'Planificador Estratégico']);
         $analistaPndRole = Role::firstOrCreate(['name' => 'Analista de PND']);
         $gestorPlanesRole = Role::firstOrCreate(['name' => 'Gestor de Planes']);
+        $revisorInstitucionalRole = Role::firstOrCreate(['name' => 'Revisor Institucional']);
         $coordinadorProgramasRole = Role::firstOrCreate(['name' => 'Coordinador de Programas']);
         $analistaProyectosRole = Role::firstOrCreate(['name' => 'Analista de Proyectos']);
         $supervisorGeneralRole = Role::firstOrCreate(['name' => 'Supervisor General']);
@@ -34,74 +35,75 @@ class RoleSeeder extends Seeder
         // ==================================================================================
         // DEFINIR TODOS LOS PERMISOS DEL SISTEMA
         // ==================================================================================
-        
+
         $permissions = [
             // ===== DASHBOARD =====
             'view dashboard',
-            
+
             // ===== USUARIOS (Administrador del Sistema) =====
             'manage usuarios',
             'view usuarios',
             'create usuarios',
             'edit usuarios',
             'delete usuarios',
-            
+
             // ===== ENTIDADES (Gestor de Entidades) =====
             'manage entidades',
             'view entidades',
             'create entidades',
             'edit entidades',
             'delete entidades',
-            
+
             // ===== UNIDADES (Coordinador de Unidades) =====
             'manage unidades',
             'view unidades',
             'create unidades',
             'edit unidades',
             'delete unidades',
-            
+
             // ===== ODS (Especialista en ODS) =====
             'manage ods',
             'view ods',
             'create ods',
             'edit ods',
             'delete ods',
-            
+
             // ===== OBJETIVOS ESTRATÉGICOS (Planificador Estratégico) =====
             'manage objetivos_estrategicos',
             'view objetivos_estrategicos',
             'create objetivos_estrategicos',
             'edit objetivos_estrategicos',
             'delete objetivos_estrategicos',
-            
+
             // ===== PND (Analista de PND) =====
             'manage pnd',
             'view pnd',
             'create pnd',
             'edit pnd',
             'delete pnd',
-            
+
             // ===== PLANES (Gestor de Planes) =====
             'manage planes',
             'view planes',
             'create planes',
             'edit planes',
+            'cambiar estado planes',
             'delete planes',
-            
+
             // ===== PROGRAMAS (Coordinador de Programas) =====
             'manage programas',
             'view programas',
             'create programas',
             'edit programas',
             'delete programas',
-            
+
             // ===== PROYECTOS (Analista de Proyectos) =====
             'manage proyectos',
             'view proyectos',
             'create proyectos',
             'edit proyectos',
             'delete proyectos',
-            
+
             // ===== REPORTES Y SUPERVISIÓN =====
             'view reports',
             'generate reports',
@@ -219,11 +221,20 @@ class RoleSeeder extends Seeder
             'view planes',
             'create planes',
             'edit planes',
+            'cambiar estado planes',
             'delete planes',
             'view objetivos_estrategicos', // Para alineación
             'view ods', // Para alineación
             'view pnd', // Para alineación
             'view programas', // Para alineación
+        ]);
+
+        // 🏛️ REVISOR INSTITUCIONAL
+        // ✅ REVISIÓN Y APROBACIÓN DE PLANES
+        // 👀 SOLO LECTURA: Todos los CRUDs relacionados (para supervisión)
+        $revisorInstitucionalRole->givePermissionTo([
+            'view planes',
+            'cambiar estado planes',
         ]);
 
         // 📊 COORDINADOR DE PROGRAMAS
@@ -278,9 +289,9 @@ class RoleSeeder extends Seeder
         ]);
 
         // ==================================================================================
-        // CREAR USUARIO ADMINISTRADOR POR DEFECTO
+        // BUSCAR USUARIO ADMINISTRADOR POR DEFECTO
         // ==================================================================================
-        
+
         $adminUser = User::where('email', 'admin@example.com')->first();
         $adminUser->assignRole($adminRole);
 

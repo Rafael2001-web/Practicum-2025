@@ -24,7 +24,7 @@
                     @endif
 
                     <div class="bg-white">
-                        <x-table 
+                        <x-table
                             :headers="[
                                 ['label' => 'ID', 'type' => 'text'],
                                 ['label' => 'Código', 'type' => 'text'],
@@ -69,7 +69,7 @@
                                         <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-primary">{{ $plan->idPlan }}</td>
                                         <td class="px-6 py-4 whitespace-nowrap text-sm text-neutral font-semibold">{{ $plan->codigo }}</td>
                                         <td class="px-6 py-4 whitespace-nowrap text-sm text-neutral font-medium">{{ $plan->nombre }}</td>
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-neutral">{{ $plan->entidad }}</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-neutral">{{ $plan->entidad->subSector ?? 'N/A' }}</td>
                                         <td class="px-6 py-4 whitespace-nowrap text-sm text-neutral font-semibold">${{ number_format($plan->presupuesto, 2) }}</td>
                                         <td class="px-6 py-4 whitespace-nowrap text-sm text-neutral/70">{{ $plan->fecha_inicio }}</td>
                                         <td class="px-6 py-4 whitespace-nowrap text-sm text-neutral/70">{{ $plan->fecha_fin }}</td>
@@ -85,17 +85,30 @@
                                         <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
                                             <div class="flex items-center space-x-3">
                                                 @canany(['view planes', 'manage planes'])
-                                                    <a href="{{ route('planes.show', $plan->idPlan) }}" 
+                                                    <a href="{{ route('planes.show', $plan->idPlan) }}"
                                                        class="text-secondary hover:text-accent font-medium transition-colors duration-150">
                                                        <svg class="w-4 h-4 inline mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                                                 d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                                                 d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-                                                        </svg> 
+                                                        </svg>
                                                        Ver
                                                     </a>
                                                 @endcanany
+                                                @can('cambiar estado planes')
+                                                    <button onclick="openEstadoModal({
+                                                        idPlan: {{ $plan->idPlan }},
+                                                        estado: {{ json_encode($plan->estado) }},
+                                                    })"
+                                                            class="text-neutral hover:text-primary font-medium transition-colors duration-150">
+                                                        <svg class="w-4 h-4 inline mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                                d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                                                        </svg>
+                                                            Cambiar Estado
+                                                    </button>
+                                                @endcan
                                                 @can('manage planes')
                                                     <button onclick="openEditModal({
                                                         idPlan: {{ $plan->idPlan }},
@@ -105,7 +118,7 @@
                                                         estado: {{ json_encode($plan->estado) }},
                                                         fecha_inicio: '{{ $plan->fecha_inicio }}',
                                                         fecha_fin: '{{ $plan->fecha_fin }}'
-                                                    })" 
+                                                    })"
                                                             class="text-neutral hover:text-primary font-medium transition-colors duration-150">
                                                         <svg class="w-4 h-4 inline mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -141,5 +154,8 @@
         @include('planes.partials.create-modal')
         @include('planes.partials.edit-modal')
         @include('planes.partials.delete-modal')
+    @endcan
+    @can('cambiar estado planes')
+        @include('planes.partials.estado-modal')
     @endcan
 </x-app-layout>

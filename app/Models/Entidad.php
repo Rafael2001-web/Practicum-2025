@@ -26,7 +26,7 @@ class Entidad extends Model
     ];
 
     // RELACIONES DIRECTAS
-    
+
     /**
      * Relación N:1 - Una entidad pertenece a una unidad
      */
@@ -52,7 +52,7 @@ class Entidad extends Model
     }
 
     // RELACIONES CALCULADAS - A través de programas
-    
+
     /**
      * Obtener todos los proyectos de esta entidad a través de programas
      */
@@ -69,7 +69,7 @@ class Entidad extends Model
     }
 
     // SCOPES ÚTILES
-    
+
     /**
      * Entidades activas
      */

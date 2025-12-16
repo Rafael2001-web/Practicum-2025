@@ -14,7 +14,7 @@
             <form id="editForm" method="POST">
                 @csrf
                 @method('PUT')
-                
+
                 <div class="space-y-4">
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                         {{-- Nombre --}}
@@ -22,9 +22,9 @@
                             <label for="edit_nombre" class="block text-sm font-medium text-gray-700 mb-1">
                                 Nombre del Plan <span class="text-red-500">*</span>
                             </label>
-                            <input type="text" 
-                                   id="edit_nombre" 
-                                   name="nombre" 
+                            <input type="text"
+                                   id="edit_nombre"
+                                   name="nombre"
                                    required
                                    placeholder="Ingrese el nombre del plan"
                                    class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary">
@@ -35,9 +35,9 @@
                             <label for="edit_entidad" class="block text-sm font-medium text-gray-700 mb-1">
                                 Entidad <span class="text-red-500">*</span>
                             </label>
-                            <input type="text" 
-                                   id="edit_entidad" 
-                                   name="entidad" 
+                            <input type="text"
+                                   id="edit_entidad"
+                                   name="entidad"
                                    required
                                    placeholder="Ingrese la entidad responsable"
                                    class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary">
@@ -50,9 +50,9 @@
                             <label for="edit_presupuesto" class="block text-sm font-medium text-gray-700 mb-1">
                                 Presupuesto <span class="text-red-500">*</span>
                             </label>
-                            <input type="number" 
-                                   id="edit_presupuesto" 
-                                   name="presupuesto" 
+                            <input type="number"
+                                   id="edit_presupuesto"
+                                   name="presupuesto"
                                    step="0.01"
                                    min="0"
                                    required
@@ -65,8 +65,8 @@
                             <label for="edit_estado" class="block text-sm font-medium text-gray-700 mb-1">
                                 Estado <span class="text-red-500">*</span>
                             </label>
-                            <select id="edit_estado" 
-                                    name="estado" 
+                            <select id="edit_estado"
+                                    name="estado"
                                     required
                                     class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary">
                                 <option value="">Seleccionar estado</option>
@@ -83,9 +83,9 @@
                             <label for="edit_fecha_inicio" class="block text-sm font-medium text-gray-700 mb-1">
                                 Fecha de Inicio <span class="text-red-500">*</span>
                             </label>
-                            <input type="date" 
-                                   id="edit_fecha_inicio" 
-                                   name="fecha_inicio" 
+                            <input type="date"
+                                   id="edit_fecha_inicio"
+                                   name="fecha_inicio"
                                    required
                                    class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary">
                         </div>
@@ -95,9 +95,9 @@
                             <label for="edit_fecha_fin" class="block text-sm font-medium text-gray-700 mb-1">
                                 Fecha de Fin <span class="text-red-500">*</span>
                             </label>
-                            <input type="date" 
-                                   id="edit_fecha_fin" 
-                                   name="fecha_fin" 
+                            <input type="date"
+                                   id="edit_fecha_fin"
+                                   name="fecha_fin"
                                    required
                                    class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary">
                         </div>
@@ -105,12 +105,12 @@
                 </div>
 
                 <div class="flex justify-end space-x-3 mt-6 pt-4 border-t border-gray-200">
-                    <button type="button" 
+                    <button type="button"
                             onclick="closeEditModal()"
                             class="px-4 py-2 bg-gray-300 text-gray-700 text-sm font-medium rounded-md shadow-sm hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-300 transition ease-in-out duration-150">
                         Cancelar
                     </button>
-                    <button type="submit" 
+                    <button type="submit"
                             class="px-4 py-2 bg-secondary border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-accent active:bg-secondary focus:outline-none focus:border-secondary focus:ring ring-secondary/20 disabled:opacity-25 transition ease-in-out duration-150 shadow-sm">
                         <svg class="w-4 h-4 inline mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
@@ -134,7 +134,7 @@
         document.getElementById('edit_estado').value = plan.estado;
         document.getElementById('edit_fecha_inicio').value = plan.fecha_inicio;
         document.getElementById('edit_fecha_fin').value = plan.fecha_fin;
-        
+
         // Mostrar modal
         document.getElementById('editModal').classList.remove('hidden');
     }

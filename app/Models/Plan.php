@@ -28,7 +28,7 @@ class Plan extends Model
     ];
 
     protected $dates = ['fecha_inicio', 'fecha_fin'];
-    
+
     protected static function booted()
     {
         static::creating(function ($plan) {
@@ -44,7 +44,7 @@ class Plan extends Model
     }
 
     // RELACIONES DIRECTAS
-    
+
     /**
      * Relación N:1 - Un plan pertenece a una entidad
      */
@@ -62,7 +62,7 @@ class Plan extends Model
     }
 
     // RELACIONES DE ALINEACIÓN ESTRATÉGICA (Many-to-Many)
-    
+
     /**
      * Relación N:M - Un plan se alinea con varios ODS
      */
@@ -112,7 +112,7 @@ class Plan extends Model
     }
 
     // RELACIONES CALCULADAS
-    
+
     /**
      * Obtener todos los proyectos del plan a través de programas
      */
@@ -144,7 +144,7 @@ class Plan extends Model
     }
 
     // SCOPES ÚTILES
-    
+
     /**
      * Planes activos
      */
@@ -172,7 +172,7 @@ class Plan extends Model
     }
 
     // ACCESSORS Y MUTATORS
-    
+
     /**
      * Calcular el progreso del plan basado en proyectos
      */
@@ -180,11 +180,11 @@ class Plan extends Model
     {
         $proyectosTotal = $this->proyectos()->count();
         if ($proyectosTotal === 0) return 0;
-        
+
         $proyectosCompletados = $this->proyectos()
             ->where('estado', 'completado')
             ->count();
-            
+
         return round(($proyectosCompletados / $proyectosTotal) * 100, 2);
     }
 

@@ -39,7 +39,7 @@ class PlanController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            
+
             'nombre'=> 'required|string',
             'entidad'=> 'required|string',
             'presupuesto' => 'required|numeric|min:0',
@@ -55,7 +55,7 @@ class PlanController extends Controller
 
     }
 
-   
+
     /**
      * Show the form for editing the specified resource.
      */
@@ -69,9 +69,8 @@ class PlanController extends Controller
      */
     public function update(Request $request, $id)
     {
-        
         $request->validate([
-            
+
             'nombre'=> 'required|string',
             'entidad'=> 'required|string',
             'presupuesto' => 'required|numeric|min:0',
@@ -84,8 +83,18 @@ class PlanController extends Controller
         $plan->update($request->all()); // error
 
         return redirect()->route('planes.index')->with('success', 'Plan Actualizado Satisfactoriamente');
+    }
 
+    public function estado(Request $request, $id)
+    {
+        $request->validate([
+            'estado'=> 'required|string',
+        ]);
 
+        $plan = Plan::findOrfail($id);
+        $plan->update($request->only('estado'));
+
+        return redirect()->route('planes.index')->with('success', 'Estado del Plan Actualizado Satisfactoriamente');
     }
 
     /**

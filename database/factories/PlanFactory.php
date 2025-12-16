@@ -19,7 +19,7 @@ class PlanFactory extends Factory
     {
         $fechaInicio = $this->faker->dateTimeBetween('-2 years', '+1 year');
         $fechaFin = $this->faker->dateTimeBetween($fechaInicio, '+3 years');
-        
+
         return [
             'codigo' => 'PLAN-' . $this->faker->unique()->numberBetween(1000, 9999),
             'nombre' => $this->faker->randomElement([
@@ -36,7 +36,7 @@ class PlanFactory extends Factory
             'presupuesto' => $this->faker->randomFloat(2, 100000, 50000000),
             'fecha_inicio' => $fechaInicio,
             'fecha_fin' => $fechaFin,
-            'estado' => $this->faker->randomElement(['Activo', 'En Planificación', 'Suspendido', 'Finalizado']),
+            'estado' => $this->faker->randomElement(['Aprobado', 'Borrador', 'Rechazado']),
         ];
     }
 }
