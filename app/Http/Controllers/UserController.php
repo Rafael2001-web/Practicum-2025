@@ -16,7 +16,8 @@ class UserController extends Controller
     public function index()
     {
         $usuarios = User::all();
-        return view('usuarios.index', compact('usuarios'));
+        $roles = Role::all();
+        return view('usuarios.index', compact('usuarios', 'roles'));
     }
 
     /**
@@ -25,12 +26,12 @@ class UserController extends Controller
     public function create()
     {
         $roles = Role::all();
-        
+
         // Si es una petición AJAX, devolver JSON
         if (request()->wantsJson()) {
             return response()->json(['roles' => $roles]);
         }
-        
+
         // Si no es AJAX, devolver la vista (para compatibilidad)
         return view('usuarios.create', compact('roles'));
     }
@@ -134,7 +135,7 @@ class UserController extends Controller
     public function destroy(User $usuario)
     {
         $usuario->delete();
-        
+
         return redirect()->route('usuarios.index')
             ->with('success', 'Usuario eliminado exitosamente.');
     }

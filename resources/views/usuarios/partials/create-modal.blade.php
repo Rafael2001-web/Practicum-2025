@@ -13,7 +13,7 @@
 
             <form id="createForm" action="{{ route('usuarios.store') }}" method="POST">
                 @csrf
-                
+
                 <div class="space-y-4">
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                         {{-- Nombre --}}
@@ -21,9 +21,9 @@
                             <label for="create_name" class="block text-sm font-medium text-gray-700 mb-1">
                                 Nombre completo <span class="text-red-500">*</span>
                             </label>
-                            <input type="text" 
-                                   id="create_name" 
-                                   name="name" 
+                            <input type="text"
+                                   id="create_name"
+                                   name="name"
                                    required
                                    class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary">
                         </div>
@@ -33,9 +33,9 @@
                             <label for="create_email" class="block text-sm font-medium text-gray-700 mb-1">
                                 Correo electrónico <span class="text-red-500">*</span>
                             </label>
-                            <input type="email" 
-                                   id="create_email" 
-                                   name="email" 
+                            <input type="email"
+                                   id="create_email"
+                                   name="email"
                                    required
                                    class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary">
                         </div>
@@ -47,9 +47,9 @@
                             <label for="create_password" class="block text-sm font-medium text-gray-700 mb-1">
                                 Contraseña <span class="text-red-500">*</span>
                             </label>
-                            <input type="password" 
-                                   id="create_password" 
-                                   name="password" 
+                            <input type="password"
+                                   id="create_password"
+                                   name="password"
                                    required
                                    class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary">
                         </div>
@@ -59,9 +59,9 @@
                             <label for="create_password_confirmation" class="block text-sm font-medium text-gray-700 mb-1">
                                 Confirmar contraseña <span class="text-red-500">*</span>
                             </label>
-                            <input type="password" 
-                                   id="create_password_confirmation" 
-                                   name="password_confirmation" 
+                            <input type="password"
+                                   id="create_password_confirmation"
+                                   name="password_confirmation"
                                    required
                                    class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary">
                         </div>
@@ -73,7 +73,16 @@
                             Roles y permisos <span class="text-red-500">*</span>
                         </label>
                         <div id="create_spatie_roles" class="space-y-2 max-h-32 overflow-y-auto border border-gray-200 rounded-md p-3">
-                            {{-- Los roles se cargarán dinámicamente con JavaScript --}}
+                            {{-- Los roles se cargarán dinámicamente aquí --}}
+                            @foreach ($roles as $role)
+                                <label class="inline-flex items-center">
+                                    <input type="checkbox"
+                                           name="spatie_roles[]"
+                                           value="{{ $role->id }}"
+                                           class="rounded border-gray-300 text-primary shadow-sm focus:border-primary focus:ring focus:ring-primary focus:ring-opacity-50">
+                                    <span class="ml-2 text-sm text-gray-600">{{ $role->name }}</span>
+                                </label>
+                            @endforeach
                         </div>
                         <p class="mt-1 text-xs text-gray-500">
                             Seleccione los roles que desea asignar al usuario
@@ -82,12 +91,12 @@
                 </div>
 
                 <div class="flex justify-end space-x-3 mt-6 pt-4 border-t border-gray-200">
-                    <button type="button" 
+                    <button type="button"
                             onclick="closeCreateModal()"
                             class="px-4 py-2 bg-gray-300 text-gray-700 text-sm font-medium rounded-md shadow-sm hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-300 transition ease-in-out duration-150">
                         Cancelar
                     </button>
-                    <button type="submit" 
+                    <button type="submit"
                             class="px-4 py-2 bg-secondary border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-accent active:bg-secondary focus:outline-none focus:border-secondary focus:ring ring-secondary/20 disabled:opacity-25 transition ease-in-out duration-150 shadow-sm">
                         <svg class="w-4 h-4 inline mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
@@ -105,10 +114,10 @@
     function openCreateModal() {
         // Limpiar el formulario
         document.getElementById('createForm').reset();
-        
+
         // Cargar roles disponibles
-        loadAvailableRoles();
-        
+        //loadAvailableRoles();
+
         // Mostrar modal
         document.getElementById('createModal').classList.remove('hidden');
     }
@@ -153,15 +162,15 @@
         roles.forEach(role => {
             rolesHtml += `
                 <label class="inline-flex items-center">
-                    <input type="checkbox" 
-                           name="spatie_roles[]" 
+                    <input type="checkbox"
+                           name="spatie_roles[]"
                            value="${role.id}"
                            class="rounded border-gray-300 text-primary shadow-sm focus:border-primary focus:ring focus:ring-primary focus:ring-opacity-50">
                     <span class="ml-2 text-sm text-gray-600">${role.name}</span>
                 </label>
             `;
         });
-        
+
         document.getElementById('create_spatie_roles').innerHTML = rolesHtml;
     }
 

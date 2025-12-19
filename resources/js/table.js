@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
     // Agregar estilos CSS para responsive
     addTableStyles();
-    
+
     // Inicializar todas las tablas
     document.querySelectorAll("table[data-table]").forEach(initTable);
 });
@@ -9,7 +9,7 @@ document.addEventListener("DOMContentLoaded", () => {
 // Función para agregar estilos CSS dinámicamente
 function addTableStyles() {
     if (document.getElementById('table-responsive-styles')) return; // Ya existe
-    
+
     const style = document.createElement('style');
     style.id = 'table-responsive-styles';
     style.textContent = `
@@ -45,15 +45,15 @@ function addTableStyles() {
                 border-left: 3px solid #3b82f6;
                 border-right: 3px solid #3b82f6;
             }
-            
+
             .overflow-x-auto::-webkit-scrollbar-thumb {
                 background: #3b82f6;
             }
-            
+
             .overflow-x-auto::-webkit-scrollbar-track {
                 background: #dbeafe;
             }
-            
+
             /* Padding más pequeño en móvil */
             table th, table td {
                 padding: 0.75rem 1rem !important;
@@ -69,7 +69,7 @@ function addTableStyles() {
             transform: scale(1.1);
             opacity: 1 !important;
         }
-        
+
         /* Toggle de columnas */
         [id$="-toggle-columns"] svg {
             transition: transform 0.2s ease;
@@ -176,15 +176,15 @@ function initTable(table) {
 // Función para inicializar características responsive
 function initResponsiveFeatures(table) {
     const tableId = table.dataset.table;
-    
+
     // Toggle columns visibility on mobile
     const toggleBtn = document.getElementById(`${tableId}-toggle-columns`);
     const columnsContainer = document.getElementById(`${tableId}-columns-container`);
-    
+
     if (toggleBtn && columnsContainer) {
         toggleBtn.addEventListener('click', function() {
             const isVisible = !columnsContainer.classList.contains('hidden');
-            
+
             if (isVisible) {
                 columnsContainer.classList.add('hidden');
                 this.setAttribute('aria-expanded', 'false');
@@ -193,11 +193,11 @@ function initResponsiveFeatures(table) {
                 this.setAttribute('aria-expanded', 'true');
             }
         });
-        
+
         // Inicializar el estado
         toggleBtn.setAttribute('aria-expanded', 'false');
     }
-    
+
     // Mejorar scroll horizontal
     const tableContainer = document.getElementById(`${tableId}-table-container`);
     if (tableContainer) {
@@ -209,17 +209,17 @@ function initResponsiveFeatures(table) {
 // Función para agregar indicadores de scroll
 function addScrollIndicators(container) {
     let scrollTimeout;
-    
+
     container.addEventListener('scroll', function() {
         // Mostrar indicador de que se está scrolleando
         this.style.borderColor = '#3b82f6';
-        
+
         clearTimeout(scrollTimeout);
         scrollTimeout = setTimeout(() => {
             this.style.borderColor = '';
         }, 1000);
     });
-    
+
     // Verificar si necesita scroll al cargar y redimensionar
     function checkScrollNeed() {
         const needsScroll = container.scrollWidth > container.clientWidth;
@@ -229,7 +229,7 @@ function addScrollIndicators(container) {
             container.removeAttribute('data-scrollable');
         }
     }
-    
+
     checkScrollNeed();
     window.addEventListener('resize', checkScrollNeed);
 }
@@ -378,13 +378,13 @@ function exportTableToCSV(table, filename = "export.csv") {
 
     // Obtener todas las filas (header + datos)
     const allRows = Array.from(table.querySelectorAll("tr"));
-    
+
     // Solo incluir las filas visibles del tbody (para datos filtrados)
     const headerRow = allRows[0]; // Primera fila (headers)
     const dataRows = table._filteredRows || Array.from(table.tBodies[0].querySelectorAll("tr"));
-    
+
     const rowsToExport = [headerRow, ...dataRows];
-    
+
     const csv = rowsToExport
         .map((row) => {
             const cols = Array.from(row.querySelectorAll("th, td"));
@@ -394,7 +394,7 @@ function exportTableToCSV(table, filename = "export.csv") {
                 .join(",");
         })
         .join("\n");
-        
+
     const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
     const link = document.createElement("a");
     link.href = URL.createObjectURL(blob);
@@ -418,7 +418,7 @@ function printTable(table) {
     // Crear una copia de la tabla sin las columnas de acciones
     const tableClone = table.cloneNode(true);
     const allRows = Array.from(tableClone.querySelectorAll("tr"));
-    
+
     allRows.forEach(row => {
         const cells = Array.from(row.querySelectorAll("th, td"));
         // Eliminar columnas de acciones en orden inverso para no afectar los índices
@@ -427,7 +427,7 @@ function printTable(table) {
                 cells[index].remove();
             }
         });
-        
+
         // Limpiar texto de emojis en las celdas restantes
         const remainingCells = Array.from(row.querySelectorAll("th, td"));
         remainingCells.forEach(cell => {
@@ -511,7 +511,7 @@ function toggleColumn(table, colIndex, show) {
             row.cells[colIndex].style.display = show ? "" : "none";
         }
     });
-    
+
     // Verificar si necesita scroll después del toggle
     const tableContainer = document.getElementById(`${table.dataset.table}-table-container`);
     if (tableContainer) {
@@ -576,7 +576,7 @@ function exportTableToJSON(table, filename = "export.json") {
     const allHeaders = Array.from(table.querySelectorAll("th"));
     const actionColumnIndexes = [];
     const headers = [];
-    
+
     allHeaders.forEach((th, index) => {
         if (th.dataset.type === 'actions') {
             actionColumnIndexes.push(index);
@@ -584,20 +584,20 @@ function exportTableToJSON(table, filename = "export.json") {
             headers.push(cleanTextForJSON(th.innerText));
         }
     });
-    
+
     // Obtener solo las filas visibles (filtradas)
     const visibleRows = table._filteredRows || Array.from(table.tBodies[0].querySelectorAll("tr"));
-    
+
     const data = visibleRows.map(row => {
         const allCells = Array.from(row.querySelectorAll("td"));
         const cells = allCells.filter((cell, index) => !actionColumnIndexes.includes(index));
         const rowData = {};
-        
+
         cells.forEach((cell, index) => {
             if (headers[index]) {
                 // Limpiar el contenido de la celda
                 let cellText = cleanTextForJSON(cell.innerText);
-                
+
                 // Intentar convertir números
                 const numValue = parseFloat(cellText);
                 if (!isNaN(numValue) && isFinite(numValue) && cellText === numValue.toString()) {
@@ -610,7 +610,7 @@ function exportTableToJSON(table, filename = "export.json") {
                 }
             }
         });
-        
+
         return rowData;
     });
 
