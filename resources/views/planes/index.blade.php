@@ -39,6 +39,7 @@
                             :csv="auth()->user()->can('generate reports')"
                             :print="auth()->user()->can('generate reports')"
                             :json="auth()->user()->can('generate reports')"
+                            :excel="auth()->user()->can('generate reports')"
                             id="planes-table"
                             title="Gestión de Planes Estratégicos"
                         >

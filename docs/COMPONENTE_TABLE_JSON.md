@@ -4,6 +4,7 @@
 Se ha mejorado el componente `x-table` con funcionalidades avanzadas de exportación:
 - **JSON Export**: Exportar datos en formato JSON limpio
 - **CSV Mejorado**: Exportar CSV sin columnas de acciones
+- **Excel Export**: Exportar datos a formato Excel (.xlsx) con estilos
 - **Print Optimizado**: Impresión sin columnas de acciones y sin emojis
 - **Filtro de Columnas**: Exclusión automática de columnas tipo "actions"
 
@@ -11,6 +12,9 @@ Se ha mejorado el componente `x-table` con funcionalidades avanzadas de exportac
 
 ### Habilitar el botón JSON
 Para habilitar el botón de exportación JSON, simplemente agrega el parámetro `:json="true"` al componente:
+
+### Habilitar el botón Excel
+Para habilitar el botón de exportación a Excel, agrega el parámetro `:excel="true"` al componente:
 
 ```blade
 <x-table 
@@ -24,9 +28,10 @@ Para habilitar el botón de exportación JSON, simplemente agrega el parámetro 
         ['label' => 'Fecha de Actualización', 'type' => 'date'],
         ['label' => 'Acciones', 'type' => 'actions']
     ]"
-    :csv="false"
+    :csv="true"
     :print="false"
     :json="true"
+    :excel="true"
     id="entidades-table"
 >
     {{-- Contenido de la tabla --}}
@@ -39,6 +44,7 @@ Para habilitar el botón de exportación JSON, simplemente agrega el parámetro 
 |-----------|------|---------|-------------|
 | `json` | boolean | `false` | Habilita/deshabilita el botón de exportación JSON |
 | `csv` | boolean | `true` | Habilita/deshabilita el botón de exportación CSV |
+| `excel` | boolean | `false` | Habilita/deshabilita el botón de exportación Excel (.xlsx) |
 | `print` | boolean | `true` | Habilita/deshabilita el botón de impresión |
 
 ## 🔧 Nuevas Características
@@ -98,6 +104,34 @@ La función de exportación JSON incluye limpieza automática de datos:
 - Si hay búsquedas activas, solo se incluyen los resultados que coinciden
 - La paginación no afecta la exportación (se exportan todos los registros filtrados)
 
+## Características del Archivo Excel
+
+### Estructura del archivo Excel exportado:
+- **Formato**: .xlsx (compatible con Microsoft Excel, Google Sheets, LibreOffice)
+- **Primera fila**: Headers con formato en negrita y fondo gris
+- **Columnas**: Ancho ajustado automáticamente según el contenido
+- **Datos limpios**: Sin emojis ni caracteres especiales
+- **Tipos de datos**: Números se exportan como numéricos (no texto)
+
+### Estilos Aplicados:
+```javascript
+// Header styling
+- Font: Bold, Color blanco
+- Background: Gris oscuro (#4A5568)
+- Alignment: Centrado
+
+// Column width
+- Auto-ajuste basado en contenido
+- Máximo 50 caracteres por columna
+```
+
+### Ventajas del formato Excel:
+1. **Fórmulas**: Se pueden agregar fórmulas después de exportar
+2. **Filtros**: Excel permite aplicar filtros automáticos
+3. **Gráficos**: Fácil creación de visualizaciones
+4. **Formato**: Soporte completo para formato de celdas
+5. **Compatibilidad**: Funciona en todos los sistemas operativos
+
 ## Ejemplo Completo
 
 ```blade
@@ -130,6 +164,7 @@ La función de exportación JSON incluye limpieza automática de datos:
                             :csv="true"
                             :print="true"
                             :json="true"
+                            :excel="true"
                             id="entidades-table"
                         >
                             <tbody>
@@ -154,16 +189,29 @@ La función de exportación JSON incluye limpieza automática de datos:
 </x-app-layout>
 ```
 
-## Estilo del Botón
-El botón JSON tiene un estilo verde distintivo para diferenciarlo de los otros botones:
-- **Color**: Verde (`bg-green-600` / `hover:bg-green-700`)
-- **Icono**: Documento con flecha de descarga
-- **Texto**: "EXPORT JSON"
+## Estilo de los Botones
+Los botones tienen estilos distintivos para diferenciarlos:
+- **CSV**: Azul secundario (`bg-secondary`)
+- **JSON**: Verde (`bg-green-600` / `hover:bg-green-700`)
+- **Excel**: Verde oscuro (`bg-green-700` / `hover:bg-green-800`)
+- **Print**: Gris neutro (`bg-neutral`)
+
+Cada botón incluye:
+- Icono SVG representativo
+- Texto en mayúsculas
+- Efectos hover y focus
+- Sombras sutiles
 
 ## Compatibilidad
 - **Navegadores**: Funciona en todos los navegadores modernos que soporten HTML5
 - **Dispositivos**: Responsive, funciona en móviles y escritorio
-- **Formato**: El archivo generado es JSON válido según RFC 7159
+- **Formato JSON**: El archivo generado es JSON válido según RFC 7159
+- **Formato Excel**: Archivos .xlsx compatibles con:
+  - Microsoft Excel 2007 y superiores
+  - Google Sheets
+  - LibreOffice Calc
+  - Apple Numbers
+  - Cualquier software que soporte formato OOXML
 
 ## 🎯 Casos de Uso
 1. **Integración con APIs**: Los datos exportados pueden usarse directamente en otras aplicaciones
@@ -186,6 +234,15 @@ El botón JSON tiene un estilo verde distintivo para diferenciarlo de los otros 
 - ✅ Conversión automática de tipos de datos
 - ✅ Metadatos incluidos (fecha, total de registros)
 - ✅ Formato JSON válido
+
+### ✅ Excel Export (NUEVO)
+- ✅ Ignora columnas tipo "actions"
+- ✅ Limpia emojis y caracteres especiales
+- ✅ Headers con formato profesional (negrita, fondo gris)
+- ✅ Ancho de columnas auto-ajustado
+- ✅ Conversión automática de tipos numéricos
+- ✅ Formato .xlsx compatible con todas las plataformas
+- ✅ Incluye solo datos filtrados/visibles
 
 ### ✅ Print Function
 - ✅ Ignora columnas tipo "actions"  

@@ -23,7 +23,7 @@
                     @endif
 
                     <div class="bg-white">
-                        <x-table 
+                        <x-table
                             :headers="[
                                 ['label' => 'ID', 'type' => 'text'],
                                 ['label' => 'EJE', 'type' => 'text'],
@@ -34,6 +34,7 @@
                             :csv="auth()->user()->can('generate reports')"
                             :print="auth()->user()->can('generate reports')"
                             :json="auth()->user()->can('generate reports')"
+                            :excel="auth()->user()->can('generate reports')"
                             id="pnd-table"
                             title="Gestión del Plan Nacional de Desarrollo"
                         >
@@ -68,7 +69,7 @@
                                         <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
                                             <div class="flex items-center space-x-3">
                                                 @canany(['view pnd', 'manage pnd'])
-                                                    <a href="{{ route('pnd.show', $pnd->idPnd) }}" 
+                                                    <a href="{{ route('pnd.show', $pnd->idPnd) }}"
                                                        class="text-blue-600 hover:text-blue-900 font-medium transition-colors duration-150">
                                                         <svg class="w-4 h-4 inline mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>

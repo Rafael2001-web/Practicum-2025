@@ -17,6 +17,9 @@
 
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js', 'resources/js/table.js'])
+
+        <!-- SheetJS Library for Excel Export -->
+        <script src="https://cdn.sheetjs.com/xlsx-latest/package/dist/xlsx.full.min.js"></script>
 </head>
 <body class="font-sans antialiased" x-data="{ get collapsed() { return $store.sidebar?.collapsed ?? false } }">
     <div class="min-h-screen bg-gray-100">

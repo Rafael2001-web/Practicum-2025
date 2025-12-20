@@ -105,6 +105,9 @@ function initTable(table) {
     const exportJsonBtn = document.querySelector(
         `#${table.dataset.table}-export-json`
     );
+    const exportExcelBtn = document.querySelector(
+        `#${table.dataset.table}-export-excel`
+    );
     const printBtn = document.querySelector(`#${table.dataset.table}-print`);
     const columnToggles = document.querySelectorAll(
         `[data-toggle-col-${table.dataset.table}]`
@@ -145,6 +148,11 @@ function initTable(table) {
     // Exportar JSON
     if (exportJsonBtn) {
         exportJsonBtn.addEventListener("click", () => exportTableToJSON(table));
+    }
+
+    // Exportar Excel
+    if (exportExcelBtn) {
+        exportExcelBtn.addEventListener("click", () => exportTableToExcel(table));
     }
 
     // Print
@@ -630,4 +638,88 @@ function exportTableToJSON(table, filename = "export.json") {
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
+}
+
+// Exportar tabla a Excel
+function exportTableToExcel(table, filename = "export.xlsx") {
+    // Verificar si SheetJS está disponible
+    if (typeof XLSX === 'undefined') {
+        console.error('La librería SheetJS (xlsx) no está cargada. Por favor, incluya la librería.');
+        alert('Error: La librería de exportación a Excel no está disponible. Por favor, recargue la página.');
+        return;
+    }
+
+    // Obtener los headers y identificar columnas de acciones
+    const allHeaders = Array.from(table.querySelectorAll("th"));
+    const actionColumnIndexes = [];
+    const headers = [];
+
+    allHeaders.forEach((th, index) => {
+        if (th.dataset.type === 'actions') {
+            actionColumnIndexes.push(index);
+        } else {
+            headers.push(cleanTextForJSON(th.innerText));
+        }
+    });
+
+    // Obtener solo las filas visibles (filtradas)
+    const visibleRows = table._filteredRows || Array.from(table.tBodies[0].querySelectorAll("tr"));
+
+    // Crear los datos para Excel
+    const excelData = [headers]; // Primera fila con headers
+
+    visibleRows.forEach(row => {
+        const allCells = Array.from(row.querySelectorAll("td"));
+        const cells = allCells.filter((cell, index) => !actionColumnIndexes.includes(index));
+        const rowData = cells.map(cell => {
+            let cellText = cleanTextForJSON(cell.innerText);
+
+            // Intentar convertir números
+            const numValue = parseFloat(cellText);
+            if (!isNaN(numValue) && isFinite(numValue) && cellText === numValue.toString()) {
+                return numValue;
+            }
+
+            return cellText;
+        });
+
+        excelData.push(rowData);
+    });
+
+    // Crear el workbook y worksheet
+    const wb = XLSX.utils.book_new();
+    const ws = XLSX.utils.aoa_to_sheet(excelData);
+
+    // Configurar el ancho de las columnas automáticamente
+    const colWidths = headers.map((header, colIndex) => {
+        let maxWidth = header.length;
+        excelData.slice(1).forEach(row => {
+            if (row[colIndex]) {
+                const cellLength = row[colIndex].toString().length;
+                if (cellLength > maxWidth) {
+                    maxWidth = cellLength;
+                }
+            }
+        });
+        return { wch: Math.min(maxWidth + 2, 50) }; // Max 50 caracteres
+    });
+    ws['!cols'] = colWidths;
+
+    // Aplicar estilos al header
+    const range = XLSX.utils.decode_range(ws['!ref']);
+    for (let col = range.s.c; col <= range.e.c; col++) {
+        const cellAddress = XLSX.utils.encode_cell({ r: 0, c: col });
+        if (!ws[cellAddress]) continue;
+        ws[cellAddress].s = {
+            font: { bold: true, color: { rgb: "FFFFFF" } },
+            fill: { fgColor: { rgb: "4A5568" } },
+            alignment: { horizontal: "center", vertical: "center" }
+        };
+    }
+
+    // Agregar el worksheet al workbook
+    XLSX.utils.book_append_sheet(wb, ws, "Datos");
+
+    // Generar y descargar el archivo
+    XLSX.writeFile(wb, filename);
 }
