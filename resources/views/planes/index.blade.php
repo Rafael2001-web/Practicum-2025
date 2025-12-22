@@ -36,15 +36,15 @@
                                 ['label' => 'Estado', 'type' => 'badge'],
                                 ['label' => 'Acciones', 'type' => 'actions']
                             ]"
-                            :csv="auth()->user()->can('generate reports')"
-                            :print="auth()->user()->can('generate reports')"
-                            :json="auth()->user()->can('generate reports')"
-                            :excel="auth()->user()->can('generate reports')"
+                            :csv="auth()->user()->canany(['generate report planes', 'generate reports'])"
+                            :print="auth()->user()->canany(['generate report planes', 'generate reports'])"
+                            :json="auth()->user()->canany(['generate report planes', 'generate reports'])"
+                            :excel="auth()->user()->canany(['generate report planes', 'generate reports'])"
                             id="planes-table"
                             title="Gestión de Planes Estratégicos"
                         >
                             <x-slot name="buttons">
-                                @can('manage planes')
+                                @canany(['manage planes', 'create planes'])
                                     <button onclick="openCreateModal()"
                                        class="inline-flex items-center px-4 py-2 bg-secondary border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-accent active:bg-secondary focus:outline-none focus:border-secondary focus:ring ring-secondary/20 disabled:opacity-25 transition ease-in-out duration-150 shadow-sm">
                                         <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -52,8 +52,8 @@
                                         </svg>
                                         Nuevo Plan
                                     </button>
-                                @endcan
-                                @can('generate reports')
+                                @endcanany
+                                @canany(['generate report planes', 'generate reports'])
                                     <a href="{{ route('planes.documentopdf') }}" target="_blank"
                                        class="inline-flex items-center px-4 py-2 bg-red-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-red-700 active:bg-red-600 focus:outline-none focus:border-red-600 focus:ring ring-red-600/20 disabled:opacity-25 transition ease-in-out duration-150 shadow-sm">
                                         <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -61,7 +61,7 @@
                                         </svg>
                                         Generar PDF
                                     </a>
-                                @endcan
+                                @endcanany
                             </x-slot>
 
                             <tbody>
@@ -110,34 +110,38 @@
                                                             Cambiar Estado
                                                     </button>
                                                 @endcan
-                                                @can('manage planes')
-                                                    <button onclick="openEditModal({
-                                                        idPlan: {{ $plan->idPlan }},
-                                                        nombre: {{ json_encode($plan->nombre) }},
-                                                        entidad: {{ json_encode($plan->entidad) }},
-                                                        presupuesto: '{{ $plan->presupuesto }}',
-                                                        estado: {{ json_encode($plan->estado) }},
-                                                        fecha_inicio: '{{ $plan->fecha_inicio }}',
-                                                        fecha_fin: '{{ $plan->fecha_fin }}'
-                                                    })"
-                                                            class="text-neutral hover:text-primary font-medium transition-colors duration-150">
-                                                        <svg class="w-4 h-4 inline mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                                d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
-                                                        </svg>
-                                                            Editar
-                                                    </button>
-                                                    <button onclick="openDeleteModal('{{ route('planes.destroy', $plan->idPlan) }}')"
-                                                            class="text-red-600 hover:text-red-900 font-medium transition-colors duration-150">
-                                                       <svg class="w-4 h-4 inline mr-1" fill="none"
-                                                            stroke="currentColor" viewBox="0 0 24 24">
-                                                            <path stroke-linecap="round" stroke-linejoin="round"
-                                                                stroke-width="2"
-                                                                d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                                                        </svg>
-                                                            Eliminar
-                                                    </button>
-                                                @endcan
+                                                @canany(['edit planes', 'delete planes', 'manage planes'])
+                                                    @canany(['edit planes', 'manage planes'])
+                                                        <button onclick="openEditModal({
+                                                            idPlan: {{ $plan->idPlan }},
+                                                            nombre: {{ json_encode($plan->nombre) }},
+                                                            entidad: {{ json_encode($plan->entidad) }},
+                                                            presupuesto: '{{ $plan->presupuesto }}',
+                                                            estado: {{ json_encode($plan->estado) }},
+                                                            fecha_inicio: '{{ $plan->fecha_inicio }}',
+                                                            fecha_fin: '{{ $plan->fecha_fin }}'
+                                                        })"
+                                                                class="text-neutral hover:text-primary font-medium transition-colors duration-150">
+                                                            <svg class="w-4 h-4 inline mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                                    d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                                                            </svg>
+                                                                Editar
+                                                        </button>
+                                                    @endcanany
+                                                    @canany(['delete planes', 'manage planes'])
+                                                        <button onclick="openDeleteModal('{{ route('planes.destroy', $plan->idPlan) }}')"
+                                                                class="text-red-600 hover:text-red-900 font-medium transition-colors duration-150">
+                                                        <svg class="w-4 h-4 inline mr-1" fill="none"
+                                                                stroke="currentColor" viewBox="0 0 24 24">
+                                                                <path stroke-linecap="round" stroke-linejoin="round"
+                                                                    stroke-width="2"
+                                                                    d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                                                            </svg>
+                                                                Eliminar
+                                                        </button>
+                                                    @endcanany
+                                                @endcanany
                                             </div>
                                         </td>
                                     </tr>
@@ -151,11 +155,17 @@
     </div>
 
     {{-- Modales --}}
-    @can('manage planes')
-        @include('planes.partials.create-modal')
-        @include('planes.partials.edit-modal')
-        @include('planes.partials.delete-modal')
-    @endcan
+    @canany(['manage planes', 'create planes', 'edit planes', 'delete planes'])
+        @canany(['create planes', 'manage planes'])
+            @include('planes.partials.create-modal')
+        @endcanany
+        @canany(['edit planes', 'manage planes'])
+            @include('planes.partials.edit-modal')
+        @endcanany
+        @canany(['delete planes', 'manage planes'])
+            @include('planes.partials.delete-modal')
+        @endcanany
+    @endcanany
     @can('cambiar estado planes')
         @include('planes.partials.estado-modal')
     @endcan

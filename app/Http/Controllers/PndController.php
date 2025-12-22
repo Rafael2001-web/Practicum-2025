@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\pnd;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Support\Facades\Gate;
 
 class PndController extends Controller
 {
@@ -13,6 +14,7 @@ class PndController extends Controller
      */
     public function index()
     {
+        Gate::any(['view pnd', 'manage pnd']);
         $pnd = Pnd::all();
         return view('pnd.index', compact('pnd'));
 
@@ -23,13 +25,15 @@ class PndController extends Controller
      */
     public function create()
     {
+        Gate::any(['create pnd', 'manage pnd']);
         return redirect()->route('pnd.index');
-    }    
+    }
     /**
      * Display the specified resource.
      */
     public function show($id)
     {
+        Gate::any(['view pnd', 'manage pnd']);
         $pnd = Pnd::findOrFail($id);
         return view('pnd.show', compact('pnd'));
     }
@@ -39,6 +43,7 @@ class PndController extends Controller
      */
     public function store(Request $request)
     {
+        Gate::any(['create pnd', 'manage pnd']);
         $request->validate([
             'eje'=> 'required|string',
             'objetivoN'=> 'required|integer',
@@ -57,6 +62,7 @@ class PndController extends Controller
      */
     public function edit($id)
     {
+        Gate::any(['edit pnd', 'manage pnd']);
         return redirect()->route('pnd.index');
     }
 
@@ -66,7 +72,7 @@ class PndController extends Controller
      */
     public function update(Request $request, $id)
     {
-        
+        Gate::any(['edit pnd', 'manage pnd']);
         $request->validate([
             'eje'=> 'required|string',
             'objetivoN'=> 'required|integer',
@@ -86,14 +92,15 @@ class PndController extends Controller
      */
     public function destroy($id)
     {
+        Gate::any(['delete pnd', 'manage pnd']);
         $pnd = Pnd::findOrfail($id);
         $pnd->delete();
 
          return redirect()->route('pnd.index')->with('success', 'ODS Eliminado Satisfactoriamente');
-
     }
 
     public function documentopdf(){
+        Gate::any(['generate report pnd', 'generate reports']);
         $pnd = Pnd::all();
         $pdf =Pdf::loadView('pnd.pdf', compact('pnd'));
         return $pdf->stream('reporte_pnd.pdf');

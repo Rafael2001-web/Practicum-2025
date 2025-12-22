@@ -21,16 +21,13 @@ class RoleSeeder extends Seeder
         // ==================================================================================
 
         $adminRole = Role::firstOrCreate(['name' => 'Administrador del Sistema']);
-        $gestorEntidadesRole = Role::firstOrCreate(['name' => 'Gestor de Entidades']);
-        $coordinadorUnidadesRole = Role::firstOrCreate(['name' => 'Coordinador de Unidades']);
-        $especialistaOdsRole = Role::firstOrCreate(['name' => 'Especialista en ODS']);
-        $planificadorEstrategicoRole = Role::firstOrCreate(['name' => 'Planificador Estratégico']);
-        $analistaPndRole = Role::firstOrCreate(['name' => 'Analista de PND']);
-        $gestorPlanesRole = Role::firstOrCreate(['name' => 'Gestor de Planes']);
+        $tecnicoPlanificacionRole = Role::firstOrCreate(['name' => 'Técnico de Planificación']);
+        $planificadorInstitucionalRole = Role::firstOrCreate(['name' => 'Planificador Institucional']);
         $revisorInstitucionalRole = Role::firstOrCreate(['name' => 'Revisor Institucional']);
-        $coordinadorProgramasRole = Role::firstOrCreate(['name' => 'Coordinador de Programas']);
-        $analistaProyectosRole = Role::firstOrCreate(['name' => 'Analista de Proyectos']);
+        $autoridadValidanteRole = Role::firstOrCreate(['name' => 'Autoridad Validante']);
         $supervisorGeneralRole = Role::firstOrCreate(['name' => 'Supervisor General']);
+        $userRole = Role::firstOrCreate(['name' => 'Usuario Externo']);
+        $auditorRole = Role::firstOrCreate(['name' => 'Auditor']);
 
         // ==================================================================================
         // DEFINIR TODOS LOS PERMISOS DEL SISTEMA
@@ -53,6 +50,7 @@ class RoleSeeder extends Seeder
             'create entidades',
             'edit entidades',
             'delete entidades',
+            'generate report entidades',
 
             // ===== UNIDADES (Coordinador de Unidades) =====
             'manage unidades',
@@ -60,6 +58,7 @@ class RoleSeeder extends Seeder
             'create unidades',
             'edit unidades',
             'delete unidades',
+            'generate report unidades',
 
             // ===== ODS (Especialista en ODS) =====
             'manage ods',
@@ -67,6 +66,7 @@ class RoleSeeder extends Seeder
             'create ods',
             'edit ods',
             'delete ods',
+            'generate report ods',
 
             // ===== OBJETIVOS ESTRATÉGICOS (Planificador Estratégico) =====
             'manage objetivos_estrategicos',
@@ -74,6 +74,7 @@ class RoleSeeder extends Seeder
             'create objetivos_estrategicos',
             'edit objetivos_estrategicos',
             'delete objetivos_estrategicos',
+            'generate report objetivos_estrategicos',
 
             // ===== PND (Analista de PND) =====
             'manage pnd',
@@ -81,6 +82,7 @@ class RoleSeeder extends Seeder
             'create pnd',
             'edit pnd',
             'delete pnd',
+            'generate report pnd',
 
             // ===== ALINEACIÓN ESTRATÉGICA - OBJETIVOS INSTITUCIONALES =====
             'manage strategic alignment',
@@ -88,6 +90,7 @@ class RoleSeeder extends Seeder
             'create strategic alignment',
             'edit strategic alignment',
             'delete strategic alignment',
+            'generate report strategic alignment',
 
             // ===== PLANES (Gestor de Planes) =====
             'manage planes',
@@ -96,6 +99,7 @@ class RoleSeeder extends Seeder
             'edit planes',
             'cambiar estado planes',
             'delete planes',
+            'generate report planes',
 
             // ===== PROGRAMAS (Coordinador de Programas) =====
             'manage programas',
@@ -103,6 +107,7 @@ class RoleSeeder extends Seeder
             'create programas',
             'edit programas',
             'delete programas',
+            'generate report programas',
 
             // ===== PROYECTOS (Analista de Proyectos) =====
             'manage proyectos',
@@ -110,11 +115,10 @@ class RoleSeeder extends Seeder
             'create proyectos',
             'edit proyectos',
             'delete proyectos',
+            'generate report proyectos',
 
             // ===== REPORTES Y SUPERVISIÓN =====
-            'view reports',
             'generate reports',
-            'export reports',
             'view all_modules', // Para supervisor general
         ];
 
@@ -134,158 +138,93 @@ class RoleSeeder extends Seeder
             'view dashboard',
             // Gestión completa de usuarios
             'manage usuarios',
-            'view usuarios',
-            'create usuarios',
-            'edit usuarios',
-            'delete usuarios',
             // Solo lectura de todos los demás módulos (supervisión)
-            'view entidades',
-            'view unidades',
-            'view ods',
-            'view objetivos_estrategicos',
-            'view pnd',
-            'view planes',
-            'view programas',
-            'view proyectos',
-        ]);
-
-        // 🏢 GESTOR DE ENTIDADES
-        // ✅ CRUD COMPLETO: Entidades
-        // 👀 SOLO LECTURA: Programas (para verificar relaciones)
-        $gestorEntidadesRole->givePermissionTo([
-            'view dashboard',
             'manage entidades',
-            'view entidades',
-            'create entidades',
-            'edit entidades',
-            'delete entidades',
-            'view programas', // Para verificar relaciones
-        ]);
-
-        // 🏗️ COORDINADOR DE UNIDADES
-        // ✅ CRUD COMPLETO: Unidades
-        // 👀 SOLO LECTURA: Usuarios, Entidades (para contexto organizacional)
-        $coordinadorUnidadesRole->givePermissionTo([
-            'view dashboard',
             'manage unidades',
-            'view unidades',
-            'create unidades',
-            'edit unidades',
-            'delete unidades',
-            'view usuarios', // Para contexto organizacional
-            'view entidades', // Para contexto organizacional
         ]);
 
-        // 🎯 ESPECIALISTA EN ODS
-        // ✅ CRUD COMPLETO: ODS
-        // 👀 SOLO LECTURA: Objetivos Estratégicos, Planes (para alineación)
-        $especialistaOdsRole->givePermissionTo([
+        // 🎯 TÉCNICO DE PLANIFICACIÓN
+        // ✅ CRUD COMPLETO: Programas, Planes y Alineación Estratégica (Objetivos Institucionales)
+        // 👀 SOLO LECTURA: Ninguno
+        $tecnicoPlanificacionRole->givePermissionTo([
             'view dashboard',
-            'manage ods',
-            'view ods',
-            'create ods',
-            'edit ods',
-            'delete ods',
-            'view objetivos_estrategicos', // Para alineación
-            'view planes', // Para alineación
-        ]);
-
-        // 🎯 PLANIFICADOR ESTRATÉGICO
-        // ✅ CRUD COMPLETO: Objetivos Estratégicos y Alineación Estratégica (Objetivos Institucionales)
-        // 👀 SOLO LECTURA: ODS, PND, Planes (para alineación estratégica)
-        $planificadorEstrategicoRole->givePermissionTo([
-            'view dashboard',
-            'manage objetivos_estrategicos',
-            'view objetivos_estrategicos',
-            'create objetivos_estrategicos',
-            'edit objetivos_estrategicos',
-            'delete objetivos_estrategicos',
             'manage strategic alignment',
-            'view strategic alignment',
-            'create strategic alignment',
-            'edit strategic alignment',
-            'delete strategic alignment',
-            'view ods', // Para alineación
-            'view pnd', // Para alineación
-            'view planes', // Para alineación
+            'manage planes',
+            'manage programas',
         ]);
 
-        // 🇵🇪 ANALISTA DE PND
-        // ✅ CRUD COMPLETO: PND
-        // 👀 SOLO LECTURA: Objetivos Estratégicos, Planes (para coherencia nacional)
-        $analistaPndRole->givePermissionTo([
-            'view dashboard',
-            'manage pnd',
-            'view pnd',
-            'create pnd',
-            'edit pnd',
-            'delete pnd',
-            'view objetivos_estrategicos', // Para coherencia
-            'view planes', // Para coherencia
-        ]);
-
-        // 📋 GESTOR DE PLANES
-        // ✅ CRUD COMPLETO: Planes
-        // 👀 SOLO LECTURA: Objetivos Estratégicos, ODS, PND, Programas (para alineación)
-        $gestorPlanesRole->givePermissionTo([
+        // 🎯 PLANIFICADOR INSTITUCIONAL
+        // ✅ CRUD COMPLETO: Planes, Proyectos
+        // 👀 SOLO LECTURA:
+        $planificadorInstitucionalRole->givePermissionTo([
             'view dashboard',
             'manage planes',
-            'view planes',
-            'create planes',
-            'edit planes',
-            'cambiar estado planes',
-            'delete planes',
-            'view objetivos_estrategicos', // Para alineación
-            'view ods', // Para alineación
-            'view pnd', // Para alineación
-            'view programas', // Para alineación
+            'manage proyectos',
         ]);
 
         // 🏛️ REVISOR INSTITUCIONAL
         // ✅ REVISIÓN Y APROBACIÓN DE PLANES
-        // 👀 SOLO LECTURA: Todos los CRUDs relacionados (para supervisión)
+        // CRUD COMPLETO: PND, ODS, Objetivos Estratégicos
         $revisorInstitucionalRole->givePermissionTo([
+            'view planes',
+            'cambiar estado planes',
+            'manage pnd',
+            'manage ods',
+            'manage objetivos_estrategicos',
+            'manage proyectos',
+        ]);
+
+        // AUTORIDAD VALIDANTE
+        // ✅ REVISIÓN Y APROBACIÓN DE PLANES
+        $autoridadValidanteRole->givePermissionTo([
             'view planes',
             'cambiar estado planes',
         ]);
 
-        // 📊 COORDINADOR DE PROGRAMAS
-        // ✅ CRUD COMPLETO: Programas
-        // 👀 SOLO LECTURA: Entidades, Planes (para vinculación correcta)
-        $coordinadorProgramasRole->givePermissionTo([
-            'view dashboard',
-            'manage programas',
-            'view programas',
-            'create programas',
-            'edit programas',
-            'delete programas',
-            'view entidades', // Para vinculación
-            'view planes', // Para vinculación
-        ]);
-
-        // 📈 ANALISTA DE PROYECTOS
-        // ✅ CRUD COMPLETO: Proyectos
-        // 👀 SOLO LECTURA: Planes, Programas, Usuarios (para asignaciones)
-        $analistaProyectosRole->givePermissionTo([
-            'view dashboard',
-            'manage proyectos',
-            'view proyectos',
-            'create proyectos',
-            'edit proyectos',
-            'delete proyectos',
-            'view planes', // Para vinculación
-            'view programas', // Para vinculación
-            'view usuarios', // Para asignaciones
-        ]);
-
         // 👁️ SUPERVISOR GENERAL
         // ❌ NINGÚN CRUD COMPLETO
-        // 👀 SOLO LECTURA: TODOS los CRUDs + Reportes
+        // 👀 SOLO LECTURA: TODOS los CRUDs menos usuarios
         $supervisorGeneralRole->givePermissionTo([
             'view dashboard',
             'view all_modules',
             // Solo lectura de todos los módulos
+            'view entidades',
+            'view unidades',
+            'view ods',
+            'view objetivos_estrategicos',
+            'view pnd',
+            'view strategic alignment',
+            'view planes',
+            'view programas',
+            'view proyectos',
+        ]);
+
+        // USUARIO EXTERNO
+        // ❌ NINGÚN CRUD COMPLETO
+        // CREACIÓN: Planes,
+        // 👀 SOLO LECTURA: TODOS los CRUDs + Reportes
+        $userRole->givePermissionTo([
+            'view dashboard',
+            // Solo lectura de todos los módulos
             'view usuarios',
+            'view entidades',
+            'view ods',
+            'view objetivos_estrategicos',
+            'view pnd',
+            'view planes',
+            'create planes',
+            'view programas',
+            'view proyectos',
+            // Acceso completo a reportes
+            'generate reports',
+        ]);
+
+        // 🕵️ AUDITOR
+        // ❌ NINGÚN CRUD COMPLETO
+        // 👀 SOLO LECTURA: TODOS los CRUDs menos Usuarios + Reportes
+        $auditorRole->givePermissionTo([
+            'view dashboard',
+            // Solo lectura de todos los módulos menos usuarios
             'view entidades',
             'view unidades',
             'view ods',
@@ -296,9 +235,7 @@ class RoleSeeder extends Seeder
             'view programas',
             'view proyectos',
             // Acceso completo a reportes
-            'view reports',
             'generate reports',
-            'export reports',
         ]);
 
         // ==================================================================================
@@ -314,49 +251,24 @@ class RoleSeeder extends Seeder
 
         $users = [
             [
-                'name' => 'María González',
-                'email' => 'maria.gonzalez@sipeip.gob.pe',
-                'role' => $gestorEntidadesRole
-            ],
-            [
-                'name' => 'Carlos Mendoza',
-                'email' => 'carlos.mendoza@sipeip.gob.pe',
-                'role' => $coordinadorUnidadesRole
-            ],
-            [
-                'name' => 'Ana Rodríguez',
-                'email' => 'ana.rodriguez@sipeip.gob.pe',
-                'role' => $especialistaOdsRole
-            ],
-            [
                 'name' => 'Luis Fernández',
                 'email' => 'luis.fernandez@sipeip.gob.pe',
-                'role' => $planificadorEstrategicoRole
-            ],
-            [
-                'name' => 'Elena Torres',
-                'email' => 'elena.torres@sipeip.gob.pe',
-                'role' => $analistaPndRole
-            ],
-            [
-                'name' => 'Roberto Silva',
-                'email' => 'roberto.silva@sipeip.gob.pe',
-                'role' => $gestorPlanesRole
-            ],
-            [
-                'name' => 'Carmen López',
-                'email' => 'carmen.lopez@sipeip.gob.pe',
-                'role' => $coordinadorProgramasRole
-            ],
-            [
-                'name' => 'Diego Herrera',
-                'email' => 'diego.herrera@sipeip.gob.pe',
-                'role' => $analistaProyectosRole
+                'role' => $tecnicoPlanificacionRole
             ],
             [
                 'name' => 'Patricia Vargas',
                 'email' => 'patricia.vargas@sipeip.gob.pe',
                 'role' => $supervisorGeneralRole
+            ],
+            [
+                'name' => 'Javier Ramírez',
+                'email' => 'javier.ramirez@sipeip.gob.pe',
+                'role' => $userRole
+            ],
+            [
+                'name' => 'Jorge Castillo',
+                'email' => 'jorge.castillo@sipeip.gob.pe',
+                'role' => $auditorRole
             ],
         ];
 
@@ -373,8 +285,8 @@ class RoleSeeder extends Seeder
         }
 
         $this->command->info('✅ Roles y permisos del Sistema SIPEIP 2.0 creados exitosamente');
-        $this->command->info('📋 10 roles específicos con permisos granulares');
-        $this->command->info('👥 10 usuarios de ejemplo creados (admin + 9 especialistas)');
+        $this->command->info('📋 12 roles específicos con permisos granulares');
+        $this->command->info('👥 12 usuarios de ejemplo creados (admin + 11 especialistas)');
         $this->command->info('🔑 Contraseña por defecto: password123 (admin: admin123)');
     }
 }

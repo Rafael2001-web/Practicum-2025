@@ -98,7 +98,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/objetivos-institucionales/{objetivo}', [ObjetivoInstitucionalController::class, 'show'])->name('objetivos-institucionales.show');
     });
 
-    // 📋 GESTOR DE PLANES - Ver listado de planes
+    // 📋 PLANES - Ver listado de planes
     Route::middleware('can.any:view planes,manage planes')->group(function () {
         Route::get('/planes', [PlanController::class, 'index'])->name('planes.index');
         Route::get('/planes/{plan}', [PlanController::class, 'show'])->name('planes.show');
@@ -106,7 +106,7 @@ Route::middleware('auth')->group(function () {
 
     Route::put('/planes/{plan}/estado', [PlanController::class, 'estado'])->name('planes.estado')->middleware('can:cambiar estado planes');
 
-    // 📊 COORDINADOR DE PROGRAMAS - Ver listado de programas
+    // 📊 PROGRAMAS - Ver listado de programas
     Route::middleware('can.any:view programas,manage programas')->group(function () {
         Route::get('/programas', [ProgramaController::class, 'index'])->name('programas.index');
         Route::get('/programas/{programa}', [ProgramaController::class, 'show'])->name('programas.show');
@@ -118,63 +118,65 @@ Route::middleware('auth')->group(function () {
         Route::get('/proyectos/{proyecto}', [ProyectoController::class, 'show'])->name('proyectos.show');
     });
 
+    // ==================================================================================
     // RUTAS CRUD - Gestión COMPLETA (manage permissions only)
+    // ==================================================================================
 
     // 👑 ADMINISTRADOR DEL SISTEMA - Gestión completa de usuarios
-    Route::middleware('can:manage usuarios')->group(function () {
+    Route::middleware('can.any:manage usuarios, create usuarios, edit usuarios, delete usuarios')->group(function () {
         Route::resource('usuarios', UserController::class)->except(['index', 'show']);
         Route::resource('roles', RoleController::class)->except(['index', 'show']);
         Route::resource('permissions', PermissionController::class)->except(['index', 'show']);
     });
 
     // 🏢 GESTOR DE ENTIDADES - CRUD completo de entidades
-    Route::middleware('can:manage entidades')->group(function () {
+    Route::middleware('can.any:manage entidades, create entidades, edit entidades, delete entidades')->group(function () {
         Route::resource('entidades', EntidadController::class)->except(['index', 'show']);
     });
 
     // 🏗️ COORDINADOR DE UNIDADES - CRUD completo de unidades
-    Route::middleware('can:manage unidades')->group(function () {
+    Route::middleware('can.any:manage unidades, create unidades, edit unidades, delete unidades')->group(function () {
         Route::resource('unidades', UnidadController::class)->except(['index', 'show']);
     });
 
     // 🎯 ESPECIALISTA EN ODS - CRUD completo de ODS
-    Route::middleware('can:manage ods')->group(function () {
+    Route::middleware('can.any:manage ods, create ods, edit ods, delete ods')->group(function () {
         Route::resource('ods', OdsController::class)->except(['index', 'show']);
     });
 
     // 🎯 PLANIFICADOR ESTRATÉGICO - CRUD completo de objetivos estratégicos
-    Route::middleware('can:manage objetivos_estrategicos')->group(function () {
+    Route::middleware('can.any:manage objetivos_estrategicos, create objetivos_estrategicos, edit objetivos_estrategicos, delete objetivos_estrategicos')->group(function () {
         Route::resource('objEstrategicos', ObjEstrategicoController::class)->except(['index', 'show']);
     });
 
     // 🇵🇪 ANALISTA DE PND - CRUD completo de PND
-    Route::middleware('can:manage pnd')->group(function () {
+    Route::middleware('can.any:manage pnd, create pnd, edit pnd, delete pnd')->group(function () {
         Route::resource('pnd', PndController::class)->except(['index', 'show']);
     });
 
     // 🎯 OBJETIVOS INSTITUCIONALES - CRUD completo de alineación estratégica
-    Route::middleware('can:manage strategic alignment')->group(function () {
+    Route::middleware('can.any:manage strategic alignment, create strategic alignment, edit strategic alignment, delete strategic alignment')->group(function () {
         Route::resource('objetivos-institucionales', ObjetivoInstitucionalController::class)->except(['index', 'show']);
     });
 
-    // 📋 GESTOR DE PLANES - CRUD completo de planes
-    Route::middleware('can:manage planes')->group(function () {
+    // 📋 PLANES - CRUD completo de planes
+    Route::middleware('can.any:manage planes, create planes, edit planes, delete planes')->group(function () {
         Route::resource('planes', PlanController::class)->except(['index', 'show']);
     });
 
     // 📊 COORDINADOR DE PROGRAMAS - CRUD completo de programas
-    Route::middleware('can:manage programas')->group(function () {
+    Route::middleware('can.any:manage programas, create programas, edit programas, delete programas')->group(function () {
         Route::resource('programas', ProgramaController::class)->except(['index', 'show']);
     });
 
     // 📈 ANALISTA DE PROYECTOS - CRUD completo de proyectos
-    Route::middleware('can:manage proyectos')->group(function () {
+    Route::middleware('can.any:manage proyectos, create proyectos, edit proyectos, delete proyectos')->group(function () {
         Route::resource('proyectos', ProyectoController::class)->except(['index', 'show']);
     });
 
     // RUTAS DE REPORTES (Supervisor General y roles con permisos)
     // permiso generate reports
-    Route::middleware('can:generate reports')->prefix('reportes')->group(function () {
+    Route::middleware('can.any:generate reports, generate report entidades, generate report programas, generate report proyectos, generate report unidades, generate report objEstrategicos, generate report pnd, generate report planes')->prefix('reportes')->group(function () {
         Route::get('/entidades/pdf', [EntidadController::class, 'documentopdf'])->name('entidades.documentopdf');
         Route::get('/programas/pdf', [ProgramaController::class, 'documentopdf'])->name('programas.documentopdf');
         Route::get('/proyectos/pdf', [ProyectoController::class, 'documentopdf'])->name('proyectos.documentopdf');

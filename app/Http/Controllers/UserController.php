@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
 use Spatie\Permission\Models\Role;
+use Illuminate\Support\Facades\Gate;
 
 class UserController extends Controller
 {
@@ -15,6 +16,7 @@ class UserController extends Controller
      */
     public function index()
     {
+        Gate::any(['view usuarios', 'manage usuarios']);
         $usuarios = User::all();
         $roles = Role::all();
         return view('usuarios.index', compact('usuarios', 'roles'));
@@ -25,6 +27,7 @@ class UserController extends Controller
      */
     public function create()
     {
+        Gate::any(['create usuarios', 'manage usuarios']);
         $roles = Role::all();
 
         // Si es una petición AJAX, devolver JSON
@@ -41,6 +44,7 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
+        Gate::any(['create usuarios', 'manage usuarios']);
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
@@ -71,6 +75,7 @@ class UserController extends Controller
      */
     public function show(User $usuario)
     {
+        Gate::any(['view usuarios', 'manage usuarios']);
         return view('usuarios.show', compact('usuario'));
     }
 
@@ -79,6 +84,7 @@ class UserController extends Controller
      */
     public function edit(User $usuario)
     {
+        Gate::any(['edit usuarios', 'manage usuarios']);
         $roles = Role::all();
         return response()->json([
             'usuario' => $usuario,
@@ -92,6 +98,7 @@ class UserController extends Controller
      */
     public function update(Request $request, User $usuario)
     {
+        Gate::any(['edit usuarios', 'manage usuarios']);
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => [
@@ -134,6 +141,7 @@ class UserController extends Controller
      */
     public function destroy(User $usuario)
     {
+        Gate::any(['delete usuarios', 'manage usuarios']);
         $usuario->delete();
 
         return redirect()->route('usuarios.index')

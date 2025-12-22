@@ -7,6 +7,7 @@ use App\Models\Pnd;
 use App\Models\Ods;
 use App\Models\objEstrategico;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class ObjetivoInstitucionalController extends Controller
 {
@@ -15,6 +16,7 @@ class ObjetivoInstitucionalController extends Controller
      */
     public function index()
     {
+        Gate::any(['view strategic alignment', 'manage strategic alignment']);
         $objetivos = ObjetivoInstitucional::with(['pnd', 'ods', 'objetivoEstrategico'])->get();
         $pnds = Pnd::all();
         $odss = Ods::all();
@@ -28,6 +30,7 @@ class ObjetivoInstitucionalController extends Controller
      */
     public function create()
     {
+        Gate::any(['create strategic alignment', 'manage strategic alignment']);
         return redirect()->route('objetivos-institucionales.index');
     }
 
@@ -36,6 +39,7 @@ class ObjetivoInstitucionalController extends Controller
      */
     public function store(Request $request)
     {
+        Gate::any(['create strategic alignment', 'manage strategic alignment']);
         $request->validate([
             'idPnd' => 'required|exists:pnd,idPnd',
             'idOds' => 'required|exists:ods,idOds',
@@ -55,6 +59,7 @@ class ObjetivoInstitucionalController extends Controller
      */
     public function show($id)
     {
+        Gate::any(['view strategic alignment', 'manage strategic alignment']);
         $objetivo = ObjetivoInstitucional::with(['pnd', 'ods', 'objetivoEstrategico'])->findOrFail($id);
 
         return view('objetivos-institucionales.show', compact('objetivo'));
@@ -65,6 +70,7 @@ class ObjetivoInstitucionalController extends Controller
      */
     public function edit($id)
     {
+        Gate::any(['edit strategic alignment', 'manage strategic alignment']);
         return redirect()->route('objetivos-institucionales.index');
     }
 
@@ -73,6 +79,7 @@ class ObjetivoInstitucionalController extends Controller
      */
     public function update(Request $request, $id)
     {
+        Gate::any(['edit strategic alignment', 'manage strategic alignment']);
         $request->validate([
             'idPnd' => 'required|exists:pnd,idPnd',
             'idOds' => 'required|exists:ods,idOds',
@@ -93,6 +100,7 @@ class ObjetivoInstitucionalController extends Controller
      */
     public function destroy($id)
     {
+        Gate::any(['delete strategic alignment', 'manage strategic alignment']);
         $objetivo = ObjetivoInstitucional::findOrFail($id);
         $objetivo->delete();
 

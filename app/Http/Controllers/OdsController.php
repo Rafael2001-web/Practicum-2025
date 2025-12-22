@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Ods;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class OdsController extends Controller
 {
@@ -12,6 +13,7 @@ class OdsController extends Controller
      */
     public function index()
     {
+        Gate::any(['view ods', 'manage ods']);
         $ods = Ods::all();
         return view('ods.index', compact('ods'));
 
@@ -22,6 +24,7 @@ class OdsController extends Controller
      */
     public function create()
     {
+        Gate::any(['create ods', 'manage ods']);
         return redirect()->route('ods.index');
     }
 
@@ -30,6 +33,7 @@ class OdsController extends Controller
      */
     public function store(Request $request)
     {
+        Gate::any(['create ods', 'manage ods']);
         $request->validate([
             'odsnum'=> 'required|integer',
             'nombre'=> 'required|string',
@@ -39,8 +43,6 @@ class OdsController extends Controller
         Ods::create($request->all());
 
         return redirect()->route('ods.index')->with('success', 'ODS Creado Satisfactoriamente');
-
-
     }
 
     /**
@@ -48,6 +50,7 @@ class OdsController extends Controller
      */
     public function show($id)
     {
+        Gate::any(['view ods', 'manage ods']);
         $ods = Ods::findOrFail($id);
         return view('ods.show', compact('ods'));
     }
@@ -57,6 +60,7 @@ class OdsController extends Controller
      */
     public function edit($id)
     {
+        Gate::any(['edit ods', 'manage ods']);
         return redirect()->route('ods.index');
     }
 
@@ -66,7 +70,8 @@ class OdsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        
+        Gate::any(['edit ods', 'manage ods']);
+
         $request->validate([
             'odsnum'=> 'required|integer',
             'nombre'=> 'required|string',
@@ -86,10 +91,10 @@ class OdsController extends Controller
      */
     public function destroy($id)
     {
+        Gate::any(['delete ods', 'manage ods']);
         $ods = Ods::findOrfail($id);
         $ods->delete();
 
-         return redirect()->route('ods.index')->with('success', 'ODS Eliminado Satisfactoriamente');
-
+        return redirect()->route('ods.index')->with('success', 'ODS Eliminado Satisfactoriamente');
     }
 }

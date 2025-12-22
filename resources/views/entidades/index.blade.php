@@ -1,6 +1,6 @@
 <x-app-layout>
     @section('title', 'Entidades')
-    
+
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-white leading-tight">
             {{ __('Entidades') }}
@@ -24,7 +24,7 @@
                     @endif
 
                     <div class="bg-white">
-                        <x-table 
+                        <x-table
                             :headers="[
                                 ['label' => 'ID', 'type' => 'text'],
                                 ['label' => 'Código', 'type' => 'text'],
@@ -35,22 +35,22 @@
                                 ['label' => 'Fecha de Actualización', 'type' => 'date'],
                                 ['label' => 'Acciones', 'type' => 'actions']
                             ]"
-                            :csv="auth()->user()->can('generate reports')"
-                            :print="auth()->user()->can('generate reports')"
-                            :json="auth()->user()->can('generate reports')"
+                            :csv="auth()->user()->canany(['generate report entidades', 'generate reports'])"
+                            :print="auth()->user()->canany(['generate report entidades', 'generate reports'])"
+                            :json="auth()->user()->canany(['generate report entidades', 'generate reports'])"
                             id="entidades-table"
                         >
                             <x-slot name="buttons">
-                                @can('manage entidades')
-                                    <button onclick="openCreateModal()" 
+                                @canany(['manage entidades', 'create entidades'])
+                                    <button onclick="openCreateModal()"
                                             class="inline-flex items-center px-4 py-2 bg-secondary border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-accent active:bg-secondary focus:outline-none focus:border-secondary focus:ring ring-secondary/20 disabled:opacity-25 transition ease-in-out duration-150 shadow-sm">
                                         <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"/>
                                         </svg>
                                         Nueva Entidad
                                     </button>
-                                @endcan
-                                @can('generate reports')
+                                @endcanany
+                                @canany(['generate report entidades', 'generate reports'])
                                     <a href="{{ route('entidades.documentopdf') }}" target="_blank"
                                        class="inline-flex items-center px-4 py-2 bg-red-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-red-700 active:bg-red-600 focus:outline-none focus:border-red-600 focus:ring ring-red-600/20 disabled:opacity-25 transition ease-in-out duration-150 shadow-sm">
                                         <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -58,7 +58,7 @@
                                         </svg>
                                         Generar PDF
                                     </a>
-                                @endcan
+                                @endcanany
                             </x-slot>
 
                             <tbody>
@@ -86,7 +86,7 @@
                                         <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
                                             <div class="flex items-center space-x-3">
                                                 @canany(['view entidades', 'manage entidades'])
-                                                    <a href="{{ route('entidades.show', $entidad->idEntidad) }}" 
+                                                    <a href="{{ route('entidades.show', $entidad->idEntidad) }}"
                                                        class="text-secondary hover:text-accent font-medium transition-colors duration-150">
                                                         <svg class="w-4 h-4 inline mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
@@ -95,22 +95,24 @@
                                                         Ver
                                                     </a>
                                                 @endcanany
-                                                @can('manage entidades')
-                                                    <button onclick="openEditModal({{ json_encode($entidad) }})" 
+                                                @canany(['edit entidades', 'manage entidades'])
+                                                    <button onclick="openEditModal({{ json_encode($entidad) }})"
                                                             class="text-neutral hover:text-primary font-medium transition-colors duration-150">
                                                         <svg class="w-4 h-4 inline mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
                                                         </svg>
                                                         Editar
                                                     </button>
-                                                    <button onclick="openDeleteModal({{ json_encode($entidad) }})" 
+                                                @endcanany
+                                                @canany(['delete entidades', 'manage entidades'])
+                                                    <button onclick="openDeleteModal({{ json_encode($entidad) }})"
                                                             class="text-red-600 hover:text-red-900 font-medium transition-colors duration-150">
                                                         <svg class="w-4 h-4 inline mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
                                                         </svg>
                                                         Eliminar
                                                     </button>
-                                                @endcan
+                                                @endcanany
                                             </div>
                                         </td>
                                     </tr>
@@ -124,13 +126,24 @@
     </div>
 
     {{-- Incluir modales --}}
-    @can('manage entidades')
-        @include('entidades.partials.create-modal')
+    @canany(['manage entidades', 'create entidades', 'edit entidades', 'delete entidades'])
+        @canany(['create entidades', 'manage entidades'])
+            @include('entidades.partials.create-modal')
+        @endcanany
+        @canany(['edit entidades', 'manage entidades'])
+            @include('entidades.partials.edit-modal')
+        @endcanany
+        @canany(['delete entidades', 'manage entidades'])
+            @include('entidades.partials.delete-modal')
+        @endcanany
+    @endcanany
+
+    @canany(['manage entidades', 'create entidades', 'edit entidades', 'delete entidades'])
         @include('entidades.partials.edit-modal')
         @include('entidades.partials.delete-modal')
     @endcan
 
-    @can('manage entidades')
+    @canany(['manage entidades', 'create entidades', 'edit entidades', 'delete entidades'])
         <script>
             function openCreateModal() {
                 document.getElementById('createModal').classList.remove('hidden');
@@ -174,7 +187,7 @@
                         }
                     });
                 }
-                
+
                 const editModal = document.getElementById('editModal');
                 if (editModal) {
                     editModal.addEventListener('click', function(e) {
@@ -183,7 +196,7 @@
                         }
                     });
                 }
-                
+
                 const deleteModal = document.getElementById('deleteModal');
                 if (deleteModal) {
                     deleteModal.addEventListener('click', function(e) {
@@ -194,5 +207,5 @@
                 }
             });
         </script>
-    @endcan
+    @endcanany
 </x-app-layout>

@@ -23,7 +23,7 @@
                     @endif
 
                     <div class="bg-white">
-                        <x-table 
+                        <x-table
                             :headers="[
                                 ['label' => 'ID', 'type' => 'text'],
                                 ['label' => 'Fecha de Registro', 'type' => 'date'],
@@ -38,7 +38,7 @@
                             title="Gestión de Objetivos Estratégicos"
                         >
                             <x-slot name="buttons">
-                                @can('manage objetivos_estrategicos')
+                                @canany(['manage objetivos_estrategicos', 'create objetivos_estrategicos'])
                                     <button onclick="openCreateModal()"
                                        class="inline-flex items-center px-4 py-2 bg-secondary border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-accent active:bg-secondary focus:outline-none focus:border-secondary focus:ring ring-secondary/20 disabled:opacity-25 transition ease-in-out duration-150 shadow-sm">
                                         <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -46,8 +46,8 @@
                                         </svg>
                                         Nuevo Objetivo Estratégico
                                     </button>
-                                @endcan
-                                @can('generate reports')
+                                @endcanany
+                                @canany(['generate report objetivos_estrategicos', 'generate reports'])
                                     <a href="{{ route('objEstrategicos.documentopdf') }}" target="_blank"
                                        class="inline-flex items-center px-4 py-2 bg-red-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-red-700 active:bg-red-600 focus:outline-none focus:border-red-600 focus:ring ring-red-600/20 disabled:opacity-25 transition ease-in-out duration-150 shadow-sm">
                                         <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -55,7 +55,7 @@
                                         </svg>
                                         Generar PDF
                                     </a>
-                                @endcan
+                                @endcanany
                             </x-slot>
 
                             <tbody>
@@ -75,7 +75,7 @@
                                         <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
                                             <div class="flex items-center space-x-3">
                                                 @canany(['view objetivos_estrategicos', 'manage objetivos_estrategicos'])
-                                                    <a href="{{ route('objEstrategicos.show', $objEstrategico->idobjEstrategico) }}" 
+                                                    <a href="{{ route('objEstrategicos.show', $objEstrategico->idobjEstrategico) }}"
                                                        class="text-blue-600 hover:text-blue-900 font-medium transition-colors duration-150">
                                                         <svg class="w-4 h-4 inline mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
@@ -84,22 +84,26 @@
                                                         Ver
                                                     </a>
                                                 @endcanany
-                                                @can('manage objetivos_estrategicos')
-                                                    <button onclick="openEditModal({{ $objEstrategico->idobjEstrategico }}, '{{ $objEstrategico->fechaRegistro }}', {{ json_encode($objEstrategico->estado) }}, {{ json_encode($objEstrategico->descripcion) }})"
-                                                            class="text-neutral hover:text-primary font-medium transition-colors duration-150">
-                                                        <svg class="w-4 h-4 inline mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
-                                                        </svg>
-                                                        Editar
-                                                    </button>
-                                                    <button onclick="openDeleteModal({{ $objEstrategico->idobjEstrategico }}, {{ json_encode($objEstrategico->descripcion) }})"
-                                                            class="text-red-600 hover:text-red-900 font-medium transition-colors duration-150">
-                                                        <svg class="w-4 h-4 inline mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
-                                                        </svg>
-                                                        Eliminar
-                                                    </button>
-                                                @endcan
+                                                @canany(['edit objetivos_estrategicos', 'delete objetivos_estrategicos', 'manage objetivos_estrategicos'])
+                                                    @canany(['edit objetivos_estrategicos', 'manage objetivos_estrategicos'])
+                                                        <button onclick="openEditModal({{ $objEstrategico->idobjEstrategico }}, '{{ $objEstrategico->fechaRegistro }}', {{ json_encode($objEstrategico->estado) }}, {{ json_encode($objEstrategico->descripcion) }})"
+                                                                class="text-neutral hover:text-primary font-medium transition-colors duration-150">
+                                                            <svg class="w-4 h-4 inline mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
+                                                            </svg>
+                                                            Editar
+                                                        </button>
+                                                    @endcanany
+                                                    @canany(['delete objetivos_estrategicos', 'manage objetivos_estrategicos'])
+                                                        <button onclick="openDeleteModal({{ $objEstrategico->idobjEstrategico }}, {{ json_encode($objEstrategico->descripcion) }})"
+                                                                class="text-red-600 hover:text-red-900 font-medium transition-colors duration-150">
+                                                            <svg class="w-4 h-4 inline mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
+                                                            </svg>
+                                                            Eliminar
+                                                        </button>
+                                                    @endcanany
+                                                @endcanany
                                             </div>
                                         </td>
                                     </tr>
@@ -113,13 +117,19 @@
     </div>
 
     {{-- Modales --}}
-    @can('manage objetivos_estrategicos')
-        @include('objEstrategicos.partials.create-modal')
-        @include('objEstrategicos.partials.edit-modal')
-        @include('objEstrategicos.partials.delete-modal')
-    @endcan
+    @canany(['manage objetivos_estrategicos', 'create objetivos_estrategicos', 'edit objetivos_estrategicos', 'delete objetivos_estrategicos'])
+        @canany(['create objetivos_estrategicos', 'manage objetivos_estrategicos'])
+            @include('objEstrategicos.partials.create-modal')
+        @endcanany
+        @canany(['edit objetivos_estrategicos', 'manage objetivos_estrategicos'])
+            @include('objEstrategicos.partials.edit-modal')
+        @endcanany
+        @canany(['delete objetivos_estrategicos', 'manage objetivos_estrategicos'])
+            @include('objEstrategicos.partials.delete-modal')
+        @endcanany
+    @endcanany
 
-    @can('manage objetivos_estrategicos')
+    @canany(['manage objetivos_estrategicos', 'create objetivos_estrategicos', 'edit objetivos_estrategicos', 'delete objetivos_estrategicos'])
         <script>
             function openCreateModal() {
                 document.getElementById('createModal').style.display = 'block';
@@ -151,5 +161,5 @@
                 document.getElementById('deleteModal').style.display = 'none';
             }
         </script>
-    @endcan
+    @endcanany
 </x-app-layout>

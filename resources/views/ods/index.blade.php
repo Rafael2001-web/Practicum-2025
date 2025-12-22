@@ -23,7 +23,7 @@
                     @endif
 
                     <div class="bg-white">
-                        <x-table 
+                        <x-table
                             :headers="[
                                 ['label' => 'ID', 'type' => 'text'],
                                 ['label' => '# ODS', 'type' => 'text'],
@@ -31,13 +31,13 @@
                                 ['label' => 'Descripción', 'type' => 'text'],
                                 ['label' => 'Acciones', 'type' => 'actions']
                             ]"
-                            :csv="false"
-                            :print="false"
+                            :csv="auth()->user()->canany(['generate report ods', 'generate reports'])"
+                            :print="auth()->user()->canany(['generate report ods', 'generate reports'])"
                             id="ods-table"
                             title="Gestión de Objetivos de Desarrollo Sostenible"
                         >
                             <x-slot name="buttons">
-                                @can('manage ods')
+                                @canany(['manage ods', 'create ods'])
                                     <button onclick="openCreateModal()"
                                        class="inline-flex items-center px-4 py-2 bg-secondary border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-accent active:bg-secondary focus:outline-none focus:border-secondary focus:ring ring-secondary/20 disabled:opacity-25 transition ease-in-out duration-150 shadow-sm">
                                         <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -45,7 +45,7 @@
                                         </svg>
                                         Nuevo Objetivo ODS
                                     </button>
-                                @endcan
+                                @endcanany
                             </x-slot>
 
                             <tbody>
@@ -58,7 +58,7 @@
                                         <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
                                             <div class="flex items-center space-x-3">
                                                 @canany(['view ods', 'manage ods'])
-                                                    <a href="{{ route('ods.show', $ods->idOds) }}" 
+                                                    <a href="{{ route('ods.show', $ods->idOds) }}"
                                                        class="text-blue-600 hover:text-blue-900 font-medium transition-colors duration-150">
                                                         <svg class="w-4 h-4 inline mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
@@ -67,7 +67,7 @@
                                                         Ver
                                                     </a>
                                                 @endcanany
-                                                @can('manage ods')
+                                                @canany(['edit ods', 'manage ods'])
                                                     <button onclick="openEditModal({{ $ods->idOds }}, '{{ $ods->odsnum }}', {{ json_encode($ods->nombre) }}, {{ json_encode($ods->descripcion) }})"
                                                             class="text-neutral hover:text-primary font-medium transition-colors duration-150">
                                                         <svg class="w-4 h-4 inline mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -75,6 +75,8 @@
                                                         </svg>
                                                         Editar
                                                     </button>
+                                                @endcanany
+                                                @canany(['delete ods', 'manage ods'])
                                                     <button onclick="openDeleteModal({{ $ods->idOds }}, {{ json_encode($ods->nombre) }})"
                                                             class="text-red-600 hover:text-red-900 font-medium transition-colors duration-150">
                                                         <svg class="w-4 h-4 inline mr-1" fill="none"
@@ -85,7 +87,7 @@
                                                         </svg>
                                                         Eliminar
                                                     </button>
-                                                @endcan
+                                                @endcanany
                                             </div>
                                         </td>
                                     </tr>
@@ -99,13 +101,19 @@
     </div>
 
     {{-- Modales --}}
-    @can('manage ods')
-        @include('ods.partials.create-modal')
-        @include('ods.partials.edit-modal')
-        @include('ods.partials.delete-modal')
-    @endcan
+    @canany(['manage ods', 'create ods', 'edit ods', 'delete ods'])
+        @canany(['create ods', 'manage ods'])
+            @include('ods.partials.create-modal')
+        @endcanany
+        @canany(['edit ods', 'manage ods'])
+            @include('ods.partials.edit-modal')
+        @endcanany
+        @canany(['delete ods', 'manage ods'])
+            @include('ods.partials.delete-modal')
+        @endcanany
+    @endcanany
 
-    @can('manage ods')
+    @canany(['manage ods', 'create ods', 'edit ods', 'delete ods'])
         <script>
             function openCreateModal() {
                 document.getElementById('createModal').style.display = 'block';
@@ -136,5 +144,5 @@
                 document.getElementById('deleteModal').style.display = 'none';
             }
         </script>
-    @endcan
+    @endcanany
 </x-app-layout>
