@@ -82,6 +82,13 @@ class RoleSeeder extends Seeder
             'edit pnd',
             'delete pnd',
 
+            // ===== ALINEACIÓN ESTRATÉGICA - OBJETIVOS INSTITUCIONALES =====
+            'manage strategic alignment',
+            'view strategic alignment',
+            'create strategic alignment',
+            'edit strategic alignment',
+            'delete strategic alignment',
+
             // ===== PLANES (Gestor de Planes) =====
             'manage planes',
             'view planes',
@@ -184,7 +191,7 @@ class RoleSeeder extends Seeder
         ]);
 
         // 🎯 PLANIFICADOR ESTRATÉGICO
-        // ✅ CRUD COMPLETO: Objetivos Estratégicos
+        // ✅ CRUD COMPLETO: Objetivos Estratégicos y Alineación Estratégica (Objetivos Institucionales)
         // 👀 SOLO LECTURA: ODS, PND, Planes (para alineación estratégica)
         $planificadorEstrategicoRole->givePermissionTo([
             'view dashboard',
@@ -193,6 +200,11 @@ class RoleSeeder extends Seeder
             'create objetivos_estrategicos',
             'edit objetivos_estrategicos',
             'delete objetivos_estrategicos',
+            'manage strategic alignment',
+            'view strategic alignment',
+            'create strategic alignment',
+            'edit strategic alignment',
+            'delete strategic alignment',
             'view ods', // Para alineación
             'view pnd', // Para alineación
             'view planes', // Para alineación
@@ -279,6 +291,7 @@ class RoleSeeder extends Seeder
             'view ods',
             'view objetivos_estrategicos',
             'view pnd',
+            'view strategic alignment',
             'view planes',
             'view programas',
             'view proyectos',

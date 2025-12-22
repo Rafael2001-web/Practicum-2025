@@ -16,6 +16,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\PermissionController;
+use App\Http\Controllers\ObjetivoInstitucionalController;
 
 /*
 
@@ -91,6 +92,12 @@ Route::middleware('auth')->group(function () {
         Route::get('/pnd/{pnd}', [PndController::class, 'show'])->name('pnd.show');
     });
 
+    // 🎯 OBJETIVOS INSTITUCIONALES - Ver listado de objetivos institucionales
+    Route::middleware('can.any:view strategic alignment,manage strategic alignment')->group(function () {
+        Route::get('/objetivos-institucionales', [ObjetivoInstitucionalController::class, 'index'])->name('objetivos-institucionales.index');
+        Route::get('/objetivos-institucionales/{objetivo}', [ObjetivoInstitucionalController::class, 'show'])->name('objetivos-institucionales.show');
+    });
+
     // 📋 GESTOR DE PLANES - Ver listado de planes
     Route::middleware('can.any:view planes,manage planes')->group(function () {
         Route::get('/planes', [PlanController::class, 'index'])->name('planes.index');
@@ -143,6 +150,11 @@ Route::middleware('auth')->group(function () {
     // 🇵🇪 ANALISTA DE PND - CRUD completo de PND
     Route::middleware('can:manage pnd')->group(function () {
         Route::resource('pnd', PndController::class)->except(['index', 'show']);
+    });
+
+    // 🎯 OBJETIVOS INSTITUCIONALES - CRUD completo de alineación estratégica
+    Route::middleware('can:manage strategic alignment')->group(function () {
+        Route::resource('objetivos-institucionales', ObjetivoInstitucionalController::class)->except(['index', 'show']);
     });
 
     // 📋 GESTOR DE PLANES - CRUD completo de planes
