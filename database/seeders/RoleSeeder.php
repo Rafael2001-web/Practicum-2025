@@ -44,6 +44,15 @@ class RoleSeeder extends Seeder
             'edit usuarios',
             'delete usuarios',
 
+            // ===== ROLES (Administrador del Sistema) =====
+            'manage roles',
+            'view roles',
+            'create roles',
+            'edit roles',
+            'delete roles',
+            'manage permissions',
+            'view permissions',
+
             // ===== ENTIDADES (Gestor de Entidades) =====
             'manage entidades',
             'view entidades',
@@ -138,6 +147,7 @@ class RoleSeeder extends Seeder
             'view dashboard',
             // Gestión completa de usuarios
             'manage usuarios',
+            'manage roles',
             // Solo lectura de todos los demás módulos (supervisión)
             'manage entidades',
             'manage unidades',

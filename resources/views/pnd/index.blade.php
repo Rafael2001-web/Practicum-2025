@@ -34,7 +34,7 @@
                             :csv="auth()->user()->canany(['generate report pnd', 'generate reports'])"
                             :print="auth()->user()->canany(['generate report pnd', 'generate reports'])"
                             :json="auth()->user()->canany(['generate report pnd', 'generate reports'])"
-                            :excel="auth()->user()->can('generate reports')"
+                            :excel="auth()->user()->canany(['generate report pnd', 'generate reports'])"
                             id="pnd-table"
                             title="Gestión del Plan Nacional de Desarrollo"
                         >

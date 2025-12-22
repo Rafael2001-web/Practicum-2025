@@ -31,9 +31,10 @@
                                 ['label' => 'Estado', 'type' => 'badge'],
                                 ['label' => 'Acciones', 'type' => 'actions']
                             ]"
-                            :csv="auth()->user()->can('generate reports')"
-                            :print="auth()->user()->can('generate reports')"
-                            :json="auth()->user()->can('generate reports')"
+                            :csv="auth()->user()->canany(['generate report objetivos_estrategicos', 'generate reports'])"
+                            :print="auth()->user()->canany(['generate report objetivos_estrategicos', 'generate reports'])"
+                            :json="auth()->user()->canany(['generate report objetivos_estrategicos', 'generate reports'])"
+                            :excel="auth()->user()->canany(['generate report objetivos_estrategicos', 'generate reports'])"
                             id="objestrategicos-table"
                             title="Gestión de Objetivos Estratégicos"
                         >

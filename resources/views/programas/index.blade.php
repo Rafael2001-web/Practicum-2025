@@ -35,6 +35,7 @@
                             :csv="auth()->user()->canany(['generate report programas', 'generate reports'])"
                             :print="auth()->user()->canany(['generate report programas', 'generate reports'])"
                             :json="auth()->user()->canany(['generate report programas', 'generate reports'])"
+                            :excel="auth()->user()->canany(['generate report programas', 'generate reports'])"
                             id="programas-table"
                             title="Gestión de Programas"
                         >

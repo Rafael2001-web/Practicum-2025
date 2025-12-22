@@ -97,4 +97,13 @@ class OdsController extends Controller
 
         return redirect()->route('ods.index')->with('success', 'ODS Eliminado Satisfactoriamente');
     }
+
+    public function documentopdf()
+    {
+        Gate::any(['generate report ods', 'generate reports']);
+        $ods = Ods::all();
+        $pdf = app('dompdf.wrapper');
+        $pdf->loadView('ods.pdf', compact('ods'));
+        return $pdf->stream('ods.pdf');
+    }
 }

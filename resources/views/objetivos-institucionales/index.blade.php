@@ -32,10 +32,10 @@
                                 ['label' => 'Nivel Alineación', 'type' => 'text'],
                                 ['label' => 'Acciones', 'type' => 'actions']
                             ]"
-                            :csv="auth()->user()->can('generate reports')"
-                            :print="auth()->user()->can('generate reports')"
-                            :json="auth()->user()->can('generate reports')"
-                            :excel="auth()->user()->can('generate reports')"
+                            :csv="auth()->user()->canany(['generate reports', 'generate report objetivos_institucionales'])"
+                            :print="auth()->user()->canany(['generate reports', 'generate report objetivos_institucionales'])"
+                            :json="auth()->user()->canany(['generate reports', 'generate report objetivos_institucionales'])"
+                            :excel="auth()->user()->canany(['generate reports', 'generate report objetivos_institucionales'])"
                             id="objetivos-institucionales-table"
                             title="Gestión de Objetivos Institucionales"
                         >

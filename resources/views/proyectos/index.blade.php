@@ -32,8 +32,10 @@
                                 ['label' => 'Estado', 'type' => 'badge'],
                                 ['label' => 'Acciones', 'type' => 'actions']
                             ]"
-                            :csv="false"
-                            :print="false"
+                            :csv="auth()->user()->canany(['generate report proyectos', 'generate reports'])"
+                            :print="auth()->user()->canany(['generate report proyectos', 'generate reports'])"
+                            :json="auth()->user()->canany(['generate report proyectos', 'generate reports'])"
+                            :excel="auth()->user()->canany(['generate report proyectos', 'generate reports'])"
                             id="proyectos-table"
                             title="Gestión de Proyectos de Inversión"
                         >

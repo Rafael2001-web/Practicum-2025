@@ -38,6 +38,7 @@
                             :csv="auth()->user()->canany(['generate report entidades', 'generate reports'])"
                             :print="auth()->user()->canany(['generate report entidades', 'generate reports'])"
                             :json="auth()->user()->canany(['generate report entidades', 'generate reports'])"
+                            :excel="auth()->user()->canany(['generate report entidades', 'generate reports'])"
                             id="entidades-table"
                         >
                             <x-slot name="buttons">

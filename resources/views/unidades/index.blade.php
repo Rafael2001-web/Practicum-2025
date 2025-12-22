@@ -32,9 +32,11 @@
                             ['label' => 'Sector', 'type' => 'text'],
                             ['label' => 'Estado', 'type' => 'badge'],
                             ['label' => 'Acciones', 'type' => 'actions'],
-                        ]" :csv="auth()->user()->can('generate reports')"
-                            :print="auth()->user()->can('generate reports')"
-                            :json="auth()->user()->can('generate reports')" id="unidades-table"
+                        ]" :csv="auth()->user()->canany(['generate report unidades', 'generate reports'])"
+                            :print="auth()->user()->canany(['generate report unidades', 'generate reports'])"
+                            :json="auth()->user()->canany(['generate report unidades', 'generate reports'])"
+                            :excel="auth()->user()->canany(['generate report unidades', 'generate reports'])"
+                            id="unidades-table"
                             title="Gestión de Unidades">
                             <x-slot name="buttons">
                                 @canany(['manage unidades', 'create unidades'])
