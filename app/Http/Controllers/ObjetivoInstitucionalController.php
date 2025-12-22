@@ -107,4 +107,14 @@ class ObjetivoInstitucionalController extends Controller
         return redirect()->route('objetivos-institucionales.index')
                         ->with('success', 'Objetivo Institucional eliminado satisfactoriamente');
     }
+
+    public function documentopdf()
+    {
+        Gate::any(['generate report objetivos_institucionales', 'generate reports']);
+        $objetivos = ObjetivoInstitucional::with(['pnd', 'ods', 'objetivoEstrategico'])->get();
+
+        $pdf = app('dompdf.wrapper');
+        $pdf->loadView('objetivos-institucionales.pdf', compact('objetivos'));
+        return $pdf->stream('objetivos-institucionales.pdf');
+    }
 }

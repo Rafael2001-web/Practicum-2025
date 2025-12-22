@@ -185,6 +185,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/pnd/pdf', [PndController::class, 'documentopdf'])->name('pnd.documentopdf');
         Route::get('/planes/pdf', [PlanController::class, 'documentopdf'])->name('planes.documentopdf');
         Route::get('/ods/pdf', [OdsController::class, 'documentopdf'])->name('ods.documentopdf');
+        Route::get('/objetivos-institucionales/pdf', [ObjetivoInstitucionalController::class, 'documentopdf'])->name('objetivos-institucionales.documentopdf');
     });
 });
 
