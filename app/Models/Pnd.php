@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Pnd extends Model
 {
@@ -21,7 +22,7 @@ class Pnd extends Model
     ];
 
     // RELACIONES
-    
+
     /**
      * Relación N:M - Un elemento del PND puede estar en varios planes
      */
@@ -54,8 +55,16 @@ class Pnd extends Model
         ])->withTimestamps();
     }
 
+    /**
+     * Relación 1:N - Un PND puede tener múltiples objetivos institucionales
+     */
+    public function objetivosInstitucionales(): HasMany
+    {
+        return $this->hasMany(ObjetivoInstitucional::class, 'idPnd', 'idPnd');
+    }
+
     // RELACIONES CALCULADAS
-    
+
     /**
      * Obtener programas relacionados a través de planes
      */
@@ -83,7 +92,7 @@ class Pnd extends Model
     }
 
     // SCOPES ÚTILES
-    
+
     /**
      * Elementos del PND por eje estratégico
      */
@@ -121,7 +130,7 @@ class Pnd extends Model
     }
 
     // ACCESSORS
-    
+
     /**
      * Obtener título completo del PND
      */
@@ -135,7 +144,7 @@ class Pnd extends Model
      */
     public function getDescripcionResumidaAttribute()
     {
-        return strlen($this->descripcion) > 200 
+        return strlen($this->descripcion) > 200
             ? substr($this->descripcion, 0, 200) . '...'
             : $this->descripcion;
     }
@@ -169,7 +178,7 @@ class Pnd extends Model
     }
 
     // MÉTODOS ÚTILES
-    
+
     /**
      * Obtener estadísticas de alineación
      */

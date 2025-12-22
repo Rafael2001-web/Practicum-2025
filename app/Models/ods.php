@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Ods extends Model
 {
@@ -21,7 +22,7 @@ class Ods extends Model
     ];
 
     // RELACIONES
-    
+
     /**
      * Relación N:M - Un ODS puede estar en varios planes
      */
@@ -71,8 +72,16 @@ class Ods extends Model
         ])->withTimestamps();
     }
 
+    /**
+     * Relación 1:N - Un ODS puede tener múltiples objetivos institucionales
+     */
+    public function objetivosInstitucionales(): HasMany
+    {
+        return $this->hasMany(ObjetivoInstitucional::class, 'idOds', 'idOds');
+    }
+
     // SCOPES ÚTILES
-    
+
     /**
      * ODS por número
      */
@@ -91,7 +100,7 @@ class Ods extends Model
     }
 
     // ACCESSORS
-    
+
     /**
      * Obtener el número formateado del ODS
      */

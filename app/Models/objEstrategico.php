@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class objEstrategico extends Model
 {
@@ -23,7 +24,7 @@ class objEstrategico extends Model
     protected $dates = ['fechaRegistro'];
 
     // RELACIONES
-    
+
     /**
      * Relación N:M - Un objetivo estratégico puede estar en varios planes
      */
@@ -40,8 +41,16 @@ class objEstrategico extends Model
         ])->withTimestamps();
     }
 
+    /**
+     * Relación 1:N - Un objetivo estratégico puede tener múltiples objetivos institucionales
+     */
+    public function objetivosInstitucionales(): HasMany
+    {
+        return $this->hasMany(ObjetivoInstitucional::class, 'idobjEstrategico', 'idobjEstrategico');
+    }
+
     // RELACIONES CALCULADAS
-    
+
     /**
      * Obtener programas relacionados a través de planes
      */
@@ -69,7 +78,7 @@ class objEstrategico extends Model
     }
 
     // SCOPES ÚTILES
-    
+
     /**
      * Objetivos estratégicos activos
      */
@@ -105,13 +114,13 @@ class objEstrategico extends Model
     }
 
     // ACCESSORS
-    
+
     /**
      * Obtener descripción resumida
      */
     public function getDescripcionResumidaAttribute()
     {
-        return strlen($this->descripcion) > 150 
+        return strlen($this->descripcion) > 150
             ? substr($this->descripcion, 0, 150) . '...'
             : $this->descripcion;
     }
