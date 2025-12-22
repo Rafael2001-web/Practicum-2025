@@ -11,11 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('obj_institucional', function (Blueprint $table) {
-            $table->id();
+        Schema::create('objetivos_institucionales', function (Blueprint $table) {
+            $table->id('idObjInstitucional');
             $table->unsignedBigInteger('idPnd');
             $table->unsignedBigInteger('idOds');
-            $table->unsignedBigInteger('idObjEstrategico');
+            $table->unsignedBigInteger('idobjEstrategico');
             $table->string('nivel_alineacion')->default('Alto'); // Alto, Medio, Bajo
             $table->text('justificacion')->nullable();
             $table->timestamps();
@@ -23,14 +23,16 @@ return new class extends Migration
             // Foreign keys
             $table->foreign('idPnd')->references('idPnd')->on('pnd')->onDelete('cascade');
             $table->foreign('idOds')->references('idOds')->on('ods')->onDelete('cascade');
-            $table->foreign('idObjEstrategico')->references('idObjEstrategico')->on('obj_estrategico')->onDelete('cascade');
+            $table->foreign('idobjEstrategico')->references('idobjEstrategico')->on('objestrategicos')->onDelete('cascade');
 
-            // Evitar duplicados
-            $table->unique(['idPnd', 'idOds'], 'unique_pnd_ods');
+            // Evitar duplicados en la combinación de las 3 tablas
+            $table->unique(['idPnd', 'idOds', 'idobjEstrategico'], 'unique_obj_institucional');
 
-            // Índices
+            // Índices para mejorar consultas
             $table->index('idPnd');
             $table->index('idOds');
+            $table->index('idobjEstrategico');
+            $table->index('nivel_alineacion');
         });
     }
 
@@ -39,6 +41,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('pnd_ods_alignment');
+        Schema::dropIfExists('objetivos_institucionales');
     }
 };
