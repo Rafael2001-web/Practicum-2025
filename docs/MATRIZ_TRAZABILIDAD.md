@@ -12,7 +12,7 @@
 
 2. **Cantidad de Tareas Desiguales:**
    - Backlog Detallado: ~180 tareas
-   - Sprint Backlog: 125 tareas
+   - Sprint Backlog: 135 tareas
 
 3. **Descripción de Tareas No Coincidentes:**
    - Mismo concepto con diferentes redacciones
@@ -27,7 +27,7 @@
 
 ## 🎯 **TRAZABILIDAD COMPLETA: NECESIDADES → REQUISITOS → HISTORIAS → TAREAS**
 
-| **Necesidad** | **Requisito Funcional** | **Historia Usuario** | **Épica** | **Tareas Sprint** | **Sprint** |
+| **Necesidad** | **Requisito** | **Historia Usuario** | **Épica** | **Tareas Sprint** | **Sprint** |
 |---------------|------------------------|---------------------|-----------|-------------------|------------|
 | **NEC-001** | RF-001, RF-003, RF-004, RF-005 | **HU-01** | EPIC-01 | TAR-001, TAR-002, TAR-003, TAR-004, TAR-005 | Sprint 1 |
 | **NEC-002** | RF-007, RF-008 | **HU-02** | EPIC-01 | TAR-006, TAR-007, TAR-008 | Sprint 1 |
@@ -67,17 +67,24 @@
 | **NEC-032** | RF-079, RF-080, RF-081, RF-082 | **HU-36** | EPIC-12 | TAR-015, TAR-016, TAR-017, TAR-018 | Sprint 1 |
 | **NEC-033** | RF-083, RF-084, RF-085 | **HU-37** | EPIC-12 | TAR-037, TAR-038, TAR-039 | Sprint 2 |
 | **NEC-034** | RF-086, RF-087, RF-088, RF-089, RF-090 | **HU-38** | EPIC-12 | TAR-119, TAR-120, TAR-121, TAR-122, TAR-123, TAR-124, TAR-125 | Sprint 6 |
+| **NEC-035** | RF-091, RF-093, RF-094 | **HU-46, HU-47** | EPIC-13 | TAR-126, TAR-127, TAR-129, TAR-130 | Sprint 6 |
+| **NEC-036** | RF-091, RF-092, RF-096 | **HU-46, HU-48** | EPIC-13 | TAR-126, TAR-127, TAR-131, TAR-135 | Sprint 6 |
+| **NEC-037** | RNF-001.5 | **HU-36** | EPIC-12 | TAR-125 | Sprint 6 |
+| **NEC-038** | RF-096, RNF-002.6 | **HU-48** | EPIC-13 | TAR-131 | Sprint 6 |
+| **NEC-039** | RNF-002.7 | **HU-36** | EPIC-12 | TAR-016 | Sprint 1 |
+| **NEC-040** | RNF-003.5 | **HU-07** | EPIC-02 | TAR-024, TAR-025, TAR-026, TAR-027 | Sprint 2 |
+| **NEC-041** | RF-090 | **HU-36** | EPIC-12 | TAR-123 | Sprint 6 |
 
 ---
 
 ## 📊 **RESUMEN DE TRAZABILIDAD POR NÚMEROS**
 
 ### **Conteos Totales:**
-- **34 Necesidades** (NEC-001 a NEC-034)
-- **90 Requisitos Funcionales** (RF-001 a RF-090)
-- **38 Historias de Usuario** (HU-01 a HU-38)
-- **12 Épicas** (EPIC-01 a EPIC-12)
-- **125 Tareas Técnicas** (TAR-001 a TAR-125)
+- **41 Necesidades** (NEC-001 a NEC-041)
+- **100 Requisitos Funcionales** (RF-001 a RF-100)
+- **43 Historias de Usuario** (HU-01 a HU-38, HU-46 a HU-50)
+- **13 Épicas** (EPIC-01 a EPIC-13)
+- **135 Tareas Técnicas** (TAR-001 a TAR-135)
 - **6 Sprints** (Sprint 1 a Sprint 6)
 
 ### **Distribución por Sprint:**
@@ -89,23 +96,23 @@
 | **Sprint 3** | HU-10, HU-11, HU-15, HU-16, HU-17, HU-18, HU-21 | TAR-040 a TAR-061 | 22 SP |
 | **Sprint 4** | HU-12, HU-13, HU-14, HU-19, HU-20, HU-22, HU-24, HU-25 | TAR-062 a TAR-086 | 26 SP |
 | **Sprint 5** | HU-23, HU-26, HU-27, HU-28, HU-29, HU-34, HU-35 | TAR-087 a TAR-108 | 24 SP |
-| **Sprint 6** | HU-30, HU-31, HU-32, HU-38 | TAR-109 a TAR-125 | 20 SP |
+| **Sprint 6** | HU-30, HU-31, HU-32, HU-38, HU-46, HU-47, HU-48, HU-49, HU-50 | TAR-109 a TAR-135 | 37 SP |
 
 ---
 
 ## ✅ **VERIFICACIÓN DE COBERTURA**
 
 ### **Cobertura Necesidades → Historias de Usuario:**
-✅ **100% cubierto** - Todas las 34 necesidades tienen al menos 1 historia de usuario
+✅ **100% cubierto** - Todas las 41 necesidades tienen al menos 1 historia de usuario
 
 ### **Cobertura Historias de Usuario → Requisitos Funcionales:**
-✅ **100% cubierto** - Todas las 38 historias tienen al menos 1 requisito funcional
+✅ **100% cubierto** - Todas las 43 historias tienen al menos 1 requisito funcional
 
 ### **Cobertura Historias de Usuario → Tareas Técnicas:**
-✅ **100% cubierto** - Todas las 38 historias tienen al menos 1 tarea técnica
+✅ **100% cubierto** - Todas las 43 historias tienen al menos 1 tarea técnica
 
 ### **Cobertura Tareas → Sprints:**
-✅ **100% cubierto** - Todas las 125 tareas están asignadas a un sprint
+✅ **100% cubierto** - Todas las 135 tareas están asignadas a un sprint
 
 ---
 

@@ -887,16 +887,51 @@
 - ✅ `NECESIDADES_REQUISITOS_USUARIO.md` - Requisitos de usuario actualizados
 - ✅ `INFORME_TRAZABILIDAD.md` - Matriz de trazabilidad corregida
 
+### 🧭 **EPIC-13: Seguimiento de Actividades**
+
+| **ID Historia de Usuario** | **Como (Rol)** | **Deseo...** | **Para...** |
+|---------------------------|-----------------|--------------|-------------|
+| **HU-46** | Planificador | Registrar actividades asociadas a proyectos y objetivos | Planificar y controlar la ejecucion con trazabilidad |
+| **HU-47** | Aprobador | Actualizar avance real y fechas de actividades | Monitorear progreso y detectar desviaciones |
+| **HU-48** | Planificador/Auditor | Eliminar logicamente actividades con auditoria | Mantener historial y control de cambios |
+| **HU-49** | Usuario con permisos | Generar reportes de actividades en multiples formatos | Presentar evidencia de seguimiento |
+| **HU-50** | Supervisor de Proyectos | Recibir alertas por desviaciones | Tomar acciones correctivas oportunas |
+
+#### **TAREAS TECNICAS PARA EPIC-13**
+
+| **ID Tarea** | **Descripcion de la Tarea** | **ID Historia** |
+|--------------|-----------------------------|-----------------|
+| **TAR-126** | Diseñar modelo de datos para actividades y relaciones | HU-46 |
+| **TAR-127** | Implementar migracion y modelo de actividades | HU-46 |
+| **TAR-128** | Crear CRUD de actividades con validaciones | HU-46 |
+| **TAR-129** | Registrar avance real e indicadores de actividad | HU-47 |
+| **TAR-130** | Calcular estado reportado y cumplimiento de plazo | HU-47 |
+| **TAR-131** | Implementar eliminacion logica y auditoria | HU-48 |
+| **TAR-132** | Generar reportes en PDF, XLS, CSV y XML | HU-49 |
+| **TAR-133** | Crear alertas por desviaciones y actividades en riesgo | HU-50 |
+| **TAR-134** | Diseñar tablero de seguimiento de actividades | HU-50 |
+| **TAR-135** | Configurar permisos Planificador/Aprobador | HU-46 |
+
+#### **CRITERIOS DE ACEPTACION Y DETALLES**
+
+| **Criterios de Aceptacion** | **Prioridad** | **Estimacion** | **Dependencias** | **Sprint** | **Estado** |
+|-----------------------------|---------------|----------------|------------------|------------|------------|
+| Registro con codigo unico por proyecto y validacion de fechas | 1 | 4 | TAR-126 | 6 | Por Hacer |
+| Calculo de avance, variacion de tiempo y estado reportado | 1 | 4 | TAR-129 | 6 | Por Hacer |
+| Eliminacion logica con auditoria completa | 2 | 3 | TAR-131 | 6 | Por Hacer |
+| Reportes con filtros por proyecto, estado y fechas | 2 | 3 | TAR-132 | 6 | Por Hacer |
+| Alertas por desviaciones y visualizacion en tablero | 2 | 3 | TAR-133 | 6 | Por Hacer |
+
 ### 📈 **ESTADÍSTICAS FINALES DEL BACKLOG DETALLADO**
 
 | **Métrica** | **Cantidad** | **Detalle** |
 |-------------|--------------|-------------|
-| **Épicas Totales** | 12 | Desde Gestión de Usuarios hasta Arquitectura del Sistema |
-| **Historias de Usuario** | 38 | HU-01 a HU-38 completamente detalladas |
-| **Tareas Técnicas** | 119 | TAR-001 a TAR-119 distribuidas por épicas |
-| **Story Points Total** | 140 SP | Estimación completa del proyecto |
+| **Épicas Totales** | 13 | Desde Gestión de Usuarios hasta Seguimiento de Actividades |
+| **Historias de Usuario** | 43 | HU-01 a HU-38 y HU-46 a HU-50 completamente detalladas |
+| **Tareas Técnicas** | 135 | TAR-001 a TAR-135 distribuidas por épicas |
+| **Story Points Total** | 157 SP | Estimación completa del proyecto |
 | **Sprints Planificados** | 6 | Distribución equilibrada en 12 semanas |
-| **Criterios de Aceptación** | 38 | Uno por cada historia de usuario |
+| **Criterios de Aceptación** | 43 | Uno por cada historia de usuario |
 
 ### 🎯 **DISTRIBUCIÓN POR ÉPICAS**
 
@@ -914,6 +949,7 @@
 | **EPIC-10** | Reportería Ejecutiva | 3 | TAR-101 a TAR-109 | 6 | Media |
 | **EPIC-11** | Experiencia de Usuario | 2 | TAR-110 a TAR-115 | 3 | Baja |
 | **EPIC-12** | Arquitectura del Sistema | 1 | TAR-116 a TAR-119 | 6 | Alta |
+| **EPIC-13** | Seguimiento de Actividades | 5 | TAR-126 a TAR-135 | 6 | Alta |
 
 ### 🔄 **CRONOGRAMA DE DESARROLLO**
 
@@ -924,15 +960,15 @@
 | **Sprint 3** | Semanas 5-6 | EPIC-03, EPIC-05, EPIC-06, EPIC-07, EPIC-11 | 30 SP | Planificación estratégica y UX |
 | **Sprint 4** | Semanas 7-8 | EPIC-04, EPIC-08 | 20 SP | Validación normativa y programas |
 | **Sprint 5** | Semanas 9-10 | EPIC-09 | 25 SP | Gestión integral de proyectos |
-| **Sprint 6** | Semanas 11-12 | EPIC-10, EPIC-12 | 20 SP | Reportería y arquitectura final |
+| **Sprint 6** | Semanas 11-12 | EPIC-10, EPIC-12, EPIC-13 | 37 SP | Reportería, actividades y cierre |
 
 ### ✅ **VALIDACIONES DE COMPLETITUD**
 
-- ✅ **Todas las 38 historias de usuario incluidas**
-- ✅ **119 tareas técnicas distribuidas coherentemente**
+- ✅ **Todas las 43 historias de usuario incluidas**
+- ✅ **135 tareas técnicas distribuidas coherentemente**
 - ✅ **Criterios de aceptación definidos para cada HU**
 - ✅ **Dependencias técnicas identificadas y planificadas**
-- ✅ **Estimaciones balanceadas por sprint (140 SP total)**
+- ✅ **Estimaciones balanceadas por sprint (157 SP total)**
 - ✅ **Trazabilidad completa desde épicas hasta tareas**
 - ✅ **Eliminación total de referencias a 2FA**
 - ✅ **Alineación con sistema de autenticación implementado**
@@ -941,6 +977,6 @@
 
 **🎯 ESTADO FINAL: BACKLOG DETALLADO 100% COMPLETO Y LISTO PARA DESARROLLO**
 
-*Este backlog detallado proporciona la estructura técnica completa para el desarrollo del Sistema de Gestión de Planificación Institucional, con 12 épicas, 38 historias de usuario, 119 tareas técnicas distribuidas en 6 sprints, totalizando 140 story points y una duración estimada de 12 semanas.*
+*Este backlog detallado proporciona la estructura técnica completa para el desarrollo del Sistema de Gestión de Planificación Institucional, con 13 épicas, 43 historias de usuario, 135 tareas técnicas distribuidas en 6 sprints, totalizando 157 story points y una duración estimada de 12 semanas.*
 
-*Este es el inicio de la versión corregida del Backlog Detallado. ¿Quieres que continúe completando todo el archivo con las 38 historias de usuario restantes siguiendo esta estructura coherente?*
+*Este es el inicio de la versión corregida del Backlog Detallado. ¿Quieres que continúe completando todo el archivo con las 43 historias de usuario restantes siguiendo esta estructura coherente?*

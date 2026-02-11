@@ -18,6 +18,7 @@
 | **EPIC-10** | Supervisor General | Generar reportes consolidados de todos los módulos | Obtener visión ejecutiva completa del sistema |
 | **EPIC-11** | Usuario del Sistema | Interactuar con tablas avanzadas y componentes modernos | Tener una experiencia de usuario eficiente y profesional |
 | **EPIC-12** | Desarrollador/Mantenedor | Utilizar una arquitectura modular y escalable | Facilitar el mantenimiento y crecimiento del sistema |
+| **EPIC-13** | Planificador / Aprobador | Monitorear y gestionar actividades con indicadores y auditoría | Controlar avances y corregir desviaciones oportunamente |
 
 ---
 
@@ -121,6 +122,16 @@
 | **HU-37** | Desarrollador/Mantenedor | Contar con componentes reutilizables y bien documentados | Acelerar el desarrollo de nuevas funcionalidades |
 | **HU-38** | Administrador de Sistema | Tener logs de auditoría y trazabilidad completa | Garantizar seguridad y cumplimiento normativo |
 
+### 🧭 **EPIC-13: Seguimiento de Actividades**
+
+| **ID Historia de Usuario** | **Como (Rol)** | **HISTORIA DE USUARIO - Deseo...** | **Para...** |
+|---------------------------|-----------------|-----------------------------------|-------------|
+| **HU-46** | Planificador | Registrar actividades asociadas a proyectos y objetivos | Planificar y controlar la ejecucion con trazabilidad |
+| **HU-47** | Aprobador | Actualizar avance real y fechas de actividades | Monitorear progreso y detectar desviaciones |
+| **HU-48** | Planificador/Auditor | Eliminar logicamente actividades con auditoria | Mantener historial y control de cambios |
+| **HU-49** | Usuario con permisos | Generar reportes de actividades en multiples formatos | Presentar evidencia de seguimiento |
+| **HU-50** | Supervisor de Proyectos | Recibir alertas por retrasos o desviaciones | Tomar acciones correctivas oportunas |
+
 ---
 
 ## 📋 **CRITERIOS DE ACEPTACIÓN DETALLADOS**
@@ -223,6 +234,16 @@
 | **HU-37** | Componentes UI reutilizables. Guías de estilo. Patrones de diseño documentados. Tests automatizados. | 2 | 4 | HU-36 | 2 | Por Hacer |
 | **HU-38** | Logs de auditoría completos. Trazabilidad de cambios. Sistema de backup automático. Monitoreo de rendimiento. | 1 | 4 | HU-37 | 6 | Por Hacer |
 
+### **EPIC-13: Seguimiento de Actividades**
+
+| **ID HU** | **Criterios de Aceptación** | **Prioridad** | **Estimación** | **Dependencia** | **Sprint** | **Estado** |
+|-----------|----------------------------|---------------|----------------|-----------------|------------|------------|
+| **HU-46** | Registro de actividades con codigo unico por proyecto. Validaciones de fechas y asociacion a objetivos. | 1 | 4 | HU-27 | 6 | Por Hacer |
+| **HU-47** | Actualizacion de avance real, fechas reales e indicadores. Estado reportado automatico. | 1 | 4 | HU-46 | 6 | Por Hacer |
+| **HU-48** | Eliminacion logica con registro de auditoria (usuario, fecha, accion). | 2 | 3 | HU-46 | 6 | Por Hacer |
+| **HU-49** | Reportes en PDF, XLS, CSV y XML con filtros por estado y fechas. | 2 | 3 | HU-46 | 6 | Por Hacer |
+| **HU-50** | Alertas por desviaciones y actividades en riesgo visibles en tablero. | 2 | 3 | HU-47 | 6 | Por Hacer |
+
 ---
 
 ## 📊 **RESUMEN DEL PRODUCT BACKLOG**
@@ -238,13 +259,13 @@
 - **Sprint 3**: 6 HU (Planificación y ODS)
 - **Sprint 4**: 8 HU (Validación y Objetivos)
 - **Sprint 5**: 6 HU (Programas y Proyectos)
-- **Sprint 6**: 7 HU (Reportería y Arquitectura final)
+- **Sprint 6**: 9 HU (Reportería, arquitectura y actividades)
 
 ### **Estimación Total del Proyecto:**
-- **Total Story Points**: 140 SP
+- **Total Story Points**: 157 SP
 - **Duración estimada**: 6 Sprints (12 semanas)
 - **Velocity promedio esperada**: 23 SP por sprint
 
 ---
 
-*Este Product Backlog está alineado con las 45 historias de usuario definidas y organizado según las mejores prácticas de gestión ágil de productos, permitiendo un desarrollo incremental y entrega de valor continua.*
+*Este Product Backlog está alineado con las 43 historias de usuario definidas y organizado según las mejores prácticas de gestión ágil de productos, permitiendo un desarrollo incremental y entrega de valor continua.*

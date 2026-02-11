@@ -184,7 +184,7 @@
 
 **Duración:** Semana 11-12  
 **Objetivo:** Implementar reportería completa, optimización final y documentación  
-**Story Points Comprometidos:** 20 SP  
+**Story Points Comprometidos:** 37 SP  
 **Historias de Usuario:** HU-30, HU-31, HU-32, HU-38  
 
 ### **TAREAS DEL SPRINT 6**
@@ -208,6 +208,16 @@
 | TAR-123 | Crear documentación técnica final | HU-38 | Por Hacer |
 | TAR-124 | Realizar testing de integración completo | HU-38 | Por Hacer |
 | TAR-125 | Optimizar rendimiento del sistema | HU-38 | Por Hacer |
+| TAR-126 | Diseñar modelo de datos para actividades y relaciones | HU-46 | Por Hacer |
+| TAR-127 | Implementar migración y modelo de actividades | HU-46 | Por Hacer |
+| TAR-128 | Crear CRUD de actividades con validaciones | HU-46 | Por Hacer |
+| TAR-129 | Implementar registro de avance real e indicadores | HU-47 | Por Hacer |
+| TAR-130 | Calcular estado reportado y cumplimiento de plazo | HU-47 | Por Hacer |
+| TAR-131 | Implementar eliminación lógica y auditoría de actividades | HU-48 | Por Hacer |
+| TAR-132 | Generar reportes de actividades en múltiples formatos | HU-49 | Por Hacer |
+| TAR-133 | Crear alertas por desviaciones y actividades en riesgo | HU-50 | Por Hacer |
+| TAR-134 | Diseñar tablero de seguimiento de actividades | HU-50 | Por Hacer |
+| TAR-135 | Configurar permisos de Planificador y Aprobador | HU-46 | Por Hacer |
 
 ---
 
@@ -219,18 +229,18 @@
 - **Sprint 3**: 22 tareas (Planificación estratégica)
 - **Sprint 4**: 25 tareas (Validación y programas)
 - **Sprint 5**: 22 tareas (Proyectos y vinculaciones)
-- **Sprint 6**: 17 tareas (Reportería y finalización)
+- **Sprint 6**: 27 tareas (Reportería, actividades y finalización)
 
 ### **Total del Proyecto:**
-- **Tareas Totales**: 125 tareas técnicas
-- **Story Points**: 140 SP
+- **Tareas Totales**: 135 tareas técnicas
+- **Story Points**: 157 SP
 - **Duración**: 12 semanas (6 sprints de 2 semanas)
 - **Estado Actual**: 1 tarea terminada, 124 por hacer
 
 ### **Progreso por Estados:**
-- **Terminado**: 1 tarea (0.8%)
+- **Terminado**: 1 tarea (0.7%)
 - **En Progreso**: 0 tareas (0%)
-- **Por Hacer**: 124 tareas (99.2%)
+- **Por Hacer**: 134 tareas (99.3%)
 
 ---
 

@@ -108,6 +108,16 @@
 | **RF-088** | Sistema de Backup | Implementar Backup | El sistema debe implementar backup automático de datos críticos | RF-086 | Auditoría y Seguridad |
 | **RF-089** | Monitoreo de Rendimiento | Monitorear Rendimiento | El sistema debe monitorear rendimiento y generar alertas por problemas | RF-079 | Monitoreo del Sistema |
 | **RF-090** | Documentación Técnica | Mantener Documentación | El sistema debe mantener documentación técnica completa y actualizada | RF-079, RF-080 | Documentación |
+| **RF-091** | Gestión de Actividades | Gestionar Actividades | El sistema debe permitir crear, editar y eliminar lógicamente actividades asociadas a proyectos, objetivos e indicadores | RF-052, RF-023 | Gestión de Actividades |
+| **RF-092** | Asociación de Actividades | Asociar Actividades | El sistema debe permitir asociar cada actividad a uno o más objetivos válidos y a un proyecto/programa | RF-091, RF-052 | Gestión de Actividades |
+| **RF-093** | Monitoreo de Avance | Monitorear Avance | El sistema debe calcular y actualizar el avance real de actividades con base en indicadores definidos | RF-091 | Gestión de Actividades |
+| **RF-094** | Indicadores de Actividad | Calcular Indicadores | El sistema debe calcular indicadores de avance, variación de tiempo y cumplimiento de plazo para cada actividad | RF-093 | Gestión de Actividades |
+| **RF-095** | Estado Reportado | Determinar Estado | El sistema debe determinar automáticamente el estado reportado de la actividad (NO INICIADA, EN_RIESGO, COMPLETADA) según reglas de tiempo y avance | RF-094 | Gestión de Actividades |
+| **RF-096** | Auditoría de Actividades | Registrar Auditoría | El sistema debe registrar usuario, fecha, hora y acción al crear, actualizar o eliminar lógicamente una actividad | RF-086 | Auditoría y Seguridad |
+| **RF-097** | Reportes de Actividades | Generar Reportes | El sistema debe generar reportes de actividades en PDF, XLS, CSV y XML | RF-062, RF-067 | Reportería |
+| **RF-098** | Monitoreo y Alertas | Generar Alertas | El sistema debe detectar retrasos o desviaciones de actividades y generar alertas para acciones correctivas | RF-093, RF-058 | Gestión de Actividades |
+| **RF-099** | Regla de Cumplimiento | Evaluar Cumplimiento | El sistema debe evaluar el cumplimiento de objetivos con reglas configurables (AND/OR) según indicadores cumplidos | RF-094 | Gestión de Objetivos |
+| **RF-100** | Acceso por Roles | Controlar Acceso | El sistema debe aplicar permisos diferenciados para Planificador y Aprobador en la gestión de actividades | RF-002, RF-091 | Gestión de Actividades |
 
 ---
 
@@ -121,6 +131,7 @@
 | RNF-001.2 | Capacidad de usuarios | El sistema debe soportar 100 usuarios concurrentes | 100 usuarios | Todas |
 | RNF-001.3 | Procesamiento de datos | Las tablas deben manejar hasta 10,000 registros sin degradación | 10K registros | HU-039 |
 | RNF-001.4 | Exportación eficiente | La exportación de datos debe completarse en menos de 30 segundos | < 30 seg | HU-039, RF-011.2 |
+| RNF-001.5 | Respuesta de transacciones | Las acciones en la GUI deben responder en menos de 5 segundos | < 5 seg | HU-042 |
 
 ### RNF-002: SEGURIDAD
 
@@ -131,6 +142,8 @@
 | RNF-002.3 | Control de acceso | Todas las rutas deben validar permisos | 100% rutas protegidas | HU-035 |
 | RNF-002.4 | Encriptación de datos | Los datos sensibles deben estar encriptados | Encriptación AES-256 | Todas |
 | RNF-002.5 | Auditoría de acciones | El sistema debe registrar acciones críticas | Log de todas las operaciones | Todas |
+| RNF-002.6 | Patrones de seguridad | El sistema debe aplicar prácticas seguras de programación (validación, sanitización, CSRF) | 100% formularios protegidos | Todas |
+| RNF-002.7 | Comunicaciones seguras | Las comunicaciones externas deben usar TLS/HTTPS y certificados válidos | 100% endpoints externos | Todas |
 
 ### RNF-003: USABILIDAD
 
@@ -140,6 +153,7 @@
 | RNF-003.2 | Responsive design | La interfaz debe funcionar en dispositivos móviles | 100% responsive | HU-037, HU-039 |
 | RNF-003.3 | Accesibilidad | El sistema debe cumplir estándares de accesibilidad | WCAG 2.1 AA | HU-040, HU-042 |
 | RNF-003.4 | Mensajes claros | Los errores deben mostrar mensajes comprensibles | Mensajes en español | HU-036, HU-042 |
+| RNF-003.5 | Mensajes orientados a usuario | Las validaciones y errores deben indicar causa y acción sugerida | Mensajes con guía de acción | HU-036, HU-042 |
 
 ### RNF-004: COMPATIBILIDAD
 

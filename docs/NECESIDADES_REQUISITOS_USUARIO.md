@@ -50,6 +50,13 @@
 | NEC-032 | Arquitectura Escalable | Como desarrollador necesito una arquitectura sólida y escalable que facilite el mantenimiento y crecimiento del sistema | Equipo de Desarrollo |
 | NEC-033 | Componentes Reutilizables | Como desarrollador frontend necesito componentes UI reutilizables y patrones de diseño consistentes | Desarrollador Frontend |
 | NEC-034 | Auditoría y Seguridad | Como auditor necesito logs completos de auditoría, trazabilidad de cambios y sistemas de backup automático | Auditor Interno |
+| NEC-035 | Monitoreo de Actividades | Como planificador necesito monitorear constantemente el avance de actividades e indicadores para ajustar estrategias y priorizar acciones | Planificador Institucional |
+| NEC-036 | Gestión de Actividades | Como planificador necesito crear, editar y eliminar lógicamente actividades asociadas a proyectos y objetivos | Planificador Institucional |
+| NEC-037 | Respuesta Rápida en GUI | Como usuario necesito que las transacciones en la interfaz respondan en menos de 5 segundos | Usuario Final |
+| NEC-038 | Seguridad en Programación | Como responsable de TI necesito que los nuevos módulos apliquen patrones de seguridad de datos | Equipo de TI |
+| NEC-039 | Comunicaciones Seguras | Como administrador de TI necesito que las integraciones usen protocolos y certificados de seguridad | Administrador de TI |
+| NEC-040 | Mensajes Informativos | Como usuario necesito mensajes de error claros y orientados a la acción | Usuario Final |
+| NEC-041 | Actualización de Diagramas | Como arquitecto necesito integrar los nuevos requisitos y módulos en los diagramas existentes | Arquitecto de Soluciones |
 
 ---
 
@@ -59,17 +66,17 @@
 
 | **Tipo de Stakeholder** | **Cantidad de Necesidades** | **Porcentaje** |
 |-------------------------|----------------------------|----------------|
-| Gestores y Coordinadores | 8 necesidades | 23.5% |
-| Planificadores y Estrategas | 7 necesidades | 20.6% |
-| Administradores y Supervisores | 6 necesidades | 17.6% |
-| Usuarios Finales del Sistema | 5 necesidades | 14.7% |
-| Analistas Especializados | 4 necesidades | 11.8% |
-| Directivos y Ejecutivos | 2 necesidades | 5.9% |
-| Equipo Técnico | 2 necesidades | 5.9% |
+| Gestores y Coordinadores | 8 necesidades | 19.5% |
+| Planificadores y Estrategas | 9 necesidades | 22.0% |
+| Administradores y Supervisores | 7 necesidades | 17.1% |
+| Usuarios Finales del Sistema | 7 necesidades | 17.1% |
+| Analistas Especializados | 4 necesidades | 9.8% |
+| Directivos y Ejecutivos | 2 necesidades | 4.9% |
+| Equipo Técnico | 4 necesidades | 9.8% |
 
 ### **Priorización por Impacto:**
-1. **Alta Prioridad**: NEC-001, NEC-006, NEC-011, NEC-013, NEC-023 (Funcionalidades core)
-2. **Media Prioridad**: NEC-009, NEC-020, NEC-026, NEC-029, NEC-032 (Funcionalidades importantes)
+1. **Alta Prioridad**: NEC-001, NEC-006, NEC-011, NEC-013, NEC-023, NEC-035, NEC-036, NEC-037, NEC-038, NEC-039 (Funcionalidades core y críticas)
+2. **Media Prioridad**: NEC-009, NEC-020, NEC-026, NEC-029, NEC-032, NEC-040, NEC-041 (Funcionalidades importantes)
 3. **Baja Prioridad**: NEC-007, NEC-030, NEC-033, NEC-034 (Mejoras y optimizaciones)
 
 ---
@@ -96,6 +103,13 @@
 - **NEC-032** → HU-36 (Arquitectura)
 - **NEC-033** → HU-37 (Componentes UI)
 - **NEC-034** → HU-38 (Auditoría)
+- **NEC-035** → HU-46, HU-47 (Monitoreo de actividades)
+- **NEC-036** → HU-46, HU-48 (Gestión de actividades)
+- **NEC-037** → HU-42 (Rendimiento)
+- **NEC-038** → HU-36, HU-38 (Seguridad)
+- **NEC-039** → HU-36 (Comunicaciones seguras)
+- **NEC-040** → HU-036 (Mensajes informativos)
+- **NEC-041** → HU-36 (Actualización de arquitectura)
 
 ---
 

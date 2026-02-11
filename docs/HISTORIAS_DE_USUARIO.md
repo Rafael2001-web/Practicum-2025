@@ -620,6 +620,64 @@ const defaultTableConfig = {
 
 ---
 
+## 🧭 MÓDULO DE SEGUIMIENTO DE ACTIVIDADES
+
+### HU-046: Registro de Actividades
+**Como** Planificador  
+**Quiero** registrar actividades asociadas a proyectos y objetivos  
+**Para** planificar y controlar su ejecución con trazabilidad  
+
+**Criterios de Aceptación:**
+- Se registra código único por proyecto (ACT001, ACT002, ...)
+- Campos obligatorios: nombre, fechas planificadas, prioridad
+- Estado inicial: PLANIFICADA
+- Se valida que fecha inicio ≤ fecha fin
+- Se permite asociar la actividad a uno o más objetivos válidos
+
+### HU-047: Seguimiento del Avance de Actividades
+**Como** Aprobador  
+**Quiero** actualizar el avance real y fechas reales de una actividad  
+**Para** monitorear el progreso y detectar desviaciones a tiempo  
+
+**Criterios de Aceptación:**
+- Se registra avance real y fechas reales de inicio/fin
+- Se calcula el indicador de avance: $avance_real / avance_planificado * 100$
+- Se calcula la variacion de tiempo: $fecha_real_fin - fecha_planificada_fin$
+- Se actualiza el estado reportado (NO INICIADA, EN_RIESGO, COMPLETADA)
+- Se actualiza el cumplimiento del objetivo segun regla AND/OR configurable
+
+### HU-048: Eliminación Lógica y Auditoría
+**Como** Planificador o Auditor  
+**Quiero** eliminar lógicamente actividades con trazabilidad  
+**Para** mantener historial y control de cambios  
+
+**Criterios de Aceptación:**
+- Se cambia el estado activo/inactivo sin borrar fisicamente
+- Se registra usuario, fecha, hora y accion en auditoria
+- Se mantiene el historial de cambios por actividad
+
+### HU-049: Reportes de Actividades
+**Como** usuario con permisos de reporte  
+**Quiero** generar reportes de actividades en multiples formatos  
+**Para** presentar evidencia de seguimiento y cumplimiento  
+
+**Criterios de Aceptación:**
+- Reportes disponibles en PDF, XLS, CSV y XML
+- Filtros por proyecto, objetivo, estado y fechas
+- Descarga inmediata desde la interfaz
+
+### HU-050: Alertas por Desviaciones
+**Como** Supervisor de proyectos  
+**Quiero** recibir alertas cuando existan retrasos o desviaciones  
+**Para** tomar acciones correctivas oportunas  
+
+**Criterios de Aceptación:**
+- Se generan alertas por actividades con variacion de tiempo > 0
+- Se resaltan actividades en riesgo en el tablero de seguimiento
+- Se registra fecha y motivo de la alerta
+
+---
+
 ## 📋 RESUMEN DE ROLES Y PERMISOS IMPLEMENTADOS
 
 ### Roles del Sistema:
