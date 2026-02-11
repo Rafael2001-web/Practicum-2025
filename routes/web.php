@@ -17,11 +17,11 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\ObjetivoInstitucionalController;
+use App\Http\Controllers\ActividadController;
 
 /*
 
 /*
-|--------------------------------------------------------------------------
 | Web Routes
 |--------------------------------------------------------------------------
 |
@@ -60,6 +60,11 @@ Route::middleware('auth')->group(function () {
         Route::get('/roles/{role}', [RoleController::class, 'show'])->name('roles.show');
         Route::get('/permissions', [PermissionController::class, 'index'])->name('permissions.index');
         Route::get('/permissions/{permission}', [PermissionController::class, 'show'])->name('permissions.show');
+    });
+
+    Route::middleware('can.any:view actividades,manage actividades')->group(function () {
+        Route::get('/actividades', [ActividadController::class, 'index'])->name('actividades.index');
+        Route::get('/actividades/{actividad}', [ActividadController::class, 'show'])->name('actividades.show');
     });
 
     // 🏢 GESTOR DE ENTIDADES - Ver listado de entidades
@@ -129,6 +134,10 @@ Route::middleware('auth')->group(function () {
         Route::resource('permissions', PermissionController::class)->except(['index', 'show']);
     });
 
+    Route::middleware('can.any:manage actividades, create actividades, edit actividades, delete actividades')->group(function () {
+        Route::resource('actividades', ActividadController::class)->except(['index', 'show', 'create', 'edit']);
+    });
+
     // 🏢 GESTOR DE ENTIDADES - CRUD completo de entidades
     Route::middleware('can.any:manage entidades, create entidades, edit entidades, delete entidades')->group(function () {
         Route::resource('entidades', EntidadController::class)->except(['index', 'show']);
@@ -186,6 +195,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/planes/pdf', [PlanController::class, 'documentopdf'])->name('planes.documentopdf');
         Route::get('/ods/pdf', [OdsController::class, 'documentopdf'])->name('ods.documentopdf');
         Route::get('/objetivos-institucionales/pdf', [ObjetivoInstitucionalController::class, 'documentopdf'])->name('objetivos-institucionales.documentopdf');
+        Route::get('/actividades/pdf', [ActividadController::class, 'documentopdf'])->name('actividades.documentopdf');
     });
 });
 
