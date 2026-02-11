@@ -169,6 +169,40 @@
 						</div>
 					</div>
 
+					@php
+						$avancePlan = $actividad->avance_planificado;
+						$avanceReal = $actividad->avance_real;
+						$indicadorAvance = null;
+						if ($avancePlan !== null && $avancePlan > 0 && $avanceReal !== null) {
+							$indicadorAvance = ($avanceReal / $avancePlan) * 100;
+						}
+					@endphp
+
+					<div class="mt-8">
+						<h3 class="text-lg font-semibold text-gray-800 mb-4">Indicadores de Actividad</h3>
+						<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+							<div class="bg-white rounded-xl p-5 shadow-sm border border-gray-200">
+								<p class="text-xs text-gray-500">Indicador de Avance</p>
+								<p class="text-2xl font-bold text-primary mt-1">
+									{{ $indicadorAvance !== null ? number_format($indicadorAvance, 2) . '%' : 'N/A' }}
+								</p>
+								<p class="text-xs text-gray-500 mt-2">avance_real / avance_planificado * 100</p>
+							</div>
+							<div class="bg-white rounded-xl p-5 shadow-sm border border-gray-200">
+								<p class="text-xs text-gray-500">Indicador de Tiempo</p>
+								<p class="text-2xl font-bold text-primary mt-1">
+									{{ $actividad->variacion_tiempo_dias !== null ? $actividad->variacion_tiempo_dias . ' días' : 'N/A' }}
+								</p>
+								<p class="text-xs text-gray-500 mt-2">fecha_real_fin - fecha_planificada_fin</p>
+							</div>
+							<div class="bg-white rounded-xl p-5 shadow-sm border border-gray-200">
+								<p class="text-xs text-gray-500">Cumplimiento de Plazo</p>
+								<p class="text-2xl font-bold text-primary mt-1">{{ $actividad->estado_reportado }}</p>
+								<p class="text-xs text-gray-500 mt-2">Completada / En Riesgo / No Iniciada</p>
+							</div>
+						</div>
+					</div>
+
 				</div>
 			</div>
 		</div>

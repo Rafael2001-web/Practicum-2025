@@ -35,6 +35,8 @@
                                 ['label' => 'Inicio Plan', 'type' => 'date'],
                                 ['label' => 'Fin Plan', 'type' => 'date'],
                                 ['label' => 'Avance Real', 'type' => 'decimal'],
+                                ['label' => 'Indicador Avance', 'type' => 'decimal'],
+                                ['label' => 'Variación Tiempo', 'type' => 'decimal'],
                                 ['label' => 'Estado Reportado', 'type' => 'badge'],
                                 ['label' => 'Acciones', 'type' => 'actions']
                             ]"
@@ -68,6 +70,14 @@
 
                             <tbody>
                                 @foreach ($actividades as $actividad)
+                                    @php
+                                        $avancePlan = $actividad->avance_planificado;
+                                        $avanceReal = $actividad->avance_real;
+                                        $indicadorAvance = null;
+                                        if ($avancePlan !== null && $avancePlan > 0 && $avanceReal !== null) {
+                                            $indicadorAvance = ($avanceReal / $avancePlan) * 100;
+                                        }
+                                    @endphp
                                     <tr class="hover:bg-light/50 transition-colors duration-150">
                                         <td class="px-6 py-4 whitespace-nowrap text-sm text-neutral font-medium">
                                             {{ $actividad->proyecto->nombre ?? 'Sin proyecto' }}
@@ -100,6 +110,12 @@
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap text-sm text-neutral font-semibold">
                                             {{ $actividad->avance_real !== null ? number_format($actividad->avance_real, 2) . '%' : 'N/A' }}
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-neutral">
+                                            {{ $indicadorAvance !== null ? number_format($indicadorAvance, 2) . '%' : 'N/A' }}
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-neutral">
+                                            {{ $actividad->variacion_tiempo_dias !== null ? $actividad->variacion_tiempo_dias : 'N/A' }}
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap">
                                             <span class="px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full

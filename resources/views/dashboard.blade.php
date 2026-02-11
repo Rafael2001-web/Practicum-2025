@@ -85,6 +85,42 @@
                 </div>
             @endif
 
+            @canany(['view actividades', 'manage actividades'])
+                <!-- Indicadores de Actividades -->
+                <div class="bg-white rounded-lg shadow-md p-6 mb-8 border-l-4 border-accent">
+                    <div class="flex items-center justify-between mb-4">
+                        <h3 class="text-lg font-semibold text-primary">Indicadores de Actividades</h3>
+                        <a href="{{ route('actividades.index') }}" class="text-sm text-secondary hover:text-accent">
+                            Ver actividades
+                        </a>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-5 gap-4">
+                        <div class="bg-light rounded-lg p-4">
+                            <p class="text-xs text-neutral">Total activas</p>
+                            <p class="text-2xl font-semibold text-primary">{{ $actividadesTotal }}</p>
+                        </div>
+                        <div class="bg-red-50 rounded-lg p-4">
+                            <p class="text-xs text-neutral">En riesgo</p>
+                            <p class="text-2xl font-semibold text-red-700">{{ $actividadesEnRiesgo }}</p>
+                        </div>
+                        <div class="bg-green-50 rounded-lg p-4">
+                            <p class="text-xs text-neutral">Completadas</p>
+                            <p class="text-2xl font-semibold text-green-700">{{ $actividadesCompletadas }}</p>
+                        </div>
+                        <div class="bg-gray-50 rounded-lg p-4">
+                            <p class="text-xs text-neutral">No iniciadas</p>
+                            <p class="text-2xl font-semibold text-gray-700">{{ $actividadesNoIniciadas }}</p>
+                        </div>
+                        <div class="bg-blue-50 rounded-lg p-4">
+                            <p class="text-xs text-neutral">Avance promedio</p>
+                            <p class="text-2xl font-semibold text-blue-700">
+                                {{ $avancePromedio !== null ? number_format($avancePromedio, 2) . '%' : 'N/A' }}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            @endcanany
+
             <!-- Módulos Principales -->
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
                 <!-- Configuración Institucional -->

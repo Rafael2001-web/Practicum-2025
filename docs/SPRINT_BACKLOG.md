@@ -208,15 +208,15 @@
 | TAR-123 | Crear documentación técnica final | HU-38 | Por Hacer |
 | TAR-124 | Realizar testing de integración completo | HU-38 | Por Hacer |
 | TAR-125 | Optimizar rendimiento del sistema | HU-38 | Por Hacer |
-| TAR-126 | Diseñar modelo de datos para actividades y relaciones | HU-46 | Por Hacer |
-| TAR-127 | Implementar migración y modelo de actividades | HU-46 | Por Hacer |
-| TAR-128 | Crear CRUD de actividades con validaciones | HU-46 | Por Hacer |
-| TAR-129 | Implementar registro de avance real e indicadores | HU-47 | Por Hacer |
-| TAR-130 | Calcular estado reportado y cumplimiento de plazo | HU-47 | Por Hacer |
-| TAR-131 | Implementar eliminación lógica y auditoría de actividades | HU-48 | Por Hacer |
+| TAR-126 | Diseñar modelo de datos para actividades y relaciones | HU-46 | Terminado |
+| TAR-127 | Implementar migración y modelo de actividades | HU-46 | Terminado |
+| TAR-128 | Crear CRUD de actividades con validaciones | HU-46 | Terminado |
+| TAR-129 | Implementar registro de avance real e indicadores | HU-47 | Terminado |
+| TAR-130 | Calcular estado reportado y cumplimiento de plazo | HU-47 | Terminado |
+| TAR-131 | Implementar eliminación lógica y auditoría de actividades | HU-48 | Terminado |
 | TAR-132 | Generar reportes de actividades en múltiples formatos | HU-49 | Por Hacer |
 | TAR-133 | Crear alertas por desviaciones y actividades en riesgo | HU-50 | Por Hacer |
-| TAR-134 | Diseñar tablero de seguimiento de actividades | HU-50 | Por Hacer |
+| TAR-134 | Diseñar tablero de seguimiento de actividades | HU-50 | En Progreso |
 | TAR-135 | Configurar permisos de Planificador y Aprobador | HU-46 | Por Hacer |
 
 ---

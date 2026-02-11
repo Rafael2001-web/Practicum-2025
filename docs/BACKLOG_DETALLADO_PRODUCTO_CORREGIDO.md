@@ -916,11 +916,11 @@
 
 | **Criterios de Aceptacion** | **Prioridad** | **Estimacion** | **Dependencias** | **Sprint** | **Estado** |
 |-----------------------------|---------------|----------------|------------------|------------|------------|
-| Registro con codigo unico por proyecto y validacion de fechas | 1 | 4 | TAR-126 | 6 | Por Hacer |
-| Calculo de avance, variacion de tiempo y estado reportado | 1 | 4 | TAR-129 | 6 | Por Hacer |
-| Eliminacion logica con auditoria completa | 2 | 3 | TAR-131 | 6 | Por Hacer |
+| Registro con codigo unico por proyecto y validacion de fechas | 1 | 4 | TAR-126 | 6 | Terminado |
+| Calculo de avance, variacion de tiempo y estado reportado | 1 | 4 | TAR-129 | 6 | Terminado |
+| Eliminacion logica con auditoria completa | 2 | 3 | TAR-131 | 6 | Terminado |
 | Reportes con filtros por proyecto, estado y fechas | 2 | 3 | TAR-132 | 6 | Por Hacer |
-| Alertas por desviaciones y visualizacion en tablero | 2 | 3 | TAR-133 | 6 | Por Hacer |
+| Alertas por desviaciones y visualizacion en tablero | 2 | 3 | TAR-133 | 6 | En Progreso |
 
 ### 📈 **ESTADÍSTICAS FINALES DEL BACKLOG DETALLADO**
 

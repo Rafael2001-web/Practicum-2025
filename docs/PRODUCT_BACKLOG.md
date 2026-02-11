@@ -238,11 +238,11 @@
 
 | **ID HU** | **Criterios de Aceptación** | **Prioridad** | **Estimación** | **Dependencia** | **Sprint** | **Estado** |
 |-----------|----------------------------|---------------|----------------|-----------------|------------|------------|
-| **HU-46** | Registro de actividades con codigo unico por proyecto. Validaciones de fechas y asociacion a objetivos. | 1 | 4 | HU-27 | 6 | Por Hacer |
-| **HU-47** | Actualizacion de avance real, fechas reales e indicadores. Estado reportado automatico. | 1 | 4 | HU-46 | 6 | Por Hacer |
-| **HU-48** | Eliminacion logica con registro de auditoria (usuario, fecha, accion). | 2 | 3 | HU-46 | 6 | Por Hacer |
+| **HU-46** | Registro de actividades con codigo unico por proyecto. Validaciones de fechas y asociacion a objetivos. | 1 | 4 | HU-27 | 6 | Terminado |
+| **HU-47** | Actualizacion de avance real, fechas reales e indicadores. Estado reportado automatico. | 1 | 4 | HU-46 | 6 | Terminado |
+| **HU-48** | Eliminacion logica con registro de auditoria (usuario, fecha, accion). | 2 | 3 | HU-46 | 6 | Terminado |
 | **HU-49** | Reportes en PDF, XLS, CSV y XML con filtros por estado y fechas. | 2 | 3 | HU-46 | 6 | Por Hacer |
-| **HU-50** | Alertas por desviaciones y actividades en riesgo visibles en tablero. | 2 | 3 | HU-47 | 6 | Por Hacer |
+| **HU-50** | Alertas por desviaciones y actividades en riesgo visibles en tablero. | 2 | 3 | HU-47 | 6 | En Progreso |
 
 ---
 
