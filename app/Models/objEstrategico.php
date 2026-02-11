@@ -49,6 +49,19 @@ class objEstrategico extends Model
         return $this->hasMany(ObjetivoInstitucional::class, 'idobjEstrategico', 'idobjEstrategico');
     }
 
+    /**
+     * Relación N:M - Un objetivo estratégico se asocia a actividades
+     */
+    public function actividades(): BelongsToMany
+    {
+        return $this->belongsToMany(
+            Actividad::class,
+            'actividad_objetivos_estrategicos',
+            'idobjEstrategico',
+            'actividad_id'
+        )->withTimestamps();
+    }
+
     // RELACIONES CALCULADAS
 
     /**

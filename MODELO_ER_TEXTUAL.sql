@@ -62,6 +62,29 @@ PROYECTO {
   updated_at
 }
 
+ACTIVIDAD {
+  id (PK)
+  proyecto_id (FK) → PROYECTO.id
+  codigo
+  nombre
+  descripcion
+  responsable
+  estado
+  prioridad
+  fecha_inicio_planificada
+  fecha_fin_planificada
+  fecha_inicio_real
+  fecha_fin_real
+  duracion_planificada_dias
+  avance_planificado
+  avance_real
+  variacion_tiempo_dias
+  estado_reportado
+  activo
+  created_at
+  updated_at
+}
+
 -- MARCOS ESTRATÉGICOS
 ODS {
   idOds (PK)
@@ -112,6 +135,16 @@ PERMISSIONS {
   updated_at
 }
 
+ACTIVIDAD_AUDITORIAS {
+  id (PK)
+  actividad_id (FK) → ACTIVIDAD.id
+  user_id (FK) → USERS.id
+  accion
+  detalle
+  created_at
+  updated_at
+}
+
 -- TABLAS DE RELACIÓN (PIVOT)
 PLAN_ODS {
   idPlan (FK) → PLAN.idPlan
@@ -151,6 +184,13 @@ PROYECTO_ODS {
   updated_at
 }
 
+ACTIVIDAD_OBJETIVOS_ESTRATEGICOS {
+  actividad_id (FK) → ACTIVIDAD.id
+  idobjEstrategico (FK) → OBJETIVOS_ESTRATEGICOS.idobjEstrategico
+  created_at
+  updated_at
+}
+
 PND_ODS_ALIGNMENT {
   idPnd (FK) → PND.idPnd
   idOds (FK) → ODS.idOds
@@ -184,9 +224,12 @@ RELACIONES PRINCIPALES:
 1:N RELACIONES:
 - UNIDAD → ENTIDAD
 - ENTIDAD → PLAN
-- PLAN → PROGRAMA  
+- PLAN → PROGRAMA
 - PROGRAMA → PROYECTO
 - USERS → PROYECTO
+- PROYECTO → ACTIVIDAD
+- ACTIVIDAD → ACTIVIDAD_AUDITORIAS
+- USERS → ACTIVIDAD_AUDITORIAS
 
 N:M RELACIONES:
 - PLAN ←→ ODS (via PLAN_ODS)
@@ -196,6 +239,7 @@ N:M RELACIONES:
 - PND ←→ ODS (via PND_ODS_ALIGNMENT)
 - USERS ←→ ROLES (via MODEL_HAS_ROLES)
 - ROLES ←→ PERMISSIONS (via ROLE_HAS_PERMISSIONS)
+- ACTIVIDAD ←→ OBJETIVOS_ESTRATEGICOS (via ACTIVIDAD_OBJETIVOS_ESTRATEGICOS)
 
 CARDINALIDADES:
 - UNIDAD (1) → ENTIDAD (N)

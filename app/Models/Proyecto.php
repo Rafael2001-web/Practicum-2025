@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Proyecto extends Model
 {
@@ -27,7 +28,7 @@ class Proyecto extends Model
     protected $dates = ['fecha_inicio', 'fecha_fin'];
 
     // RELACIONES DIRECTAS
-    
+
     /**
      * Relación N:1 - Un proyecto pertenece a un usuario
      */
@@ -45,7 +46,7 @@ class Proyecto extends Model
     }
 
     // RELACIONES DE ALINEACIÓN ESTRATÉGICA
-    
+
     /**
      * Relación N:M - Un proyecto contribuye a varios ODS
      */
@@ -63,8 +64,16 @@ class Proyecto extends Model
         ])->withTimestamps();
     }
 
+    /**
+     * Relación 1:N - Un proyecto tiene varias actividades
+     */
+    public function actividades(): HasMany
+    {
+        return $this->hasMany(Actividad::class, 'proyecto_id', 'id');
+    }
+
     // RELACIONES CALCULADAS - A través de programa
-    
+
     /**
      * Obtener la entidad a través del programa
      */
@@ -111,7 +120,7 @@ class Proyecto extends Model
     }
 
     // SCOPES ÚTILES
-    
+
     /**
      * Proyectos activos
      */
@@ -164,14 +173,14 @@ class Proyecto extends Model
     }
 
     // ACCESSORS Y MUTATORS
-    
+
     /**
      * Calcular duración del proyecto en días
      */
     public function getDuracionAttribute()
     {
         if (!$this->fecha_inicio || !$this->fecha_fin) return null;
-        
+
         return $this->fecha_inicio->diffInDays($this->fecha_fin);
     }
 
@@ -189,14 +198,14 @@ class Proyecto extends Model
     public function getProgresoFechasAttribute()
     {
         if (!$this->fecha_inicio || !$this->fecha_fin) return 0;
-        
+
         $now = now();
         if ($now < $this->fecha_inicio) return 0;
         if ($now > $this->fecha_fin) return 100;
-        
+
         $duracionTotal = $this->fecha_inicio->diffInDays($this->fecha_fin);
         $duracionTranscurrida = $this->fecha_inicio->diffInDays($now);
-        
+
         return round(($duracionTranscurrida / $duracionTotal) * 100, 2);
     }
 
