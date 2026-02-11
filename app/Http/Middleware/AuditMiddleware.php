@@ -91,6 +91,16 @@ class AuditMiddleware
             }
         }
 
+        if ($method === 'POST') {
+            return 'CREAR';
+        }
+        if ($method === 'PUT' || $method === 'PATCH') {
+            return 'ACTUALIZAR';
+        }
+        if ($method === 'DELETE') {
+            return 'ELIMINAR';
+        }
+
         return strtoupper($method);
     }
 

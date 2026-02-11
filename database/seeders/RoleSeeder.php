@@ -140,6 +140,9 @@ class RoleSeeder extends Seeder
             // ===== REPORTES Y SUPERVISIÓN =====
             'generate reports',
             'view all_modules', // Para supervisor general
+
+            // ===== CONFIGURACION DEL SISTEMA =====
+            'manage configuracion',
         ];
 
         // Crear todos los permisos
@@ -166,6 +169,7 @@ class RoleSeeder extends Seeder
             // Gestión de actividades para supervisión general
             'manage actividades',
             'view auditorias',
+            'manage configuracion',
         ]);
 
         // 🎯 TÉCNICO DE PLANIFICACIÓN
@@ -228,6 +232,7 @@ class RoleSeeder extends Seeder
             'view proyectos',
             'view actividades',
             'view auditorias',
+            'manage configuracion',
         ]);
 
         // USUARIO EXTERNO

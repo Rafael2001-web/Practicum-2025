@@ -72,6 +72,11 @@ Route::middleware('auth')->group(function () {
         Route::get('/auditorias', [AuditoriaController::class, 'index'])->name('auditorias.index');
     });
 
+    Route::middleware('can.any:manage configuracion')->group(function () {
+        Route::put('/configuracion/regla-cumplimiento', [DashboardController::class, 'updateReglaCumplimiento'])
+            ->name('configuracion.regla-cumplimiento');
+    });
+
     // 🏢 GESTOR DE ENTIDADES - Ver listado de entidades
     Route::middleware('can.any:view entidades,manage entidades')->group(function () {
         Route::get('/entidades', [EntidadController::class, 'index'])->name('entidades.index');

@@ -36,6 +36,7 @@ class DatabaseSeeder extends Seeder
             ProgramaSeeder::class,
             ProyectoSeeder::class,
             ActividadSeeder::class,
+            ConfiguracionSeeder::class,
         ]);
     }
 }

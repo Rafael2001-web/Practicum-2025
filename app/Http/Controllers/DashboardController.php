@@ -3,11 +3,33 @@
 namespace App\Http\Controllers;
 
 use App\Models\Actividad;
+use App\Models\ConfiguracionSistema;
 use App\Models\objEstrategico;
 use Illuminate\Http\Request;
 
 class DashboardController extends Controller
 {
+    public function updateReglaCumplimiento(Request $request)
+    {
+        $validated = $request->validate([
+            'regla_cumplimiento' => 'required|in:AND,OR'
+        ], [
+            'regla_cumplimiento.required' => 'Selecciona una regla de cumplimiento.',
+            'regla_cumplimiento.in' => 'La regla seleccionada no es valida.'
+        ]);
+
+        ConfiguracionSistema::updateOrCreate(
+            ['clave' => 'regla_cumplimiento_objetivos'],
+            [
+                'valor' => $validated['regla_cumplimiento'],
+                'descripcion' => 'Regla de cumplimiento de objetivos: AND u OR.'
+            ]
+        );
+
+        return redirect()->route('dashboard')
+            ->with('success', 'Regla de cumplimiento actualizada correctamente.');
+    }
+
     public function index()
     {
         $numEntidades = \App\Models\Entidad::count();
@@ -32,7 +54,8 @@ class DashboardController extends Controller
             ->limit(5)
             ->get();
 
-        $objetivosIndicadores = $this->calcularIndicadoresObjetivos();
+        $reglaCumplimiento = $this->getReglaCumplimiento();
+        $objetivosIndicadores = $this->calcularIndicadoresObjetivos($reglaCumplimiento);
         $objetivosRegla3 = $objetivosIndicadores
             ->filter(fn ($objetivo) => $objetivo['regla3_aplica'])
             ->values();
@@ -49,17 +72,18 @@ class DashboardController extends Controller
             'avancePromedio',
             'actividadesEnRiesgoLista',
             'objetivosIndicadores',
-            'objetivosRegla3'
+            'objetivosRegla3',
+            'reglaCumplimiento'
         ));
     }
 
-    private function calcularIndicadoresObjetivos()
+    private function calcularIndicadoresObjetivos(string $reglaCumplimiento)
     {
         $objetivos = objEstrategico::with(['actividades' => function ($query) {
             $query->where('activo', true);
         }])->get();
 
-        return $objetivos->map(function ($objetivo) {
+        return $objetivos->map(function ($objetivo) use ($reglaCumplimiento) {
             $actividades = $objetivo->actividades;
             $totalActividades = $actividades->count();
 
@@ -79,6 +103,7 @@ class DashboardController extends Controller
             $indicadores = [$indicador1, $indicador2, $indicador3];
             $cumplimientoAnd = $this->estadoCumplimientoAnd($indicadores);
             $cumplimientoOr = $this->estadoCumplimientoOr($indicadores);
+            $cumplimientoConfig = $reglaCumplimiento === 'OR' ? $cumplimientoOr : $cumplimientoAnd;
             $regla3Aplica = !in_array('CUMPLIDO', $indicadores, true) && in_array('NO_CUMPLIDO', $indicadores, true);
 
             return [
@@ -92,9 +117,19 @@ class DashboardController extends Controller
                 'indicador3' => $indicador3,
                 'cumplimiento_and' => $cumplimientoAnd,
                 'cumplimiento_or' => $cumplimientoOr,
+                'cumplimiento_config' => $cumplimientoConfig,
                 'regla3_aplica' => $regla3Aplica
             ];
         });
+    }
+
+    private function getReglaCumplimiento(): string
+    {
+        $valor = ConfiguracionSistema::where('clave', 'regla_cumplimiento_objetivos')
+            ->value('valor');
+
+        $valor = strtoupper((string) $valor);
+        return $valor === 'OR' ? 'OR' : 'AND';
     }
 
     private function estadoIndicadorAvance($avancePlan, $avanceReal, $indicadorAvance): string

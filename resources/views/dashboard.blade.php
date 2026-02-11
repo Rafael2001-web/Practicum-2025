@@ -85,6 +85,17 @@
                 </div>
             @endif
 
+            @if (session('success'))
+                <div class="mb-6 p-4 bg-accent/20 border border-accent/40 text-primary rounded-lg shadow-sm">
+                    <div class="flex items-center">
+                        <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                        </svg>
+                        {{ session('success') }}
+                    </div>
+                </div>
+            @endif
+
             @canany(['view actividades', 'manage actividades'])
                 <!-- Indicadores de Actividades -->
                 <div class="bg-white rounded-lg shadow-md p-6 mb-8 border-l-4 border-accent">
@@ -170,7 +181,31 @@
 
                 <!-- Evidencia de Cumplimiento por Regla -->
                 <div class="bg-white rounded-lg shadow-md p-6 mb-8 border-l-4 border-blue-400">
-                    <h3 class="text-lg font-semibold text-primary mb-4">Evidencia de Cumplimiento por Regla</h3>
+                    <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-2 mb-4">
+                        <h3 class="text-lg font-semibold text-primary">Evidencia de Cumplimiento por Regla</h3>
+                        <span class="px-3 py-1 rounded-full text-xs bg-blue-100 text-blue-800">
+                            Regla activa: {{ $reglaCumplimiento }}
+                        </span>
+                    </div>
+
+                    @canany(['manage configuracion'])
+                        <form action="{{ route('configuracion.regla-cumplimiento') }}" method="POST" class="mb-6">
+                            @csrf
+                            @method('PUT')
+                            <div class="flex flex-col md:flex-row md:items-center gap-3">
+                                <label for="regla_cumplimiento" class="text-sm font-medium text-neutral">Actualizar regla:</label>
+                                <select id="regla_cumplimiento" name="regla_cumplimiento"
+                                        class="border border-neutral/30 rounded-md px-3 py-2 text-sm focus:ring-2 focus:ring-secondary/50 focus:border-secondary bg-white">
+                                    <option value="AND" {{ $reglaCumplimiento === 'AND' ? 'selected' : '' }}>AND</option>
+                                    <option value="OR" {{ $reglaCumplimiento === 'OR' ? 'selected' : '' }}>OR</option>
+                                </select>
+                                <button type="submit"
+                                        class="inline-flex items-center px-4 py-2 bg-secondary border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-accent active:bg-secondary focus:outline-none focus:border-secondary focus:ring ring-secondary/20 disabled:opacity-25 transition ease-in-out duration-150 shadow-sm">
+                                    Guardar regla
+                                </button>
+                            </div>
+                        </form>
+                    @endcanany
 
                     <div class="space-y-6">
                         <div>
@@ -185,6 +220,7 @@
                                             <th class="py-2 pr-4">Indicador Tiempo</th>
                                             <th class="py-2 pr-4">Cumplimiento Plazo</th>
                                             <th class="py-2 pr-4">Estado</th>
+                                            <th class="py-2 pr-4">Estado (Regla activa)</th>
                                         </tr>
                                     </thead>
                                     <tbody class="text-neutral">
@@ -206,10 +242,15 @@
                                                         {{ $objetivo['cumplimiento_and'] }}
                                                     </span>
                                                 </td>
+                                                <td class="py-2 pr-4">
+                                                    <span class="px-2 py-1 rounded-full text-xs bg-indigo-100 text-indigo-800">
+                                                        {{ $objetivo['cumplimiento_config'] }}
+                                                    </span>
+                                                </td>
                                             </tr>
                                         @empty
                                             <tr class="border-t border-gray-200">
-                                                <td class="py-3 text-sm text-neutral" colspan="6">No hay objetivos estrategicos registrados.</td>
+                                                <td class="py-3 text-sm text-neutral" colspan="7">No hay objetivos estrategicos registrados.</td>
                                             </tr>
                                         @endforelse
                                     </tbody>
@@ -229,6 +270,7 @@
                                             <th class="py-2 pr-4">Indicador Tiempo</th>
                                             <th class="py-2 pr-4">Cumplimiento Plazo</th>
                                             <th class="py-2 pr-4">Estado</th>
+                                            <th class="py-2 pr-4">Estado (Regla activa)</th>
                                         </tr>
                                     </thead>
                                     <tbody class="text-neutral">
@@ -250,10 +292,15 @@
                                                         {{ $objetivo['cumplimiento_or'] }}
                                                     </span>
                                                 </td>
+                                                <td class="py-2 pr-4">
+                                                    <span class="px-2 py-1 rounded-full text-xs bg-indigo-100 text-indigo-800">
+                                                        {{ $objetivo['cumplimiento_config'] }}
+                                                    </span>
+                                                </td>
                                             </tr>
                                         @empty
                                             <tr class="border-t border-gray-200">
-                                                <td class="py-3 text-sm text-neutral" colspan="6">No hay objetivos estrategicos registrados.</td>
+                                                <td class="py-3 text-sm text-neutral" colspan="7">No hay objetivos estrategicos registrados.</td>
                                             </tr>
                                         @endforelse
                                     </tbody>
@@ -273,6 +320,7 @@
                                             <th class="py-2 pr-4">Indicador Tiempo</th>
                                             <th class="py-2 pr-4">Cumplimiento Plazo</th>
                                             <th class="py-2 pr-4">Estado</th>
+                                            <th class="py-2 pr-4">Estado (Regla activa)</th>
                                         </tr>
                                     </thead>
                                     <tbody class="text-neutral">
@@ -294,10 +342,15 @@
                                                         NO_CUMPLIDO
                                                     </span>
                                                 </td>
+                                                <td class="py-2 pr-4">
+                                                    <span class="px-2 py-1 rounded-full text-xs bg-indigo-100 text-indigo-800">
+                                                        {{ $objetivo['cumplimiento_config'] }}
+                                                    </span>
+                                                </td>
                                             </tr>
                                         @empty
                                             <tr class="border-t border-gray-200">
-                                                <td class="py-3 text-sm text-neutral" colspan="6">No hay objetivos en regla 3.</td>
+                                                <td class="py-3 text-sm text-neutral" colspan="7">No hay objetivos en regla 3.</td>
                                             </tr>
                                         @endforelse
                                     </tbody>
