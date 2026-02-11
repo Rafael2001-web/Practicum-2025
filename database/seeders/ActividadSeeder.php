@@ -76,6 +76,7 @@ class ActividadSeeder extends Seeder
                         'actividad_id' => $actividad->id,
                         'user_id' => $usuario->id,
                         'accion' => 'CREAR',
+                        'modulo' => 'ACTIVIDADES',
                         'detalle' => 'Seeder de actividades'
                     ]);
                 }

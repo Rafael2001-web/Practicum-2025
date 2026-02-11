@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use App\Models\Actividad;
-use App\Models\ActividadAuditoria;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Carbon\Carbon;
 
@@ -47,7 +46,7 @@ class ActividadController extends Controller
             'avance_real' => 'nullable|numeric|min:0|max:100',
             'objetivos_estrategicos' => 'required|array|min:1',
             'objetivos_estrategicos.*' => 'exists:objEstrategicos,idobjEstrategico'
-        ]);
+        ], $this->validationMessages(), $this->validationAttributes());
 
         $codigo = $validated['codigo'] ?: $this->generarCodigo($validated['proyecto_id']);
         $data = array_merge($validated, [
@@ -56,7 +55,6 @@ class ActividadController extends Controller
 
         $actividad = Actividad::create($data);
         $actividad->objetivosEstrategicos()->sync($request->input('objetivos_estrategicos', []));
-        $this->registrarAuditoria($actividad, 'CREAR');
 
         return redirect()->route('actividades.index')
             ->with('success', 'Actividad creada correctamente');
@@ -94,13 +92,12 @@ class ActividadController extends Controller
             'avance_real' => 'nullable|numeric|min:0|max:100',
             'objetivos_estrategicos' => 'required|array|min:1',
             'objetivos_estrategicos.*' => 'exists:objEstrategicos,idobjEstrategico'
-        ]);
+        ], $this->validationMessages(), $this->validationAttributes());
 
         $actividad = Actividad::findOrFail($id);
         $data = array_merge($validated, $this->calcularCampos($request));
         $actividad->update($data);
         $actividad->objetivosEstrategicos()->sync($request->input('objetivos_estrategicos', []));
-        $this->registrarAuditoria($actividad, 'ACTUALIZAR');
 
         return redirect()->route('actividades.index')
             ->with('success', 'Actividad actualizada correctamente');
@@ -114,7 +111,6 @@ class ActividadController extends Controller
         Gate::any(['delete actividades', 'manage actividades']);
         $actividad = Actividad::findOrFail($id);
         $actividad->update(['activo' => false]);
-        $this->registrarAuditoria($actividad, 'ELIMINAR');
 
         return redirect()->route('actividades.index')
             ->with('success', 'Actividad eliminada correctamente');
@@ -175,13 +171,51 @@ class ActividadController extends Controller
         ];
     }
 
-    private function registrarAuditoria(Actividad $actividad, string $accion): void
+
+    private function validationMessages(): array
     {
-        ActividadAuditoria::create([
-            'actividad_id' => $actividad->id,
-            'user_id' => auth()->id() ?? 1,
-            'accion' => $accion,
-            'detalle' => 'Actividad: ' . $actividad->codigo
-        ]);
+        return [
+            'proyecto_id.required' => 'Selecciona un proyecto para la actividad.',
+            'proyecto_id.exists' => 'El proyecto seleccionado no es valido.',
+            'nombre.required' => 'El nombre de la actividad es obligatorio.',
+            'nombre.max' => 'El nombre no debe superar 255 caracteres.',
+            'codigo.max' => 'El codigo no debe superar 50 caracteres.',
+            'estado.required' => 'Selecciona un estado para la actividad.',
+            'estado.in' => 'El estado seleccionado no es valido.',
+            'prioridad.required' => 'Indica la prioridad de la actividad.',
+            'prioridad.integer' => 'La prioridad debe ser un numero entero.',
+            'prioridad.min' => 'La prioridad minima es 1.',
+            'prioridad.max' => 'La prioridad maxima es 5.',
+            'fecha_inicio_planificada.required' => 'La fecha de inicio planificada es obligatoria.',
+            'fecha_fin_planificada.required' => 'La fecha de fin planificada es obligatoria.',
+            'fecha_fin_planificada.after_or_equal' => 'La fecha de fin planificada debe ser posterior o igual a la fecha de inicio.',
+            'fecha_inicio_real.date' => 'La fecha de inicio real no tiene un formato valido.',
+            'fecha_fin_real.date' => 'La fecha de fin real no tiene un formato valido.',
+            'fecha_fin_real.after_or_equal' => 'La fecha de fin real debe ser posterior o igual a la fecha de inicio real.',
+            'avance_planificado.numeric' => 'El avance planificado debe ser numerico.',
+            'avance_planificado.min' => 'El avance planificado no puede ser menor a 0.',
+            'avance_planificado.max' => 'El avance planificado no puede superar 100.',
+            'avance_real.numeric' => 'El avance real debe ser numerico.',
+            'avance_real.min' => 'El avance real no puede ser menor a 0.',
+            'avance_real.max' => 'El avance real no puede superar 100.',
+            'objetivos_estrategicos.required' => 'Selecciona al menos un objetivo estrategico.',
+            'objetivos_estrategicos.array' => 'Selecciona objetivos estrategicos validos.',
+            'objetivos_estrategicos.min' => 'Selecciona al menos un objetivo estrategico.',
+            'objetivos_estrategicos.*.exists' => 'Uno o mas objetivos estrategicos no son validos.'
+        ];
+    }
+
+    private function validationAttributes(): array
+    {
+        return [
+            'proyecto_id' => 'proyecto',
+            'fecha_inicio_planificada' => 'fecha de inicio planificada',
+            'fecha_fin_planificada' => 'fecha de fin planificada',
+            'fecha_inicio_real' => 'fecha de inicio real',
+            'fecha_fin_real' => 'fecha de fin real',
+            'avance_planificado' => 'avance planificado',
+            'avance_real' => 'avance real',
+            'objetivos_estrategicos' => 'objetivos estrategicos'
+        ];
     }
 }

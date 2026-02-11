@@ -16,7 +16,12 @@ class ActividadAuditoria extends Model
         'actividad_id',
         'user_id',
         'accion',
-        'detalle'
+        'modulo',
+        'detalle',
+        'ruta',
+        'metodo',
+        'ip',
+        'user_agent'
     ];
 
     public function actividad(): BelongsTo

@@ -167,6 +167,145 @@
                         </table>
                     </div>
                 </div>
+
+                <!-- Evidencia de Cumplimiento por Regla -->
+                <div class="bg-white rounded-lg shadow-md p-6 mb-8 border-l-4 border-blue-400">
+                    <h3 class="text-lg font-semibold text-primary mb-4">Evidencia de Cumplimiento por Regla</h3>
+
+                    <div class="space-y-6">
+                        <div>
+                            <h4 class="text-sm font-semibold text-neutral mb-2">Regla 1 (AND): Cumplido si todos los indicadores estan cumplidos</h4>
+                            <div class="overflow-x-auto">
+                                <table class="min-w-full text-sm">
+                                    <thead>
+                                        <tr class="text-left text-neutral">
+                                            <th class="py-2 pr-4">Objetivo</th>
+                                            <th class="py-2 pr-4">Actividades</th>
+                                            <th class="py-2 pr-4">Indicador Avance</th>
+                                            <th class="py-2 pr-4">Indicador Tiempo</th>
+                                            <th class="py-2 pr-4">Cumplimiento Plazo</th>
+                                            <th class="py-2 pr-4">Estado</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="text-neutral">
+                                        @forelse($objetivosIndicadores as $objetivo)
+                                            <tr class="border-t border-gray-200">
+                                                <td class="py-2 pr-4">{{ $objetivo['descripcion'] }}</td>
+                                                <td class="py-2 pr-4">{{ $objetivo['total_actividades'] }}</td>
+                                                <td class="py-2 pr-4">
+                                                    {{ $objetivo['indicador_avance'] !== null ? number_format($objetivo['indicador_avance'], 2) . '%' : 'N/A' }}
+                                                    <span class="ml-2 text-xs text-gray-500">({{ $objetivo['indicador1'] }})</span>
+                                                </td>
+                                                <td class="py-2 pr-4">
+                                                    {{ $objetivo['variacion_tiempo'] !== null ? number_format($objetivo['variacion_tiempo'], 2) : 'N/A' }}
+                                                    <span class="ml-2 text-xs text-gray-500">({{ $objetivo['indicador2'] }})</span>
+                                                </td>
+                                                <td class="py-2 pr-4">{{ $objetivo['indicador3'] }}</td>
+                                                <td class="py-2 pr-4">
+                                                    <span class="px-2 py-1 rounded-full text-xs bg-blue-100 text-blue-800">
+                                                        {{ $objetivo['cumplimiento_and'] }}
+                                                    </span>
+                                                </td>
+                                            </tr>
+                                        @empty
+                                            <tr class="border-t border-gray-200">
+                                                <td class="py-3 text-sm text-neutral" colspan="6">No hay objetivos estrategicos registrados.</td>
+                                            </tr>
+                                        @endforelse
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div>
+                            <h4 class="text-sm font-semibold text-neutral mb-2">Regla 2 (OR): En progreso si al menos un indicador esta cumplido</h4>
+                            <div class="overflow-x-auto">
+                                <table class="min-w-full text-sm">
+                                    <thead>
+                                        <tr class="text-left text-neutral">
+                                            <th class="py-2 pr-4">Objetivo</th>
+                                            <th class="py-2 pr-4">Actividades</th>
+                                            <th class="py-2 pr-4">Indicador Avance</th>
+                                            <th class="py-2 pr-4">Indicador Tiempo</th>
+                                            <th class="py-2 pr-4">Cumplimiento Plazo</th>
+                                            <th class="py-2 pr-4">Estado</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="text-neutral">
+                                        @forelse($objetivosIndicadores as $objetivo)
+                                            <tr class="border-t border-gray-200">
+                                                <td class="py-2 pr-4">{{ $objetivo['descripcion'] }}</td>
+                                                <td class="py-2 pr-4">{{ $objetivo['total_actividades'] }}</td>
+                                                <td class="py-2 pr-4">
+                                                    {{ $objetivo['indicador_avance'] !== null ? number_format($objetivo['indicador_avance'], 2) . '%' : 'N/A' }}
+                                                    <span class="ml-2 text-xs text-gray-500">({{ $objetivo['indicador1'] }})</span>
+                                                </td>
+                                                <td class="py-2 pr-4">
+                                                    {{ $objetivo['variacion_tiempo'] !== null ? number_format($objetivo['variacion_tiempo'], 2) : 'N/A' }}
+                                                    <span class="ml-2 text-xs text-gray-500">({{ $objetivo['indicador2'] }})</span>
+                                                </td>
+                                                <td class="py-2 pr-4">{{ $objetivo['indicador3'] }}</td>
+                                                <td class="py-2 pr-4">
+                                                    <span class="px-2 py-1 rounded-full text-xs bg-indigo-100 text-indigo-800">
+                                                        {{ $objetivo['cumplimiento_or'] }}
+                                                    </span>
+                                                </td>
+                                            </tr>
+                                        @empty
+                                            <tr class="border-t border-gray-200">
+                                                <td class="py-3 text-sm text-neutral" colspan="6">No hay objetivos estrategicos registrados.</td>
+                                            </tr>
+                                        @endforelse
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div>
+                            <h4 class="text-sm font-semibold text-neutral mb-2">Regla 3 (Otros): Sin indicadores cumplidos</h4>
+                            <div class="overflow-x-auto">
+                                <table class="min-w-full text-sm">
+                                    <thead>
+                                        <tr class="text-left text-neutral">
+                                            <th class="py-2 pr-4">Objetivo</th>
+                                            <th class="py-2 pr-4">Actividades</th>
+                                            <th class="py-2 pr-4">Indicador Avance</th>
+                                            <th class="py-2 pr-4">Indicador Tiempo</th>
+                                            <th class="py-2 pr-4">Cumplimiento Plazo</th>
+                                            <th class="py-2 pr-4">Estado</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="text-neutral">
+                                        @forelse($objetivosRegla3 as $objetivo)
+                                            <tr class="border-t border-gray-200">
+                                                <td class="py-2 pr-4">{{ $objetivo['descripcion'] }}</td>
+                                                <td class="py-2 pr-4">{{ $objetivo['total_actividades'] }}</td>
+                                                <td class="py-2 pr-4">
+                                                    {{ $objetivo['indicador_avance'] !== null ? number_format($objetivo['indicador_avance'], 2) . '%' : 'N/A' }}
+                                                    <span class="ml-2 text-xs text-gray-500">({{ $objetivo['indicador1'] }})</span>
+                                                </td>
+                                                <td class="py-2 pr-4">
+                                                    {{ $objetivo['variacion_tiempo'] !== null ? number_format($objetivo['variacion_tiempo'], 2) : 'N/A' }}
+                                                    <span class="ml-2 text-xs text-gray-500">({{ $objetivo['indicador2'] }})</span>
+                                                </td>
+                                                <td class="py-2 pr-4">{{ $objetivo['indicador3'] }}</td>
+                                                <td class="py-2 pr-4">
+                                                    <span class="px-2 py-1 rounded-full text-xs bg-gray-100 text-gray-800">
+                                                        NO_CUMPLIDO
+                                                    </span>
+                                                </td>
+                                            </tr>
+                                        @empty
+                                            <tr class="border-t border-gray-200">
+                                                <td class="py-3 text-sm text-neutral" colspan="6">No hay objetivos en regla 3.</td>
+                                            </tr>
+                                        @endforelse
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             @endcanany
 
             <!-- Módulos Principales -->

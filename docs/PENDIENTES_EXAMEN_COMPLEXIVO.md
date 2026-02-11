@@ -8,15 +8,15 @@ Fecha: 2026-02-10
 - Reportes de actividades en formatos XLS, CSV y XML con filtros por estado y fechas (RF-097, HU-49, TAR-132).
 - Alertas por desviaciones y actividades en riesgo (RF-098, HU-50, TAR-133). Estado: en progreso (dashboard con lista de riesgo).
 - Tablero de seguimiento de actividades con visualizacion de alertas (HU-50, TAR-134). Estado: en progreso.
-- Regla configurable de cumplimiento de objetivo por indicadores (AND/OR) y estado de cumplimiento por periodo (RF-099).
-- Evidencia de 3 escenarios de cumplimiento por regla (AND/OR/otros) en reporte o tablero.
-- Auditoria con campo explicito de modulo en los registros (RF-096).
-- Mensajes de error orientados a usuario final en validaciones y acciones (RNF-003.4, RNF-003.5).
+- Regla configurable de cumplimiento de objetivo por indicadores (AND/OR) y estado de cumplimiento por periodo (RF-099). Estado: en progreso (logica implementada en dashboard, falta configuracion).
+- Evidencia de 3 escenarios de cumplimiento por regla (AND/OR/otros) en reporte o tablero. Estado: completado (dashboard).
+- Auditoria con campo explicito de modulo en los registros (RF-096). Estado: completado (se agrega campo modulo).
+- Mensajes de error orientados a usuario final en validaciones y acciones (RNF-003.4, RNF-003.5). Estado: completado (mensajes personalizados en actividades).
 
 ### Pendientes tecnicos
 - Normalizar exportaciones desde tablas (CSV/XLS/XML) y agregar rutas/controlador.
 - Definir estructura de indicadores por objetivo (si se requiere entidad o configuracion adicional).
-- Completar permisos diferenciados Planificador/Aprobador para acciones especificas (TAR-135) si no se ha ajustado en seeders/roles.
+- Completar permisos diferenciados Planificador/Aprobador para acciones especificas (TAR-135). Estado: completado.
 
 ## Entregables de Arquitectura Empresarial
 - Diagrama de Motivacion (Archimate) actualizado.

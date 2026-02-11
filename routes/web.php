@@ -18,6 +18,7 @@ use App\Http\Controllers\RoleController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\ObjetivoInstitucionalController;
 use App\Http\Controllers\ActividadController;
+use App\Http\Controllers\AuditoriaController;
 
 /*
 
@@ -65,6 +66,10 @@ Route::middleware('auth')->group(function () {
     Route::middleware('can.any:view actividades,manage actividades')->group(function () {
         Route::get('/actividades', [ActividadController::class, 'index'])->name('actividades.index');
         Route::get('/actividades/{actividad}', [ActividadController::class, 'show'])->name('actividades.show');
+    });
+
+    Route::middleware('can.any:view auditorias')->group(function () {
+        Route::get('/auditorias', [AuditoriaController::class, 'index'])->name('auditorias.index');
     });
 
     // 🏢 GESTOR DE ENTIDADES - Ver listado de entidades

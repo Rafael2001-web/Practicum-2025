@@ -217,7 +217,7 @@
 | TAR-132 | Generar reportes de actividades en múltiples formatos | HU-49 | Por Hacer |
 | TAR-133 | Crear alertas por desviaciones y actividades en riesgo | HU-50 | En Progreso |
 | TAR-134 | Diseñar tablero de seguimiento de actividades | HU-50 | En Progreso |
-| TAR-135 | Configurar permisos de Planificador y Aprobador | HU-46 | Por Hacer |
+| TAR-135 | Configurar permisos de Planificador y Aprobador | HU-46 | Terminado |
 
 ---
 

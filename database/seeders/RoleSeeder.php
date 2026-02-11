@@ -134,6 +134,9 @@ class RoleSeeder extends Seeder
             'delete actividades',
             'generate report actividades',
 
+            // ===== AUDITORIA =====
+            'view auditorias',
+
             // ===== REPORTES Y SUPERVISIÓN =====
             'generate reports',
             'view all_modules', // Para supervisor general
@@ -162,6 +165,7 @@ class RoleSeeder extends Seeder
 
             // Gestión de actividades para supervisión general
             'manage actividades',
+            'view auditorias',
         ]);
 
         // 🎯 TÉCNICO DE PLANIFICACIÓN
@@ -181,7 +185,11 @@ class RoleSeeder extends Seeder
             'view dashboard',
             'manage planes',
             'manage proyectos',
+            'view actividades',
+            'create actividades',
+            'delete actividades',
         ]);
+
 
         // 🏛️ REVISOR INSTITUCIONAL
         // ✅ REVISIÓN Y APROBACIÓN DE PLANES
@@ -218,6 +226,8 @@ class RoleSeeder extends Seeder
             'view planes',
             'view programas',
             'view proyectos',
+            'view actividades',
+            'view auditorias',
         ]);
 
         // USUARIO EXTERNO
@@ -255,6 +265,8 @@ class RoleSeeder extends Seeder
             'view planes',
             'view programas',
             'view proyectos',
+            'view actividades',
+            'view auditorias',
             // Acceso completo a reportes
             'generate reports',
         ]);
