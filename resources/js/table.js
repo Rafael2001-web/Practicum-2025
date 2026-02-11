@@ -105,6 +105,9 @@ function initTable(table) {
     const exportJsonBtn = document.querySelector(
         `#${table.dataset.table}-export-json`
     );
+    const exportXmlBtn = document.querySelector(
+        `#${table.dataset.table}-export-xml`
+    );
     const exportExcelBtn = document.querySelector(
         `#${table.dataset.table}-export-excel`
     );
@@ -148,6 +151,11 @@ function initTable(table) {
     // Exportar JSON
     if (exportJsonBtn) {
         exportJsonBtn.addEventListener("click", () => exportTableToJSON(table));
+    }
+
+    // Exportar XML
+    if (exportXmlBtn) {
+        exportXmlBtn.addEventListener("click", () => exportTableToXML(table));
     }
 
     // Exportar Excel
@@ -638,6 +646,70 @@ function exportTableToJSON(table, filename = "export.json") {
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
+}
+
+// Exportar tabla a XML
+function exportTableToXML(table, filename = "export.xml") {
+    const allHeaders = Array.from(table.querySelectorAll("th"));
+    const actionColumnIndexes = [];
+    const headers = [];
+
+    allHeaders.forEach((th, index) => {
+        if (th.dataset.type === 'actions') {
+            actionColumnIndexes.push(index);
+        } else {
+            headers.push(cleanTextForJSON(th.innerText));
+        }
+    });
+
+    const visibleRows = table._filteredRows || Array.from(table.tBodies[0].querySelectorAll("tr"));
+
+    let xml = '<?xml version="1.0" encoding="UTF-8"?>\n';
+    xml += '<export>\n';
+    xml += `  <exported_at>${new Date().toISOString()}</exported_at>\n`;
+    xml += `  <total_records>${visibleRows.length}</total_records>\n`;
+    xml += '  <rows>\n';
+
+    visibleRows.forEach(row => {
+        const allCells = Array.from(row.querySelectorAll("td"));
+        const cells = allCells.filter((cell, index) => !actionColumnIndexes.includes(index));
+        xml += '    <row>\n';
+        cells.forEach((cell, index) => {
+            const key = headers[index] ? sanitizeXmlTag(headers[index]) : `col_${index + 1}`;
+            const value = escapeXml(cleanTextForJSON(cell.innerText));
+            xml += `      <${key}>${value}</${key}>\n`;
+        });
+        xml += '    </row>\n';
+    });
+
+    xml += '  </rows>\n';
+    xml += '</export>\n';
+
+    const blob = new Blob([xml], { type: "application/xml;charset=utf-8;" });
+    const link = document.createElement("a");
+    link.href = URL.createObjectURL(blob);
+    link.setAttribute("download", filename);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+}
+
+function escapeXml(value) {
+    return value
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&apos;");
+}
+
+function sanitizeXmlTag(value) {
+    const cleaned = value
+        .toLowerCase()
+        .replace(/[^a-z0-9_\-]/g, '_')
+        .replace(/^\d+/, 'col');
+
+    return cleaned.length ? cleaned : 'col';
 }
 
 // Exportar tabla a Excel

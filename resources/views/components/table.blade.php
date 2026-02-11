@@ -4,6 +4,7 @@
     'print' => true,
     'json' => false,
     'excel' => false,
+    'xml' => false,
     'headers' => [],
     'table_void' => false,
 ])
@@ -41,6 +42,15 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7v8a2 2 0 002 2h6M8 7V5a2 2 0 012-2h4.586a1 1 0 01.707.293l4.414 4.414a1 1 0 01.293.707V15a2 2 0 01-2 2v0a2 2 0 01-2-2v-5H8z"/>
                         </svg>
                         {{ __('Export JSON') }}
+                    </button>
+                @endif
+                @if ($xml)
+                    <button id="{{ $id }}-export-xml"
+                            class="inline-flex items-center px-3 py-2 bg-blue-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-blue-700 active:bg-blue-600 focus:outline-none focus:border-blue-600 focus:ring ring-blue-600/20 disabled:opacity-25 transition ease-in-out duration-150 shadow-sm">
+                        <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7h16M4 12h10M4 17h16"/>
+                        </svg>
+                        {{ __('Export XML') }}
                     </button>
                 @endif
                 @if ($excel)

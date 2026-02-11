@@ -44,6 +44,7 @@
                             :print="auth()->user()->canany(['generate report actividades', 'generate reports'])"
                             :json="auth()->user()->canany(['generate report actividades', 'generate reports'])"
                             :excel="auth()->user()->canany(['generate report actividades', 'generate reports'])"
+                            :xml="auth()->user()->canany(['generate report actividades', 'generate reports'])"
                             id="actividades-table"
                             title="Gestión de Actividades"
                         >
