@@ -119,6 +119,54 @@
                         </div>
                     </div>
                 </div>
+
+                <!-- Alertas de Actividades en Riesgo -->
+                <div class="bg-white rounded-lg shadow-md p-6 mb-8 border-l-4 border-red-400">
+                    <div class="flex items-center justify-between mb-4">
+                        <h3 class="text-lg font-semibold text-primary">Alertas - Actividades en Riesgo</h3>
+                        <a href="{{ route('actividades.index') }}" class="text-sm text-secondary hover:text-accent">
+                            Ver todas
+                        </a>
+                    </div>
+                    <div class="overflow-x-auto">
+                        <table class="min-w-full text-sm">
+                            <thead>
+                                <tr class="text-left text-neutral">
+                                    <th class="py-2 pr-4">Actividad</th>
+                                    <th class="py-2 pr-4">Proyecto</th>
+                                    <th class="py-2 pr-4">Avance</th>
+                                    <th class="py-2 pr-4">Variacion (dias)</th>
+                                    <th class="py-2 pr-4">Estado</th>
+                                </tr>
+                            </thead>
+                            <tbody class="text-neutral">
+                                @forelse($actividadesEnRiesgoLista as $actividad)
+                                    <tr class="border-t border-gray-200">
+                                        <td class="py-2 pr-4">
+                                            <a class="text-secondary hover:text-accent" href="{{ route('actividades.show', $actividad->id) }}">
+                                                {{ $actividad->nombre }}
+                                            </a>
+                                        </td>
+                                        <td class="py-2 pr-4">{{ $actividad->proyecto->nombre ?? 'Sin proyecto' }}</td>
+                                        <td class="py-2 pr-4">
+                                            {{ $actividad->avance_real !== null ? number_format($actividad->avance_real, 2) . '%' : 'N/A' }}
+                                        </td>
+                                        <td class="py-2 pr-4">{{ $actividad->variacion_tiempo_dias ?? 'N/A' }}</td>
+                                        <td class="py-2 pr-4">
+                                            <span class="px-2 py-1 rounded-full text-xs bg-red-100 text-red-800">
+                                                {{ $actividad->estado_reportado }}
+                                            </span>
+                                        </td>
+                                    </tr>
+                                @empty
+                                    <tr class="border-t border-gray-200">
+                                        <td class="py-3 text-sm text-neutral" colspan="5">No hay actividades en riesgo.</td>
+                                    </tr>
+                                @endforelse
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             @endcanany
 
             <!-- Módulos Principales -->

@@ -24,6 +24,12 @@ class DashboardController extends Controller
             ->where('estado_reportado', 'NO_INICIADA')
             ->count();
         $avancePromedio = Actividad::where('activo', true)->avg('avance_real');
+        $actividadesEnRiesgoLista = Actividad::with('proyecto')
+            ->where('activo', true)
+            ->where('estado_reportado', 'EN_RIESGO')
+            ->orderByDesc('variacion_tiempo_dias')
+            ->limit(5)
+            ->get();
 
         return view('dashboard', compact(
             'numEntidades',
@@ -34,7 +40,8 @@ class DashboardController extends Controller
             'actividadesEnRiesgo',
             'actividadesCompletadas',
             'actividadesNoIniciadas',
-            'avancePromedio'
+            'avancePromedio',
+            'actividadesEnRiesgoLista'
         ));
     }
 }

@@ -172,10 +172,10 @@
         @endcanany
 
         <!-- Ejecución -->
-        @canany(['view proyectos', 'manage proyectos', 'view programas', 'manage programas'])
+        @canany(['view proyectos', 'manage proyectos', 'view programas', 'manage programas', 'view actividades', 'manage actividades'])
             <div class="mb-1">
                 <button @click="collapsed ? null : (openMenus['ejecucion'] = !openMenus['ejecucion'])"
-                        class="flex items-center w-full rounded-lg transition-all duration-200 {{ request()->routeIs(['proyectos.*', 'programas.*']) ? 'bg-gray-800 text-white' : 'text-gray-300 hover:bg-gray-800 hover:text-white' }}"
+                        class="flex items-center w-full rounded-lg transition-all duration-200 {{ request()->routeIs(['proyectos.*', 'programas.*', 'actividades.*']) ? 'bg-gray-800 text-white' : 'text-gray-300 hover:bg-gray-800 hover:text-white' }}"
                         x-bind:class="{ 'justify-center px-2 py-3': collapsed, 'justify-between px-4 py-3': !collapsed }"
                         x-bind:title="collapsed ? 'Ejecución' : ''">
                     <div class="flex items-center">
@@ -214,6 +214,17 @@
                                     d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
                             </svg>
                             Programas
+                        </a>
+                    @endcanany
+
+                    @canany(['view actividades', 'manage actividades'])
+                        <a href="{{ route('actividades.index') }}"
+                           class="flex items-center px-4 py-2 rounded-lg text-sm transition-all duration-200 {{ request()->routeIs('actividades.*') ? 'bg-accent text-gray-900 font-semibold' : 'text-gray-400 hover:bg-gray-800 hover:text-white' }}">
+                            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2V9a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2" />
+                            </svg>
+                            Actividades
                         </a>
                     @endcanany
                 </div>
