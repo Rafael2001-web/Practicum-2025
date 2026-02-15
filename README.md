@@ -1,66 +1,244 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# SIPeIP 2.0 - Sistema Integrado de Planificación e Inversión Pública
 
 <p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
+  <img src="https://img.shields.io/badge/Laravel-10.x-FF2D20?style=for-the-badge&logo=laravel&logoColor=white" alt="Laravel">
+  <img src="https://img.shields.io/badge/PHP-8.1+-777BB4?style=for-the-badge&logo=php&logoColor=white" alt="PHP">
+  <img src="https://img.shields.io/badge/TailwindCSS-3.x-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white" alt="Tailwind">
 </p>
 
-## About Laravel
+## 📋 ¿Qué es SIPeIP 2.0?
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+**SIPeIP 2.0** (Sistema Integrado de Planificación e Inversión Pública) es una plataforma web integral desarrollada con Laravel para la gestión eficiente de la planificación e inversión pública del Estado. El sistema facilita la administración de proyectos, programas y objetivos estratégicos gubernamentales.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## ✨ ¿Qué puedes hacer en este repositorio?
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+### 🎯 Funcionalidades Principales
 
-## Learning Laravel
+#### 1. **Gestión Institucional**
+- **Entidades Gubernamentales**: Administrar ministerios, secretarías e instituciones del Estado
+  - Crear, editar, visualizar y eliminar entidades
+  - Generar reportes en PDF
+  - Gestionar códigos únicos, subsectores y niveles de gobierno
+  
+- **Unidades Organizacionales**: Gestionar unidades administrativas
+  - Macrosectores y sectores de desarrollo
+  - Estados de actividad
+  - Exportación a PDF
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+#### 2. **Planificación Estratégica**
+- **Planes de Desarrollo**: Administrar planes gubernamentales
+  - Planes nacionales, departamentales y municipales
+  - Presupuestos y períodos de ejecución
+  - Control de estados de implementación
+  
+- **Objetivos Estratégicos**: Definir y monitorear objetivos institucionales
+  - Estrategias y metas cuantitativas
+  - Asignación de responsables
+  - Reportes detallados
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+- **ODS (Objetivos de Desarrollo Sostenible)**: Gestionar los 17 ODS
+  - Numeración oficial de la ONU
+  - Metas e indicadores globales
+  - Seguimiento de avances
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+- **PND (Plan Nacional de Desarrollo)**: Administrar objetivos del PND
+  - Ejes estratégicos
+  - Objetivos y descripciones
+  - Alineación con políticas públicas
 
-## Laravel Sponsors
+#### 3. **Inversión Pública**
+- **Proyectos de Inversión**: Gestionar proyectos públicos
+  - Códigos y sectores específicos
+  - Cronogramas (fecha inicio/fin)
+  - Presupuestos y estados de ejecución
+  - Asignación a usuarios responsables
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+- **Programas Gubernamentales**: Administrar programas de gran escala
+  - Objetivos y áreas temáticas
+  - Presupuestos millonarios
+  - Responsables institucionales
 
-### Premium Partners
+### 🔐 Sistema de Autenticación
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+- **Registro de usuarios**
+- **Inicio de sesión**
+- **Roles de usuario**:
+  - `admin`: Acceso completo a todos los módulos
+  - `user`: Acceso limitado según permisos
+- **Recuperación de contraseñas**
+- **Gestión de perfil**
 
-## Contributing
+### 📊 Generación de Reportes
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+Todos los módulos principales incluyen:
+- Exportación a PDF de listados y detalles
+- Reportes personalizables por entidad
+- Visualización optimizada para impresión
 
-## Code of Conduct
+## 🚀 Instalación y Configuración
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+### Requisitos Previos
 
-## Security Vulnerabilities
+- PHP >= 8.1
+- Composer
+- Node.js y NPM
+- MySQL/MariaDB o PostgreSQL
+- Extensiones PHP: PDO, Mbstring, OpenSSL, JSON, Tokenizer
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+### Pasos de Instalación
 
-## License
+1. **Clonar el repositorio**
+   ```bash
+   git clone https://github.com/Rafael2001-web/Practicum-2025.git
+   cd Practicum-2025
+   ```
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+2. **Instalar dependencias de PHP**
+   ```bash
+   composer install
+   ```
+
+3. **Instalar dependencias de Node.js**
+   ```bash
+   npm install
+   ```
+
+4. **Configurar el archivo de entorno**
+   ```bash
+   cp .env.example .env
+   php artisan key:generate
+   ```
+
+5. **Configurar la base de datos en `.env`**
+   ```env
+   DB_CONNECTION=mysql
+   DB_HOST=127.0.0.1
+   DB_PORT=3306
+   DB_DATABASE=sipeip
+   DB_USERNAME=tu_usuario
+   DB_PASSWORD=tu_contraseña
+   ```
+
+6. **Ejecutar migraciones**
+   ```bash
+   php artisan migrate
+   ```
+
+7. **Poblar la base de datos con datos de prueba** (opcional)
+   ```bash
+   php artisan db:seed
+   # O para datos más completos, ver FACTORIES_SEEDERS.md
+   ```
+
+8. **Compilar assets frontend**
+   ```bash
+   npm run dev
+   # O para producción:
+   npm run build
+   ```
+
+9. **Iniciar el servidor de desarrollo**
+   ```bash
+   php artisan serve
+   ```
+
+10. **Acceder a la aplicación**
+    - Abrir navegador en: `http://localhost:8000`
+
+## 📚 Documentación Adicional
+
+- **[QUICKSTART.md](QUICKSTART.md)**: Guía rápida con comandos y referencias útiles
+- **[FACTORIES_SEEDERS.md](FACTORIES_SEEDERS.md)**: Guía completa sobre factories y seeders para generar datos de prueba realistas
+- **[CONTRIBUTING.md](CONTRIBUTING.md)**: Guía para contribuir al proyecto
+
+## 🛠️ Tecnologías Utilizadas
+
+### Backend
+- **Laravel 10.x**: Framework PHP principal
+- **Laravel Breeze**: Sistema de autenticación
+- **Laravel Sanctum**: Autenticación API
+- **DomPDF**: Generación de reportes PDF
+- **AdminLTE**: Panel administrativo
+
+### Frontend
+- **TailwindCSS**: Framework CSS
+- **Alpine.js**: Interactividad JavaScript
+- **Vite**: Build tool
+- **Blade**: Motor de plantillas
+
+### Base de Datos
+- Migraciones y seeders incluidos
+- Factories para datos de prueba
+- Soporte para MySQL/PostgreSQL
+
+## 📁 Estructura del Proyecto
+
+```
+Practicum-2025/
+├── app/
+│   ├── Http/Controllers/     # Controladores
+│   │   ├── EntidadController.php
+│   │   ├── ProyectoController.php
+│   │   ├── ProgramaController.php
+│   │   └── ...
+│   └── Models/               # Modelos Eloquent
+│       ├── Entidad.php
+│       ├── Proyecto.php
+│       ├── Programa.php
+│       └── ...
+├── database/
+│   ├── factories/            # Factories para datos de prueba
+│   ├── migrations/           # Migraciones de base de datos
+│   └── seeders/              # Seeders
+├── resources/
+│   └── views/                # Vistas Blade
+│       ├── dashboard.blade.php
+│       ├── welcome.blade.php
+│       └── ...
+└── routes/
+    └── web.php               # Rutas web
+```
+
+## 🔗 Rutas Principales
+
+### Públicas
+- `/` - Página de bienvenida
+- `/login` - Inicio de sesión
+- `/register` - Registro de usuarios
+
+### Autenticadas
+- `/dashboard` - Panel de control principal
+- `/entidades` - Gestión de entidades
+- `/unidades` - Gestión de unidades
+- `/planes` - Planes de desarrollo
+- `/programas` - Programas gubernamentales
+- `/proyectos` - Proyectos de inversión
+- `/objEstrategicos` - Objetivos estratégicos
+- `/ods` - Objetivos de Desarrollo Sostenible
+- `/pnd` - Plan Nacional de Desarrollo
+
+Cada ruta soporta operaciones CRUD completas (crear, leer, actualizar, eliminar).
+
+## 👥 Contribuir
+
+Si deseas contribuir al proyecto:
+
+1. Fork el repositorio
+2. Crea una rama para tu feature (`git checkout -b feature/AmazingFeature`)
+3. Commit tus cambios (`git commit -m 'Add some AmazingFeature'`)
+4. Push a la rama (`git push origin feature/AmazingFeature`)
+5. Abre un Pull Request
+
+## 📝 Licencia
+
+Este proyecto es de código abierto y está disponible bajo la [Licencia MIT](https://opensource.org/licenses/MIT).
+
+## 🤝 Soporte
+
+Para preguntas, problemas o sugerencias:
+- Abre un issue en GitHub
+- Contacta al equipo de desarrollo
+
+---
+
+**Desarrollado con ❤️ para mejorar la gestión de inversión pública**
